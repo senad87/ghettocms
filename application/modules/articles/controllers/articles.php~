@@ -1,0 +1,159 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Articles extends MX_Controller {
+
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->helper(array('form', 'url'));
+		$this->load->model('Articles_model');
+		$this->load->model('users/Users_model');
+		$this->load->model('categories/Categories_model');
+		$this->load->model('images/Images_model');
+		$this->load->model('stories/Stories_model');
+		$this->load->model('position/Position_model');
+		$this->load->model('tags/Tag_model');
+		$this->load->model('tags/Topic_model');
+		$this->load->model('menu/Menu_model');
+		$this->load->library('pagination');
+	}
+	
+	function displayme($module_id, $data=array()){
+	
+		//TODO: This is big hack fix ASAP
+		$data_menu_id = $data;
+		if(!is_array($data)){
+			$data = array();
+			$data['menu_id'] = $data_menu_id;	
+		}
+
+		//load module instance by id
+		$module_instance = $this->Position_model->get_module_by_id($module_id);
+		//load module params
+		//TODO: move this part into some helper, fetching module params
+		//TODO: Add check params from xml also, solves problem with error when we add new param in xml
+		$params_data_array = explode(";;",$module_instance[0]->params);
+		$module_params = array();
+		foreach ($params_data_array as $params_data){
+			$param_data = explode(":=", $params_data);
+			$module_params[$param_data[0]] = $param_data[1];
+		}
+
+		//get all entries from selected categories
+		$entries = $this->Articles_model->get_entries_by_categories($module_params['categories']);
+		
+		if(!empty($entries)){
+			//pagination part START
+			$total_rows = count($entries);
+			$per_page = $module_params['number'];
+			//$per_page = 5; //override for testin' purpose
+
+			$data['offset']?$offset=$data['offset']:$offset=0; ///short if syntax checks if offset is set and sets it to zero if it's not
+			$this->load_pagination("menu/index/".$data['menu_id']."/", 4, $total_rows, $per_page);
+			//pagination part END
+			$pagination = $this->pagination->create_links();
+			//TODO: Get module for tags, get module by module name and menu_id
+			//LEAVE THIS FOR OTHER VERSION
+			//$home_menu = $this->Menu_model->get_home_menu(); 
+			//var_dump($home_menu);
+			//$home_modules = $this->Menu_model->get_home_modules($home_menu[0]->id);
+			//var_dump($home_modules);
+			$stories[]=array();
+			$i=0;
+			foreach($entries as $entry){
+				/*** Entry tag initialization ***/
+				//Get tags by entry id
+				$tags = $this->Tag_model->get_active_tags_by_entry_id($entry->id);
+				//var_dump($tags);
+				if(count($tags) > 0){
+					//TODO: Get tag by ID
+					$tag_object = $this->Tag_model->get_tag_by_id($tags[0]->tag_id);
+					$topic = $this->Topic_model->get_topic_by_id($tag_object[0]->topic_id);
+					$topic_name = $topic[0]->name;
+					$tag_id = $tag_object[0]->id;
+					$tag = $tag_object[0]->tag;
+				}else{
+					$topic_name = "";
+					$tag_id = 0;
+					$tag = "";
+				}
+				/*** Get poster photo for each entry ***/
+				$thumb_image_id = array();
+				$thumb_image_path = array();
+
+				$images = $this->Images_model->get_images_by_entry_id($entry->id);
+				if(count($images) > 0){
+					$j = 0;
+					foreach($images as $image){
+						$poster_photos[$j] =  $this->Images_model->get_image($image->image_id);
+						if(isset($poster_photos[$j][0])){
+							if($poster_photos[$j][0]->dimension_id == $module_params['photo_size']){
+								$thumb_image_id = $poster_photos[$j][0]->id;
+								$thumb_image_path = str_replace("../", "", $poster_photos[$j][0]->path);
+							}
+						}
+						$j++;
+					}
+				}
+				/*** End of Poster photo initialization ***/
+				//TODO: Change this logic becouse article is not always story
+				$entry_type = $this->Articles_model->getTableByEntryType($entry->entry_type_id);
+				$item = $this->Articles_model->getEntryType($entry->type_id, $entry_type->table_name);
+				$story_author = $this->Users_model->get_user_by_id($entry->admin_user_id);
+				
+				$item->lead?$lead=$item->lead:$lead=FALSE;
+				$stories_row[$i] = array("id" => $entry->type_id,
+							"type_name" => $entry_type->type_name,
+							"title" => $entry->title,
+							"lead" => $lead,
+							"photo_id" => $thumb_image_id,
+							"photo_path" => $thumb_image_path,
+							"category" => $this->Categories_model->getCategoryName($entry->category_id),
+							"creation_date" => $entry->creation_date,
+							"modified_date" => $entry->modified_date,
+							"author_name" => $story_author[0]->username,
+							"topic_name" => $topic_name,
+							"tag" => $tag,
+							"tag_id" => $tag_id
+							);
+				$i++;
+			}
+			include $this->load->_ci_model_paths[0].'views/article_list_view.php';
+		}else{
+			include $this->load->_ci_model_paths[0].'views/no_articles_view.php';
+		}
+
+	}
+
+	
+	private function load_pagination($pagination_url, $uri_segments, $total_rows, $per_page){
+		$config['uri_segment'] = $uri_segments;
+		$config['num_links'] = 2;
+		$config['base_url'] = base_url()."".$pagination_url;
+		$config['total_rows'] = $total_rows;
+		$config['per_page'] = $per_page;
+		
+		$config['full_tag_open'] = '<ul class="pagination">';//surround the entire pagination begining
+		$config['full_tag_close'] = '</ul>';//surround the entire pagination end
+		$config['num_tag_open'] = '<li>';//digit link open
+		$config['num_tag_close'] = '</li>';//digit link close
+		$config['cur_tag_open'] = '<li class="current_page">';//current page open
+		$config['cur_tag_close'] = '</li>';//current page close
+		$config['next_tag_open'] = '<li class="next_page">';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li class="previous_page">';
+		$config['prev_tag_close'] = '</li>';
+		$config['first_link'] = '&lt;&lt;';//first link title
+		$config['first_tag_open'] = '<li class="first_page">';//first link open
+		$config['first_tag_close'] = '</li>';//first link close
+		$config['last_link'] = '&gt;&gt;';//last link title
+		$config['last_tag_open'] = '<li class="last_page">';//last link open
+		$config['last_tag_close'] = '</li>';//last link close
+		$this->pagination->initialize($config);
+	}
+			
+	
+}
+
+/* End of file articles.php */
+/* Location: ./application/modules/articles/controllers/articles.php */

@@ -1,0 +1,19 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! function_exists('human_to_mysql'))
+{
+	function human_to_mysql($human_date, $separator = "."){
+		$human_date_array = explode($separator, $human_date);
+		$mysql_date = $human_date_array[2]."-".$human_date_array[0]."-".$human_date_array[1];
+		return $mysql_date;
+	}
+}
+
+if ( ! function_exists('mysql_to_human'))
+{
+	function mysql_to_human($mysql_date){
+		$mysql_date_array = explode("-", $mysql_date);
+		$human_date = $mysql_date_array[1]."/".$mysql_date_array[2]."/".$mysql_date_array[0];
+		return $human_date;
+	}
+}

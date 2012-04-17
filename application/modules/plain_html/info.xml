@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+<name>plain html</name>
+<description>User can add plain HTML using this module.</description>
+<params group="default">
+<param name="html_source" type="rich_text" default="" label="HTML" cssclass="lform2" description="Plain HTML source">
+</param>
+</params>
+</module>

@@ -1,0 +1,57 @@
+<div class="headcont">
+<h1 class="heading">Tags Management</h1>
+<?php echo modules::run('toolbar', 'tag_title', 'tag', array('new', 'delete')); ?>
+	<?php if (isset($message)) {
+		if($message <> ""){ ?>
+			 <div class="message" id="message"><?php echo $message; ?></div>
+		<?php } ?>
+	<?php } ?>
+	
+<div class="clear"></div>
+</div>
+
+<div class="container">
+<div class="right-panel">
+<h5>Search</h5>
+<div class="box-right-panel">
+<div class="box-right-panel-inbox">
+Enter search term:
+<input class="search" name="" type="text" />
+<input class="button-1"  type="submit" value="Search">
+
+</div>
+</div>
+
+<h5 style="margin-top: 15px;">Filter</h5>
+<div class="box-right-panel">
+
+        <div class="box-right-panel-inbox">
+        By TOPIC:
+        <select name="" class="filter">
+          <option>Select TOPIC...</option>
+          
+          <?php foreach($topics as $topic){ ?>
+			<option value="<?php echo $topic->id; ?>"><?php echo $topic->name; ?></option>
+			<?php } ?>
+        </select>
+        </div>
+        <div class="panel-link"><a href="<?=base_url(); ?>tag/">RESET ALL FILTERS</a></div>
+
+</div>
+</div> 
+<div class="left-panel">
+<div class="submenu">
+</div>
+	<?php echo modules::run('table', $entries, array('input|false|false|checkbox', 'text_link|tag|Tag', 'text|id|ID'), 'tag'); ?>
+</div>
+   
+<div class="clear"></div>      
+</div>
+</body>
+<script type="text/javascript">
+$('.filter').change(function() {
+	var filter_value = $(this).val();
+	$(window.location).attr("href", "<?php echo base_url(); ?>tag/filter/"+filter_value);
+});
+</script>
+</html>

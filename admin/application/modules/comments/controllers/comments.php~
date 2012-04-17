@@ -1,0 +1,127 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Comments extends MX_Controller {
+
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+		$this->load->model('Comments_model');
+		$this->load->library('pagination');
+	}
+	
+	function index($order="id-desc", $offset=0){
+		
+		$data['offset'] = $offset;
+		$order_array = explode('-', $order);
+		$data['orderColumn'] = $order_array[0];
+		$data['order'] = $order_array[1];
+		//echo "test";
+		$total_rows = $this->Comments_model->getNumRows();
+		//print_r($total_rows);
+		$per_page = "10";
+		//$data['offset'] = $offset;
+		/*** load pagination ***/
+		$data['model'] =& $this->Comments_model;
+		$data['comments'] = $this->Comments_model->getComments($per_page, $offset, $order_array);
+		$comments = array();
+		foreach($data['comments'] as $key=>$values){
+			foreach($values as $index=>$value){
+				$comments[$key][$index]=$value;
+				if($index=='entry_id'){
+					$comments[$key]['entry_title'] = $this->Comments_model->get_entry_title($value);
+				}
+			}
+		}
+		$data['comments']=$comments ;
+		
+		///echo "<pre>";
+		//print_r($comments);
+		//echo "<pre>";
+		
+		$this->pagination->load_pagination("comments/index/".$order, 4, $total_rows, $per_page);
+		$data['pagination'] = $this->pagination->create_links();
+	
+		$this->load->view('header_view');
+		$this->load->view('list_view', $data);
+	}
+	
+	function edit(){
+		$id = $this->uri->segment(3);
+		$data['offset'] = $this->uri->segment(4);
+		$data['comment'] = $this->Comments_model->getComment($id);
+		//print_r($data['comment']);
+		$this->load->view('header_view');
+		$this->load->view('edit_view', $data);
+	}
+	
+	function edit_post(){
+		$id = $this->input->post('id');
+		$name = $this->input->post('name');
+		$email = $this->input->post('email');
+		$body = $this->input->post('body');
+		$offset = $this->input->post('offset');
+		
+		$this->Comments_model->update($id, $name, $email, $body);
+		$this->messages->add('Comment successfully edited', 'success');
+		redirect('/comments');
+		redirect('/comments/index/'.$offset);
+	}
+	
+	
+	function comment_post(){
+
+		$data['menu_id'] = $this->input->post('menu_id');
+		$data['item_id'] = $this->input->post('item_id');
+		
+		$this->form_validation->set_message('required', 'Ovo polje je obavezno.');
+		$this->form_validation->set_rules('name', 'Ime', 'required|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
+		$this->form_validation->set_rules('comment', 'comment', 'required|max_length[600]|xss_clean');
+		
+	
+		if($this->form_validation->run()==FALSE){
+			$this->load->view('commentsReload_view', $data);
+		}else{
+			$name = $this->input->post('name');
+			$email = $this->input->post('email');
+			$comment = $this->input->post('comment');
+
+			$this->Comments_model->insert($data['item_id'], $name, $email, $comment);
+		
+			$this->load->view('success_view', $data);
+		}
+	}
+	
+	function delete(){
+		$ids = $this->input->post('stories_array');
+		$ids = explode(',', $ids);
+		foreach($ids as $id){
+			$this->Comments_model->delete($id);
+		}
+	}
+	function publish(){
+		$ids = $this->input->post('stories_array');
+		$ids = explode(',', $ids);
+		foreach($ids as $id){
+			$this->Comments_model->publish($id);
+		}
+	}
+	function unpublish(){
+		$ids = $this->input->post('stories_array');
+		$ids = explode(',', $ids);
+		foreach($ids as $id){
+			$this->Comments_model->unpublish($id);
+		}
+	
+	}
+	
+	
+
+			
+	
+}
+
+/* End of file articles.php */
+/* Location: ./application/modules/articles/controllers/articles.php */

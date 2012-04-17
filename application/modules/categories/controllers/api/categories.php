@@ -1,0 +1,63 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+// This can be removed if you use __autoload() in config.php OR use Modular Extensions
+require APPPATH.'/libraries/REST_Controller.php';
+
+class Categories extends REST_Controller {
+	
+	/**
+	 *
+	 * Function return list of categories or subcategories
+	 * if id iz 0 or missing list of all published categories is returned
+	 *
+	 * @param int id
+	 */
+	public function list_get(){
+		
+		$this->load->model("Categories_model");
+		if(!$this->get('id'))
+		{
+			$categories = $this->Categories_model->get_category_kids();
+		}else{
+			$categories = $this->Categories_model->get_category_kids( $this->get('id') );
+		}
+		
+		if($categories)
+		{
+		    $this->response($categories, 200); // 200 being the HTTP response code
+		}
+
+		else
+		{
+		    $this->response(array('error' => 'Category could not be found'), 404);
+		}
+	}
+	
+	/**
+	 *
+	 * Function return category objec for provided category id
+	 *
+	 * @param int id
+	 */
+	public function category_get(){
+		
+		if(!$this->get('id'))
+		{
+			$this->response(NULL, 400);
+		}
+		
+		$this->load->model("Categories_model");
+		// $user = $this->some_model->getSomething( $this->get('id') );
+		$category = $this->Categories_model->get_category_by_id( $this->get('id') );
+		
+		if($category)
+		{
+		    $this->response($category, 200); // 200 being the HTTP response code
+		}
+
+		else
+		{
+		    $this->response(array('error' => 'Category could not be found'), 404);
+		}
+	}
+}

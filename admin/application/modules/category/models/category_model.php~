@@ -1,0 +1,148 @@
+<?php
+
+class Category_model extends CI_Model {
+
+	private $id;
+	private $name;
+	private $description;
+	private $parent_id;
+
+
+	function __construct(){
+		// Call the Model constructor
+		parent::__construct();
+	}
+
+	/**
+	 * get_category_kids
+	 *
+	 * Function get all active (non deleted) categories where parent category id is id param
+	 * If $id param is 0 function get active ROOT Categories
+	 *
+	 * @param int $id
+	 */
+	public function get_category_kids($id = 0, $language_id = 1){
+
+		$this->db->select('id, name');
+		$query = $this->db->get_where('categories', array('parent_id' => $id, "active" => 1, "language_id" => $language_id));
+		return $query->result();
+
+	}
+
+	public function insert_new_category($parent_id, $name, $description = "", $language_id = 1){
+
+		$data = array(
+                       'parent_id' => $parent_id,
+                       'name' => $name ,
+                       'description' => $description,
+                       'language_id' =>  $language_id
+		);
+
+		$this->db->insert('categories', $data);
+		return $this->db->insert_id();
+	}
+
+	public function get_all_categories(){
+
+		$query = $this->db->get('categories');
+		return $query->result();
+
+	}
+
+	public function get_category_by_id($id){
+		$query = $this->db->get_where('categories',array('id'=>$id));
+		return $query->result();
+	}
+	
+	/**
+	 * getName
+	 *
+	 * Get category name by category ID
+	 *
+	 * @param int $id
+	 * @return string $name
+	 */
+	public function getName($id){
+		$this->db->select('name');
+		$query = $this->db->get_where('categories',array('id'=>$id));
+		$name = $query->first_row();
+		//$category = $query->first_row();
+		return $name->name;
+	}
+
+	public function update_category_data($id, $name, $parent_id, $description){
+
+		$data = array("name" => $name, "parent_id"=>$parent_id, "description" => $description);
+		$this->db->where('id', $id);
+		$this->db->update('categories', $data);
+
+	}
+
+	public function delete_category($id){
+
+		$data = array("active" => 0);
+		$this->db->where('id', $id);
+		$this->db->update('categories', $data);
+
+	}
+
+	/**
+	 *
+	 * Get only active categories for entry_id, entry belong to those categories
+	 * @param int $entry_id
+	 */
+	public function get_categories_by_entry_id($entry_id){
+		
+		$query = $this->db->get_where('join_entries_categories',array('entry_id'=>$entry_id, "active"=>1));
+		return $query->result();
+	}
+
+	/**
+	 *
+	 * Get all categories that already exist in join_entries_categories table for entry_id
+	 * @param int $entry_id
+	 */
+	public function get_existing_categories_by_entry_id($entry_id){
+		$query = $this->db->get_where('join_entries_categories',array('entry_id'=>$entry_id));
+		return $query->result();
+	}
+
+	public function update_join_status_by_category_id($category_id, $active){
+		$this->db->where('category_id', $category_id);
+		$this->db->update('join_entries_categories', array("active" => $active));
+	}
+
+	public function update_join_status_by_entry_id($entry_id, $active){
+		$this->db->where('entry_id', $entry_id);
+		$this->db->update('join_entries_categories', array("active" => $active));
+	}
+
+	public function update_join_status($entry_id, $category_id, $active){
+		$this->db->where(array('entry_id'=>$entry_id, 'category_id' => $category_id));
+		$this->db->update('join_entries_categories', array("active" => $active));
+	}
+
+	public function insert_entry_category($entry_id, $category_id){
+		$data = array('entry_id' => $entry_id,
+                  'category_id' => $category_id
+		);
+
+		$this->db->insert('join_entries_categories', $data);
+	}
+
+	/**
+	 *
+	 * TODO:Change logic for this
+	 * @param int $id
+	 * @param int $categories
+	 */
+	public function update_categories_by_entry_id($id, $categories){
+		foreach($categories as $category_id) {
+			$this->db->where('entry_id', $id);
+			$this->db->update('join_entries_categories', array("category_id" => $category_id));
+		}
+	}
+
+}
+/* End of file category_model.php */
+/* Location: ./system/application/models/category_model.php */

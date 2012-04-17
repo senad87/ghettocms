@@ -1,0 +1,140 @@
+<style type="text/css">
+.container {
+	width: 95%;
+	margin: 20px;
+	background-color: #c9edff;
+}
+
+.module-box {
+
+}
+
+
+.clear {
+	clear: both;
+}
+
+.header-box {
+	padding: 10px;
+}
+
+.banner-top {
+	height: 100px;
+	background-color: #6CF;
+}
+
+.left-box {
+	width: 67%;
+	float: left;
+	padding: 10px 0 10px 10px;
+
+}
+
+.right-box {
+	width: 27%;
+	float: right;
+	padding: 10px 10px 10px 0;
+}
+
+
+.story-list {
+	/* [disabled]height: 400px; */
+	background-color: #6CF;
+}
+
+
+.module-box {
+	margin-bottom: 10px;
+	background-color: #6CF;
+}
+.header-top {
+	height: 174px;
+	padding: 10px;
+}
+
+.broj-oglasa {
+	float: right;
+	height: 184px;
+	width: 200px;
+	background-color: #6CF;
+	margin-left: 10px;
+}
+
+.broj-cont {
+	float: right;
+	height: 184px;
+	width: 200px;
+}
+
+.broj-publikacije {
+	height: 87px;
+	width: 200px;
+	background-color: #6CF;
+	margin-bottom: 10px;
+}
+
+.datum {
+	background-color: #6CF;
+	height: 87px;
+}
+
+.izdvajamo {
+	padding: 10px;
+	padding-bottom: 0;
+}
+
+.izdvajamo .module-box {
+	width: 200px;
+	float: left;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	
+	}
+.be-template {
+	font-size: 12px;
+}
+</style>
+<div class="be-template">
+	<div class="header-top">
+	    <div id="position1" class="broj-oglasa"><input class="add-module" id="1" type="button" value="+ Add Module" /></div>
+	    <div class="broj-cont">
+		<div id="position2" class="broj-publikacije"><input class="add-module" id="2" type="button" value="+ Add Module" /></div>
+		<div id="position3" class="datum"><input class="add-module" id="3" type="button" value="+ Add Module" /></div>
+	    </div>
+	</div><!-- end of header-top -->
+	<div class="header-box">
+		<div id="position4" class="banner-top"><input class="add-module" id="4" type="button" value="+ Add Module" />
+		</div>
+	</div><!-- end of header-box -->
+<div class="left-box">
+	<div id="position5" class="story-list"><input class="add-module" id="5" type="button" value="+ Add Module" />
+	</div>   
+	<br /><br />
+</div><!-- end of left-box -->
+
+<div class="right-box">
+	<div id="position6" class="module-box"><input class="add-module" id="6" type="button" value="+ Add Module" />
+	</div>
+	<div id="position7" class="module-box"><input class="add-module" id="7" type="button" value="+ Add Module" />
+	</div>
+	<div id="position8" class="module-box"><input class="add-module" id="8" type="button" value="+ Add Module" />
+	</div>
+	<div id="position9" class="module-box"><input class="add-module" id="9" type="button" value="+ Add Module" />
+	</div>
+	<div id="position10" class="module-box"><input class="add-module" id="10" type="button" value="+ Add Module" />
+	</div>    
+    
+</div><!-- end of right-box -->
+<div class="clear"></div>
+<div class="izdvajamo">
+	<div id="position11" class="module-box"><input class="add-module" id="11" type="button" value="+ Add Module" /></div>
+	<div id="position12" class="module-box"><input class="add-module" id="12" type="button" value="+ Add Module" /></div>
+   	<div id="position13" class="module-box"><input class="add-module" id="13" type="button" value="+ Add Module" /></div>   
+    <div class="clear"></div> 
+	<div id="position14" class="module-box"><input class="add-module" id="14" type="button" value="+ Add Module" /></div>
+	<div id="position15" class="module-box"><input class="add-module" id="15" type="button" value="+ Add Module" /></div>
+	<div id="position16" class="module-box"><input class="add-module" id="16" type="button" value="+ Add Module" /></div>        
+    <div class="clear"></div> 
+</div><!-- end of izdvajamo -->
+
+</div><!-- end of be-template -->

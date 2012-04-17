@@ -1,0 +1,33 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Categories_model extends CI_Model {
+
+	function __construct()
+	{
+		parent::__construct();
+		
+	}
+	
+	/**
+	 * 
+	 * Get only active categories for entry_id, entry belong to those categories
+	 * @param int $entry_id
+	 */
+	public function get_categories_by_entry_id($entry_id){
+		$query = $this->db->get_where('join_entries_categories',array('entry_id'=>$entry_id, "active"=>1));
+	        return $query->result();
+	}
+	
+	public function get_category_by_id($id){
+	        $query = $this->db->get_where('categories',array('id'=>$id));
+	        return $query->result();
+	}
+	
+	public function getCategoryName($id){
+		$this->db->select('name');
+		$query = $this->db->get_where('categories',array('id'=>$id));
+	        return $query->first_row();
+	}
+}
+/* End of file articles_model.php */
+/* Location: ./application/modules/articles/controllers/articles_model.php */

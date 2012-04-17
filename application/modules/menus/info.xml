@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+<name>Menus</name>
+<description>This module display menu</description>
+<params group="default">
+	<param name="menus" type="menus" default="0" label="Choose menu to be displayed: " description="Display tree of the published menus">
+	</param>
+	<param name="classsuffix" type="input" default="" label="Class suffix" cssclass="lform2" description="Add class suffix to parent div of the menu tree">
+	</param>
+</params>
+</module>

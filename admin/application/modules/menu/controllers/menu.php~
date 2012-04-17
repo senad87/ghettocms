@@ -1,0 +1,377 @@
+<?php
+
+class Menu extends MX_Controller {
+	
+	private $language_id = 1;
+	
+	function __construct(){
+	        // Call the Controler constructor
+	        parent::__construct();
+	        
+	        $this->load->helper('login_helper.php');
+	        $this->load->library('form_validation');
+	        $this->load->helper('menus_tree_helper.php');
+	        $this->load->helper('directory');
+	        $this->lang->load('messages', 'english');
+	        $this->load->model('Menu_model');
+	        $this->load->model('Template_model');
+	        $this->load->model('Module_model');
+	        $this->lang->load('messages', 'english');
+		$this->language_id = $this->session->userdata('language_id');
+	        check_login();
+	}
+	
+	/**
+	 * 
+	 * Display menu tree
+	 * @param id $message
+	 */
+	public function index($order="id-desc", $offset=0){
+		
+		$data['offset'] = $offset;
+		$order_array = explode('-', $order);
+		$data['orderColumn'] = $order_array[0];
+		$data['order'] = $order_array[1];
+			
+		$data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
+		//$data['entries'] = $data['root_menus'];
+		
+		$entries = array();
+		$i = 0;
+		foreach($data['root_menus'] as $menu){
+			$entries[$i]['id'] = $menu->id;
+			$entries[$i]['name'] = $menu->name;
+			$entries[$i]['items'] = "Manage items"; 
+		$i++;
+		}
+		$data['entries'] = $entries;
+		$this->load->view("header_view");
+		$this->load->view('list_view', $data);
+	}
+	
+	/**
+	 * 
+	 * Display form for adding new menu 
+	 */
+	public function createNew(){
+
+		//$data['root_menus'] = $this->Menu_model->get_menu_kids(0);
+		$this->load->view("header_view");
+		$this->load->view('new_view');  
+	}
+	
+	/**
+	 * 
+	 * Get POST data and insert new menu to database
+	 * to add submenu use other method add_new_item
+	 */
+	public function createNew_post(){
+
+		$parent_id = 0;//adding root menu only
+		$name = $this->input->post('name');
+		$url = "";//default menu, parent menus does not have this param
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		
+		if ($this->form_validation->run() == FALSE){
+			$this->createNew();
+		} else {
+			$new_menu_id = $this->Menu_model->insert($parent_id, $name, 1, $url, 0, $this->language_id);
+			$this->messages->add('Menu successfully created', 'success');
+	        	redirect('/menu');	
+		}
+	}
+	
+	/**
+	 * delete
+	 *
+	 * Function set status of selected stories to deleted(status id = 1)
+	 *
+	 */
+	public function delete(){
+
+		$ids = $this->input->post('ids');
+	    	$ids = explode(",", $ids);
+	    	$count = count($ids);
+		foreach ($ids as $id){
+		//var_dump($id);
+			$this->Menu_model->delete($id);
+		}
+		$this->messages->add($count.' Menu(s) successfully deleted', 'success');
+		
+	}
+	
+	/**
+	 * 
+	 * Display form for adding new menu item
+	 * @param int $parent_id
+	 */
+	public function new_menu_item($parent_id){
+		
+		$data['menus'] = $this->Menu_model->get_menu_kids($parent_id, $this->language_id);
+		$data['parent'] = $this->Menu_model->get_menu_by_id($parent_id);
+		//select menu types and load them to template
+		$data['menu_types'] = $this->Menu_model->get_menu_types();
+		$data['parent_id'] = $parent_id;
+		
+		$this->load->view("header_view");
+        $this->load->view('menus/new_menu_item_form_view', $data);
+	
+	}
+	
+    /**
+	 * 
+	 * Get POST data from new_menu_item form and insert new menu item to database
+	 */
+	public function add_new_item(){
+
+		//selected parent id from the menu list
+		$parent_id = $this->input->post('menu_id');
+		$name = $this->input->post('name');
+		$menu_type = $this->input->post('menu_type');
+		$url = $this->input->post('url');
+		//does we open item in new window
+		$new_window = $this->input->post('new_window');
+		if($new_window != 1){
+			$new_window = 0;
+		}
+		//id of the root menu containing new item 
+		$root_menu_id = $this->input->post('root_menu_id');
+		
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		if ($this->form_validation->run() == FALSE){
+			$this->new_menu_item($parent_id);
+		} else {
+        	$new_menu_id = $this->Menu_model->insert($parent_id, $name, $menu_type, $url, $new_window, $this->language_id);
+        	$this->lang->load('messages', 'english');
+        	if ($new_menu_id > 0){
+        		$message = $this->lang->line('message_menu_added_successfully');
+        	}else{
+        		$message = $this->lang->line('message_menu_adding_faild');
+        	}
+        	if($menu_type == 1){
+        		//redirect to create layout page
+        		$this->create_layout($new_menu_id);
+        	}elseif($menu_type == 2){
+        		//redirect to create layout page
+        		$this->create_layout($new_menu_id);
+        	}else{
+        		$this->items_list($root_menu_id);
+        	}
+		}
+	}
+	
+	/**
+	 * 
+	 * Display form with data to edit menu
+	 * to edit menu items use edit_item
+	 * @param int $id
+	 */
+	public function edit($id){
+		$data['root_menus'] = $this->Menu_model->get_menu_kids(0);
+		$menu = $this->Menu_model->get_menu_by_id($id);
+		$data['menu'] = $menu[0];
+		$this->load->view("header_view");
+        $this->load->view('edit_menu_form_view', $data); 
+	}
+	
+    /**
+	 * 
+	 * Display form with data to edit menu items
+	 * @param int $id
+	 */
+	public function edit_item($root_parent_id, $id){
+		
+		$data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
+		$menu = $this->Menu_model->get_menu_by_id($id);
+		$data['menu'] = $menu[0];
+		$data['menu_types'] = $this->Menu_model->get_menu_types();
+		$data['root_parent_id'] = $root_parent_id;
+		
+		$this->load->view("header_view");
+        $this->load->view('edit_menu_item_form_view', $data); 
+	
+	}
+	
+ 	/**
+	 * 
+	 * Function update date of the menu item
+	 */
+	public function update_menuitem_data(){
+		//TODO: add id of the parent menu
+		$id = $this->input->post('menu_id');
+		$name = $this->input->post('name');
+		$menu_type = $this->input->post('menu_type');
+		$url = $this->input->post('url');
+		$parent_id = $this->input->post('parent_id');
+		//var_dump($parent_id);
+		//exit;
+		//does we open item in new window
+		$new_window = $this->input->post('new_window');
+		if($new_window != 1){
+			$new_window = 0;
+		}
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		
+	    if ($this->form_validation->run() == FALSE){
+			$this->edit($id);
+		} else {
+        	$this->Menu_model->update_item($id, $name, $url, $open_in, $parent_id, $menu_type_id);
+        	//update_item($id, $name, $url, $open_in, $menu_type_id)
+        	$this->lang->load('messages', 'english');
+        	$message = $this->lang->line('message_menu_updated_successfully');
+        	$this->index($message);
+		}
+	}
+	
+	/**
+	 * 
+	 * Function update menu data from POST array
+	 */
+	public function update_data(){
+		
+		$id = $this->input->post('menu_id');
+		$name = $this->input->post('name');
+		$url = $this->input->post('url');
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		
+	    if ($this->form_validation->run() == FALSE){
+			$this->edit($id);
+		} else {
+        	$this->Menu_model->update($id, $name, $url);
+        	$this->lang->load('messages', 'english');
+        	$message = $this->lang->line('message_menu_updated_successfully');
+        	$this->index($message);
+		}
+	}
+	
+   
+	
+	/**
+	 * 
+	 * Display tree of the menu items
+	 * @param int $parent_id
+	 */
+	public function items_list($parent_id){
+		
+		$data['parent_menu'] = $this->Menu_model->get_menu_by_id($parent_id, $this->language_id);
+		$data['menu_items'] = $this->Menu_model->get_menu_kids($parent_id, $this->language_id);
+		if (count($data['menu_items']) == 0){
+			$data['no_items'] = $this->lang->line('message_menu_no_items');
+		}
+		$maxorder = $this->Menu_model->get_maxorder_by_parent_id($parent_id);
+		$data['maxorder'] = $maxorder[0]->ordering;
+		$minorder = $this->Menu_model->get_minorder_by_parent_id($parent_id);
+		$data['minorder'] = $minorder[0]->ordering;
+		$this->load->view('header_view');
+        $this->load->view('menu_items_list_view', $data);
+	
+	}
+	
+
+	public function select_template($menu_id){
+		//get temaplates list
+		$data['templates'] = $this->Template_model->get_templates_by_state(1);
+		$data['menu_id'] = $menu_id;
+		$this->load->view('header_view');
+        	$this->load->view('select_template_view', $data);
+	}
+
+	public function create_layout($menu_id){
+		
+		$data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
+		//get modules list
+		$modules_directories = directory_map('../application/modules/',1);
+		//create array using only modules which are contain xml description file
+		foreach($modules_directories as $module){
+			if (file_exists('../application/modules/'.$module.'/info.xml')){
+				$modules[] = $module;
+			}
+		}
+		$data['modules'] = $modules;
+		
+		//get menu by id
+		$menu = $this->Menu_model->get_menu_by_id($menu_id);
+		$data['menu'] = $menu;
+		//var_dump($menu[0]->menu_type_id);
+		$data['menu_types'] = $this->Menu_model->get_menu_types();
+		//get temaplates list
+		$data['templates'] = $this->Template_model->get_templates_by_state(1);
+		$this->load->view('header_view');
+        	$this->load->view('layout_view', $data);
+	}
+	
+	public function up($root_menu_id, $menu_id){
+		//get menu by id
+		$menu = $this->Menu_model->get_menu_by_id($menu_id);
+		if($menu[0]->ordering > 1){
+			$new_ordering = $menu[0]->ordering - 1;
+		}
+		
+		$menu2 = $this->Menu_model->get_menu_by_ordering($menu[0]->parent_id, $new_ordering);
+		$new_ordering2 = $menu2[0]->ordering + 1;
+		
+		$this->Menu_model->update_ordering($menu[0]->id, $new_ordering);
+		$this->Menu_model->update_ordering($menu2[0]->id, $new_ordering2);
+		redirect('/menu/items_list/'.$root_menu_id, 'refresh');
+		
+	}
+	
+	public function down($root_menu_id, $menu_id){
+		//get menu by id
+		$menu = $this->Menu_model->get_menu_by_id($menu_id);
+		$new_ordering = $menu[0]->ordering + 1;
+		
+		
+		$menu2 = $this->Menu_model->get_menu_by_ordering($menu[0]->parent_id, $new_ordering);
+		if($menu2[0]->ordering > 1){
+			$new_ordering2 = $menu2[0]->ordering - 1;
+		}
+		$this->Menu_model->update_ordering($menu[0]->id, $new_ordering);
+		$this->Menu_model->update_ordering($menu2[0]->id, $new_ordering2);
+		redirect('/menu/items_list/'.$root_menu_id, 'refresh');
+		
+	}
+	
+	
+	public function publish($root_menu_id, $id){
+		$this->Menu_model->update_state($id, 3);
+		redirect('/menu/items_list/'.$root_menu_id, 'refresh');
+	}
+	
+	public function unpublish($root_menu_id, $id){
+		$this->Menu_model->update_state($id, 2);
+		redirect('/menu/items_list/'.$root_menu_id, 'refresh');
+	}
+	
+	public function delete_item($root_menu_id, $id){
+		$this->Menu_model->delete($id);
+		redirect('/menu/items_list/'.$root_menu_id, 'refresh');
+	}
+	
+	/**
+	 * 
+	 * Take POST array from layout_view when user click on Save Changes and 
+	 * update basic menu params and menu type id
+	 */
+	public function save_changes(){
+		
+		$id = $this->input->post('menu_id');
+		$name = $this->input->post('menu_name');
+		$url = $this->input->post('url');
+		$open_in = $this->input->post('new_window');
+		$menu_type_id = $this->input->post('menu_type');
+		
+		$parent_menu_id = $this->input->post('parent_menu_id');
+		$this->Menu_model->update_item($id, $name, $url, $open_in, $menu_type_id, $parent_menu_id);
+		$data['root_menus'] = $this->Menu_model->get_menu_kids(0);
+		$data['parent_menu_id'] = $parent_menu_id;
+		//Return result ass new menu tree to be replaced in right panel
+		$this->load->view('right_panel_view', $data);
+	}
+	
+	public function set_as_home($root_menu_id, $id){
+		$this->Menu_model->set_as_home($id, $this->language_id);
+		redirect('/menu/items_list/'.$root_menu_id, 'refresh');
+	}
+
+}

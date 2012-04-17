@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+<name>single story</name>
+<description>Display only one choosen story</description>
+<params group="default">
+	<param name="title" type="select" default="1" label="Title" cssclass="filter" description="Display title or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="lead" type="select" default="1" label="Lead" cssclass="filter" description="Display lead or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="body" type="select" default="1" label="Body" cssclass="filter" description="Display body or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="comments" type="select" default="0" label="Display comments" cssclass="filter" description="Display list of comments and form for adding comments">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="creation_date" type="select" default="0" label="Creation Date" cssclass="filter" description="Display creation date or not">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</param>
+</params>
+<params group="advanced">
+	<param name="poster_photo" type="select" default="1" label="Poster Photo" cssclass="filter" description="Display main item photo or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="photo_size" type="radio" default="1" label="Choose size of the poster photo" cssclass="" description="Size of the poste photo">
+		<option value="1">660x135</option>
+		<option value="2">150x45</option>
+		<option value="3">100x30</option>
+	</param>
+	<param name="story" type="stories" default="0" label="Choose story" cssclass="" description="Choose story to be displayed on the portal">
+	</param>
+	<param name="classsuffix" type="input" default="" label="Class suffix" cssclass="lform2" description="Add class suffix to parent div of module template">
+	</param>
+</params>
+</module>

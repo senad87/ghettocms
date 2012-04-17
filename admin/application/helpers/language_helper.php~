@@ -1,0 +1,16 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+	$CI =& get_instance();
+    	$CI->load->model('Language_model', '', TRUE);
+
+/**
+ * addCategoryName
+ *
+ * Function get array of entries and add Category name into array
+ */    	
+if (!function_exists('getLanguages')){
+	function getLanguages(){
+		global $CI;
+		$languages = $CI->Language_model->get_all();
+		return $languages;
+	}
+}

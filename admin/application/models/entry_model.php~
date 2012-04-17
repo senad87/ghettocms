@@ -1,0 +1,211 @@
+<?php
+
+class Entry_model extends CI_Model {
+
+	function __construct(){
+		// Call the Model constructor
+		parent::__construct();
+	}
+	
+	/**
+	 *
+	 * Get entry by ID
+	 * @param int $id
+	 */
+	public function getEntryByID($id){
+		$query = $this->db->get_where("entries",array("id" => $id));
+		return $query->first_row();
+	}
+	
+	/**
+	 *
+	 * Update Category ID by type_id (story_id or game_id for example)
+	 * @param int $type_id
+	 * @param int $category_id
+	 *
+	 */
+	public function updateCategoryID($type_id, $category_id){
+		$data = array("category_id" => $category_id);
+		$this->db->where(array("type_id" => $type_id));
+		$this->db->update('entries', $data);
+	}
+	
+	public function update($id, $title, $category_id, $comments = 1){
+		
+		$modified_date = date('Y-m-d G:i:s');
+		$data = array("title"=> $title, "category_id" => $category_id, "modified_date" => $modified_date);
+		$this->db->where(array("id" => $id));
+		$this->db->update('entries', $data);
+	
+	}
+	/**
+	 *
+	 * Get entry id by type id, type id is id of the content like story or game id
+	 * @param string $type_name
+	 * @param int $type_id
+	 */
+	public function get_entry_id_by_type_id($type_id, $entry_type_id = 1){
+		$query = $this->db->get_where("entries",array("type_id" => $type_id, "entry_type_id"=> $entry_type_id));
+		$entry = $query->result();
+		return $entry[0]->id;
+	}
+
+	/**
+	 *
+	 * Get entry object by entry_type_id (story, game etc.) and type_id (sotry_id and/or game_id etc.)
+	 * @param int $type_id
+	 * @param int $entry_type_id
+	 */
+	public function get_entry_by_type($type_id, $entry_type_id = 1){
+		$query = $this->db->get_where("entries",array("type_id" => $type_id, "entry_type_id"=> $entry_type_id));
+		return $query->result();
+	}
+
+	/**
+	 *
+	 * Get all entries with category_id
+	 * @param int $category_id
+	 */
+	public function get_entries_by_category_id($category_id){
+		$query = $this->db->get_where("entries", array("category_id"=>$category_id, "entry_state_id >"=>1));
+		return $query->result();
+	}
+
+	/**
+	 *
+	 * Get number of all entries with status published or unpublished by entry_type_id and language
+	 * @param int $entry_type_id
+	 * @param int $language_id
+	 * @return int $number
+	 */
+	
+	public function countByType($entry_type_id, $language_id = 1){
+		$this->db->where(array("entry_state_id >" => 1, "entry_type_id"=> $entry_type_id, "language_id" => $language_id));
+		$number = $this->db->count_all_results('entries');
+		return $number;
+	}
+	
+	/**
+	 *
+	 * Get number of all deleted entries by entry_type_id and language
+	 * @param int $entry_type_id
+	 * @param int $language_id
+	 * @return int $number
+	 */
+	public function countDeleted($entry_type_id, $language_id = 1){
+		$this->db->where(array("entry_state_id" => 1, "entry_type_id"=> $entry_type_id, "language_id" => $language_id));
+		$number = $this->db->count_all_results('entries');
+		return $number;
+	}
+	
+	/**
+	 * 
+	 * Get all entries with state published and unpublished
+	 * @param int $entry_type_id
+	 * @param int $limit
+	 * @param int $offset
+	 * @param int $language_id
+         * @param int $return_array If this set to 1 func return multidimensional array, 0 return array of objects (Default)
+	 */
+	public function getUndeleted($entry_type_id, $limit = 10, $offset = 0, $language_id = 1, $return_array = 0){
+		
+		$this->db->order_by("type_id", "desc");
+		$query = $this->db->get_where("entries",array("entry_type_id" => $entry_type_id, "entry_state_id >" => 1, "language_id" => $language_id), $limit, $offset);
+		if($return_array == 1){
+			return $query->result_array();
+		}else{
+			return $query->result();
+		}
+	}
+	
+	
+	/**
+	 *
+	 * Get all entries with status 1, stands for deleted
+	 * @param int $entry_type_id
+	 * @param int $limit
+	 * @param int $offset
+	 * @param int $language_id
+	 * @param int $return_array If this set to 1 func return multidimensional array, 0 return array of objects (Default)
+	 */
+	public function getDeleted($entry_type_id, $limit = 10, $offset = 0, $language_id = 1, $return_array = 0){
+		
+		$this->db->order_by("type_id", "desc");
+		$query = $this->db->get_where("entries",array("entry_type_id" => $entry_type_id, "entry_state_id" => 1, "language_id" => $language_id), $limit, $offset);
+		if($return_array == 1){
+			return $query->result_array();
+		}else{
+			return $query->result();
+		}
+	}
+	
+
+	/**
+	 *
+	 * Get number of published entries by entry_type_id (story, game etc.)
+	 * @param int $entry_type_id
+	 */
+	public function get_number_of_published_entries_by_type($entry_type_id, $language_id = 1){
+		$this->db->where(array("entry_state_id" => 3, "entry_type_id"=> $entry_type_id, "language_id" => $language_id));
+		$number = $this->db->count_all_results('entries');
+		return $number;
+	}
+
+	/**
+	 *
+	 * Update state of the entry by type_id (story or game id etc.) and entry_type_id (story=1, game=2 etc.)
+	 * @param int $type_id
+	 * @param int $entry_type_id
+	 * @param int $state_id
+	 */
+	public function update_entry_state($id, $state_id){
+		$data = array("entry_state_id" => $state_id);
+		/*var_dump($data);
+		print_r("<br />");
+		var_dump(array("type_id" => $type_id, "entry_type_id" => $entry_type_id));*/
+		$this->db->where(array("id" => $id));
+		$this->db->update('entries', $data);
+	}
+	
+
+	/**
+	 *
+	 * Get published entries by entry_type_id (story, game etc.)
+	 * @param int $entry_type_id
+	 * @param int $limit
+	 * @param int $offset
+	 */
+	public function get_published_entries($entry_type_id, $limit = 10, $offset = 0, $language_id = 1){
+		$this->db->order_by("type_id", "desc");
+		$query = $this->db->get_where("entries",array("entry_type_id" => $entry_type_id, "entry_state_id" => 3, "language_id" => $language_id), $limit, $offset);
+		return $query->result();
+	}
+
+	/**
+	 *
+	 * Get all entries with status 1, stands for deleted
+	 * @param int $entry_type_id
+	 * @param int $limit
+	 * @param int $offset
+	 */
+	public function get_deleted_entries($entry_type_id, $limit = 10, $offset = 0, $language_id = 1){
+		$this->db->order_by("type_id", "desc");
+		$query = $this->db->get_where("entries",array("entry_type_id" => $entry_type_id, "entry_state_id"=>1, "language_id" => $language_id), $limit, $offset);
+		return $query->result();
+	}
+
+	public function breake_categories_relations($entry_id, $active = 1){
+		$data = array("active" => $active);
+		$this->db->where(array('entry_id' => $entry_id));
+		$this->db->update('join_entries_categories', $data);
+	}
+/*
+	public function update_entry_category_relation($entry_id, $category_id, $active = 1){
+		$data = array("active" => $active);
+		$this->db->where(array('entry_id' => $entry_id, 'category_id' => $category_id));
+		$this->db->update('join_entries_categories', $data);
+	}
+*/
+}
+/* End of file entry_model.php */
+/* Location: ./system/application/models/entry_model.php */

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+<name>articles box preview</name>
+<description>Box with article list</description>
+<params group="default">
+	<param name="title" type="select" default="0" label="Title" cssclass="filter" description="Display title or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="lead" type="select" default="1" label="Lead" cssclass="filter" description="Display lead or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="author" type="select" default="1" label="Author" cssclass="filter" description="Display author or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+</params>
+<params group="advanced">
+	<param name="creation_date" type="select" default="1" label="Creation Date" cssclass="filter" description="Display creation date or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="modified_date" type="select" default="1" label="Modified Date" cssclass="filter" description="Display modified date or not">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+	</param>
+	<param name="poster_photo" type="select" default="1" label="Display photo for stories:" cssclass="filter" description="Display main item photo or not">
+		<option value="0">None</option>
+		<option value="1">Only first</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="3">Four</option>
+	</param>
+	<param name="photo_size" type="radio" default="1" label="Choose size of the poster photo" cssclass="" description="Size of the poste photo">
+		<option value="1">577x379</option>
+		<option value="2">220x165</option>
+		<option value="3">100x30</option>
+	</param>
+	<param name="number" type="input" default="2" label="Number of items" cssclass="lform2" description="Display number of items">
+	</param>
+	<param name="categories" type="categories" default="0" label="Choose categories of items: " description="Display tree of the published categories">
+	</param>
+</params>
+</module>
