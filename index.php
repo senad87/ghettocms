@@ -2,7 +2,7 @@
 
 /*
  *---------------------------------------------------------------
- * PHP ERROR REPORTING LEVEL
+ * PHP ERROR REPORTING LEVELS
  *---------------------------------------------------------------
  *
  * By default CI runs with error reporting set to ALL.  For security
