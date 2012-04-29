@@ -20,7 +20,7 @@ class Menu extends MX_Controller {
     function index($id = 0, $sub=false){
 	//set language
 	//TODO: Get language by ID
-	
+	//print_r("Hello");
     	$session_language_id = $this->session->userdata('language_id');
     	//if no language data in session set default
     	//var_dump($session_language_id);
