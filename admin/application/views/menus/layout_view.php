@@ -107,7 +107,7 @@ $(document).ready(function()
 		$("#container").load("<?=base_url(); ?>template/load", {id: template_id, menu_id: menu_id}, function(response, status, xhr) {
 			  if (status == "error") {
 			    var msg = "Sorry but there was an error: "+ xhr.status + " " + xhr.statusText;
-			    console.log(msg);
+			    //console.log(msg);
 			  }
 		});
 	}
@@ -119,7 +119,7 @@ $(document).ready(function()
 		$("#container").load("<?=base_url(); ?>template/load", {id: id, menu_id: menu_id}, function(response, status, xhr) {
 			  if (status == "error") {
 			    var msg = "Sorry but there was an error: "+ xhr.status + " " + xhr.statusText;
-			    console.log(msg);
+			    //console.log(msg);
 			  }
 		});
 	});
