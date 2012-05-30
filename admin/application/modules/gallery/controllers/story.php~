@@ -19,10 +19,8 @@ class Story extends MX_Controller {
 		$this->load->model('category/Category_model');
 		$this->load->model('comments/Comments_model');
 		$this->load->model('topic/Topic_model');
-		$this->load->model('tag/Tag_model');
+		$this->load->model('Tag_model');
 		$this->load->model('Image_model');
-                $this->load->model('gallery/Gallery_model');
-                $this->load->library('Jquery_pagination');
 		$this->lang->load('messages', 'english');
 		$this->language_id = $this->session->userdata('language_id');
 		check_login();
@@ -36,7 +34,7 @@ class Story extends MX_Controller {
 	 * @param int $message_id used to display message after Update or Insert story
 	 * @param int $offset used for pagination
 	 */
-	public function index($order="id-desc", $offset=0){
+	public function index($damir='', $order="id-desc", $offset=0){
 	
 		$data['offset'] = $offset;
 		$order_array = explode('-', $order);
@@ -52,9 +50,11 @@ class Story extends MX_Controller {
 		$entries = $this->Entry_model->getUndeleted(1, $per_page, $offset, $this->language_id, 1);
 		
 		//prepare array for table view
-		$data['entries'] = $this->createList($entries);
-		//print_r($data['entries']);
-		
+		$data['entries'] = addCategoryName($entries);
+		/*print_r("<pre>");
+		var_dump($data['entries']);
+		print_r("</pre>");
+		*/
 		/*** right columns data ***/
 		/*** load data for filters***/
 		//load root categories
@@ -80,22 +80,6 @@ class Story extends MX_Controller {
 		
 		$this->load->view('header_view');
 		$this->load->view('list_view', $data);
-	}
-	
-	/**
-	 * Add strings (names, titles) insted of FK
-	 * @param $items
-	 * @return array $ $result_array
-	 */
-	private function createList($items){
-		$result_array = array();
-		foreach($items as $item){
-			$item['category'] = $this->Category_model->getName($item['category_id']);
-			$item['state'] = $this->Entry_state_model->getStateName($item['entry_state_id']);
-			$result_array[] = $item; 
-		}
-		
-		return $result_array;
 	}
 	
 	
@@ -157,7 +141,6 @@ class Story extends MX_Controller {
 			$data['tags'] = $tags;
 			/*** end of topic initialization ***/
         	}
-                      
 		$this->load->view("header_view");
 		$this->load->view('new_view', $data);
 		
@@ -302,8 +285,7 @@ class Story extends MX_Controller {
 		$system_topics = $this->Topic_model->get_system(1, $this->language_id);
 	        $topics = array();
 	        $tags = array();
-		
-	        foreach($system_topics as $system_topic){
+		foreach($system_topics as $system_topic){
 	            $topic = $this->Topic_model->get_topic_by_id($system_topic->topic_id);
 	            //get tags by topic id
 	            $tags[$system_topic->topic_id] = $this->Tag_model->get_active_tags_by_topic_id($system_topic->topic_id);
@@ -366,8 +348,8 @@ class Story extends MX_Controller {
 		$image_id = $this->input->post('image_id');
 		$admin_user_id = $this->session->userdata('id');
 		/*** update category ***/
-        //TODO: Check this update, this can be removed now due to entry update in line 408
-        $this->Entry_model->updateCategoryID($id, $category_id);
+        	//TODO: Check this update, this can be romoved now due entry update in line 408
+        	$this->Entry_model->updateCategoryID($id, $category_id);
 		/*** end of category update ***/
 		/*** image update ***/
 		if(!$image_id || $image_id < 1){
@@ -505,7 +487,57 @@ class Story extends MX_Controller {
 		}
 		$this->messages->add($count.' Stories successfully restored', 'success');
 	}
-
+	
+	/**
+	 * stories_list_with_additional_data
+	 *
+	 * Function create list of stories with additional data as Category, Story state, Createion date, Modified date
+	 *
+	 * @param array $stories_array_of_objects
+	 * @return array $stories_row
+	 */
+	public function stories_list_with_additional_data($stories_array_of_objects, $trash = false){
+	
+		$stories_row = array();
+		$i = 0;
+		foreach ($stories_array_of_objects as $story) {
+			
+			$entry = $this->Entry_model->get_entry_by_type($story->id, 1);
+			$entry_id = $entry[0]->id;
+			if($trash == true){
+				$categories = $this->Category_model->get_existing_categories_by_entry_id($entry_id);
+			}else{
+				$categories = $this->Category_model->get_categories_by_entry_id($entry_id);
+			}
+			
+			//$categories = $this->Category_model->get_categories_by_entry_id($entry_id);
+			$categories_names_string = "";
+			foreach($categories as $category){
+				
+				$categories_names = $this->Category_model->get_category_by_id($category->category_id);
+				if($categories_names_string == ""){
+					$categories_names_string = $categories_names[0]->name;
+				}else{
+				        $categories_names_string = $categories_names[0]->name.", ".$categories_names_string;
+			        }
+			}
+			
+			$story_state = $this->Entry_state_model->get_entry_state_name_by_state_id($entry[0]->entry_state_id);
+			$story_author = $this->Admin_user_model->get_user_by_id($story->admin_user_id);
+			if (count($categories) > 0){
+				$stories_row[$i] = array("id" => $story->id,
+							"title" => $story->title,
+							"categories_names" => $categories_names_string,
+							"creation_date" => $story->creation_date,
+							"modified_date" => $story->modified_date,
+							"author_name" => $story_author[0]->username,
+							"story_state" => $story_state[0]->state_name
+							);
+				$i++;
+			}
+		}
+		return $stories_row;
+	}
 	
 	public function resize_poster_photo($source_image_path, $width, $height, $copy_name){
 		$config['image_library'] = 'gd2';

@@ -110,7 +110,7 @@ class Entry_model extends CI_Model {
 	public function getUndeleted($entry_type_id, $limit = 10, $offset = 0, $language_id = 1, $return_array = 0){
 		
 		$this->db->order_by("type_id", "desc");
-		$query = $this->db->get_where("entries",array("entry_type_id" => $entry_type_id, "entry_state_id >" => 1, "language_id" => $language_id), $limit, $offset);
+		$query = $this->db->get_where("entries", array("entry_type_id" => $entry_type_id, "entry_state_id >" => 1, "language_id" => $language_id), $limit, $offset);
 		if($return_array == 1){
 			return $query->result_array();
 		}else{

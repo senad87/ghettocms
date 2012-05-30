@@ -9,6 +9,11 @@
 </script>
 	<h1 class="heading">Edit Story</h1>
 <?php echo modules::run('toolbar', 'story_title', 'story', array('save', 'cancel')); ?>
+	<?php /* if (isset($message)) {
+		if($message <> ""){ ?>
+			 <div class="message" id="message"><?php echo $message; ?></div>
+		<?php } ?>
+	<?php } */ ?>
 	<div class="clear"></div>
 </div>
 <div class="container">
@@ -66,19 +71,17 @@
 		  <?php 
 		  $i = 0;
 		  foreach ($topics as $topic) { ?>
-			  <?php if(count($tags[$topic->id]) > 0){ ?>
-			    <label for="privileges"><?php echo $topic->name; ?>:</label><br />
-			    <select class="filter" name="tag_<?php echo $i; ?>">
-			    <option value="0">PLEASE CHOOSE:</option>
-				  <?php foreach($tags[$topic->id] as $tag) { ?>
-					  <?php if(isset($set_tags[$topic->id])) {?>
-					  <option <?php if($set_tags[$topic->id] == $tag->id){?>selected="selected"<?php } ?> value="<?php echo $tag->id; ?>"><?php echo $tag->tag; ?></option>
-					  <?php }else{ ?>
-					  <option value="<?php echo $tag->id; ?>" ><?php echo $tag->tag; ?></option>
-					  <?php } ?>
+		    <label for="privileges"><?php echo $topic->name; ?>:</label><br />
+		    <select class="filter" name="tag_<?php echo $i; ?>">
+		    <option value="0">PLEASE CHOOSE:</option>
+			  <?php foreach($tags[$topic->id] as $tag) { ?>
+				  <?php if(isset($set_tags[$topic->id])) {?>
+				  <option <?php if($set_tags[$topic->id] == $tag->id){?>selected="selected"<?php } ?> value="<?php echo $tag->id; ?>"><?php echo $tag->tag; ?></option>
+				  <?php }else{ ?>
+				  <option value="<?php echo $tag->id; ?>" ><?php echo $tag->tag; ?></option>
 				  <?php } ?>
-			    </select><br />
 			  <?php } ?>
+		    </select><br />
 		  <?php $i++; } ?>
         <?php } ?>
         </div>
@@ -97,9 +100,5 @@ $('#btnRemovePhoto').click(function ()
 	$("#upload_photo").removeAttr("style");
 	$("#thumb_image").empty();
 });
-</script>
-
-<?php echo modules::run('gallery/galleryDialog'); ?>
-
-
+</script>   
 </html>

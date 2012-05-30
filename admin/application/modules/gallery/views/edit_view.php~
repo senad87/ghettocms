@@ -78,7 +78,7 @@
 					  <?php } ?>
 				  <?php } ?>
 			    </select><br />
-			  <?php } ?>
+			  <?php } ?>  
 		  <?php $i++; } ?>
         <?php } ?>
         </div>
@@ -97,9 +97,5 @@ $('#btnRemovePhoto').click(function ()
 	$("#upload_photo").removeAttr("style");
 	$("#thumb_image").empty();
 });
-</script>
-
-<?php echo modules::run('gallery/galleryDialog'); ?>
-
-
+</script>   
 </html>

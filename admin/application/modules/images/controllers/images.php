@@ -1,6 +1,6 @@
 <?php
 
-class Images extends CI_Controller {
+class Images extends MX_Controller {
 
 	function __construct()
 	{
@@ -27,17 +27,15 @@ class Images extends CI_Controller {
 	}
 	
 	function loadEdit(){
-		
-		
 		$ids = $this->input->post('ids');
 		if($ids != ""){
-			$data['ids'] = implode(',', $ids);
-			$images = array();
-			foreach($ids as $id){
-				$images[] = $this->Images_model->getImage($id);
-			}
-			$data['images'] = $images;
-			$this->load->view('loadEdit_view', $data);
+                    $data['ids'] = implode(',', $ids);
+                    $images = array();
+                    foreach($ids as $id){
+                            $images[] = $this->Images_model->getImage($id);
+                    }
+                    $data['images'] = $images;
+                    $this->load->view('loadEdit_view', $data);
 		}
 		
 		
@@ -46,22 +44,24 @@ class Images extends CI_Controller {
 	
 	
 	public function upload(){
-	
-		
 		$uploaddir = '../upload_img';
 		//$len = strlen($_FILES['uploadfile']['name']) - 1;
 		//$childdir = $uploaddir.substr($_FILES['uploadfile']['name'],0, -$len); //takes first letter from string
 		//if(@opendir($childdir) == false){
 			//mkdir($childdir);
 		//}
-		
-		$file = $uploaddir ."/". basename($_FILES['uploadfile']['name']);
+		//$filename = explode('.', $_FILES['uploadfile']['name']);
+		$file = $uploaddir ."/". uniqid()."-".basename($_FILES['uploadfile']['name']);
 		//print_r($_FILES['uploadfile']['error']);
+                
 		if(!file_exists($file)){ 
-			if(move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file)){ 
-				$file = substr($file, 2);
+                    if(move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file)){ 
 				$id = $this->Images_model->insertImage($_FILES['uploadfile']['name'],$tags=$_FILES['uploadfile']['name'], $file);
-			  	echo $id;
+                                //$file = substr($file, 2);//removes two dot at begging
+                                $response = array('id'=>$id, 'filepath'=>$file);
+
+                                header('Content-type: application/json');
+                                echo json_encode($response);
 			}else{
 			 	echo "error";
 			}
@@ -69,6 +69,7 @@ class Images extends CI_Controller {
 			echo "file_exists";
 		
 		}
+                //print_r(getimagesize($file));
 	}
 	
 	
@@ -77,7 +78,6 @@ class Images extends CI_Controller {
 		$data['id'] = $this->input->post('id');
 		$data['image'] = $this->input->post('image');
 		$this->load->view('script_view', $data);
-	
 	}
 	
 	public function delete(){
@@ -100,8 +100,8 @@ class Images extends CI_Controller {
 	public function open(){
 		$id = $this->uri->segment(3);
 		$data['image'] = $this->Images_model->getImage($id);
-		$data['image_info'] = getimagesize(root_url().$data['image']->path);
-		print_r($data['image_info']);
+		$data['image_info'] = getimagesize(root_url().substr($data['image']->path, 2));
+		//print_r($data['image_info']);
 		$data['width'] = $data['image_info'][0];
 		$data['height'] = $data['image_info'][1];
 		//print_r($data);die;
@@ -110,8 +110,8 @@ class Images extends CI_Controller {
 	
 	public function crop(){
 			$uploaddir = '../upload_img';
-			$src = $this->input->post('src');
-			print_r($src);
+			$src = substr($this->input->post('src'), 2);
+			//print_r($src);
 			$x = $this->input->post('x');
 			$y = $this->input->post('y');
 			$width = $this->input->post('w');
@@ -122,7 +122,7 @@ class Images extends CI_Controller {
 			$config['width'] = $width;
 			$config['height'] = $height;
 			$config['create_thumb'] = FALSE;
-		    $config['maintain_ratio'] = TRUE; 
+                        $config['maintain_ratio'] = FALSE; 
 		
 			$config['x_axis'] = $x;
 			$config['y_axis'] = $y;

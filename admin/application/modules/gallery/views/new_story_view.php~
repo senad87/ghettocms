@@ -4,11 +4,9 @@
 	window.onload = function()
 	{
 		
-                var currentInstance = CKEDITOR.replace( 'editor1', {skin : 'v2',
+		CKEDITOR.replace( 'editor1',{skin : 'v2',
 			filebrowserBrowseUrl: '<?php echo base_url(); ?>application/filemanager/index.html'} );
-
 	};
-
 </script>
 <h1 class="heading">Add New Story</h1>
 <?php echo modules::run('toolbar', 'story_title', 'story', array('save', 'cancel')); ?>
@@ -68,15 +66,15 @@
 		<?php 
 		  $i = 0;
 		  foreach ($topics as $topic) { ?>
-			  <?php if(count($tags[$topic->id]) > 0){ ?>
-			    <label for="privileges"><?php echo $topic->name; ?>:</label><br />
-			    <select class="filter" name="tag_<?php echo $i; ?>">
-				  <option value="0">Please choose:</option>
-			  	  <?php foreach($tags[$topic->id] as $tag) { ?>
-				  <option value="<?php echo $tag->id; ?>"><?php echo $tag->tag; ?></option>
-				  <?php } ?>
-			    </select><br />
+		  <?php if(count($tags[$topic->id]) > 0){ ?>
+		    <label for="privileges"><?php echo $topic->name; ?>:</label><br />
+		    <select class="filter" name="tag_<?php echo $i; ?>">
+			  <option value="0">Please choose:</option>
+		  	  <?php foreach($tags[$topic->id] as $tag) { ?>
+			  <option value="<?php echo $tag->id; ?>"><?php echo $tag->tag; ?></option>
 			  <?php } ?>
+		    </select><br />
+		  <?php } ?>
 		  <?php $i++; } ?>
         <?php } ?>
 <?php } ?>
@@ -101,8 +99,4 @@ $(document).ready(function(){
 	}
 });	
 </script>
-
-    <?php echo modules::run('gallery/galleryDialog'); ?>
-
-
 </html>

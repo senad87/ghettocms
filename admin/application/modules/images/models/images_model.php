@@ -2,38 +2,34 @@
 
 class Images_model extends CI_Model {
 
-
-
 	function __construct(){
         // Call the Model constructor
         parent::__construct();
 	}
 	
 	public function insertImage($title, $tags, $path){
-		
-	
-		$creation_date = date('Y-m-d H:i:s');
-		//$modified_date = date('Y-m-d H:i:s');
-		
-		$sql = "INSERT INTO images (title, tags, path, creation_date) VALUES (?,?,?,?)";
-		$query = $this->db->query($sql, array($title, $tags, $path, $creation_date));
+            $creation_date = date('Y-m-d H:i:s');
+            //$modified_date = date('Y-m-d H:i:s');
+            $sql = "INSERT INTO images (title, path, creation_date) VALUES (?,?,?)";
+            $query = $this->db->query($sql, array($title, $path, $creation_date));
 
-		if($query){
-			return $this->db->insert_id();
-		}else{
-			return false;
-		}
+            if($query){
+                return $this->db->insert_id();
+            }else{
+                return false;
+            }
 	
 	}
 	
 	
 	function getImages($offset=false, $limit=false){
 		if($offset===false){
-  			$limit = "";
+                    $limit = "";
   		}else{
-  			$limit = " LIMIT ".$offset.", ".$limit;
+                    $limit = " LIMIT ".$offset.", ".$limit;
   		}
 		$sql = "SELECT * FROM images WHERE status=1 ORDER BY creation_date DESC".$limit;
+                //$sql = "SELECT * FROM images LIMIT 591, 20";
 		$query = $this->db->query($sql);	
 		return $query->result();
 	

@@ -319,7 +319,7 @@ class Gallery extends MX_Controller {
 	        }else{
 	        	$data['message'] = "";
 	        }
-	        $data['gallery'] = $gallery[0];
+	        $data['gallery'] = $gallery;
 	        //get date from mysql datetime
 	        $modified_date = explode(" ", $entry->modified_date);
 	        $modified_date = mysql_to_human($modified_date[0]);
@@ -757,6 +757,59 @@ class Gallery extends MX_Controller {
                 echo json_encode(array('image_path' => $image[0]->path));
             }
             
+        }
+        
+        public function galleryDialog(){
+            // get galleries part 
+                $total_rows = $this->Entry_model->get_number_of_published_entries_by_type(3);
+                $per_page = "20";
+                /*** load pagination ***/
+                //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
+                $config['uri_segment'] = 4;
+                $config['num_links'] = 2;
+                $config['base_url'] = base_url()."/gallery/galleries_ajax";
+                $config['total_rows'] = $total_rows;
+                $config['per_page'] = $per_page;
+                $config['div'] = '#content'; /* Here #content is the CSS selector for target DIV */
+                //$config['js_rebind'] = "alert('it works !!'); "; /* if you want to bind extra js code */
+                $config['full_tag_open'] = '<ul class="pagination">';//surround the entire pagination begining
+                $config['full_tag_close'] = '</ul>';//surround the entire pagination end
+                $config['num_tag_open'] = '<li>';//digit link open
+                $config['num_tag_close'] = '</li>';//digit link close
+                $config['cur_tag_open'] = '<li class="current_page">';//current page open
+                $config['cur_tag_close'] = '</li>';//current page close
+                $config['next_tag_open'] = '<li class="next_page">';
+                $config['next_tag_close'] = '</li>';
+                $config['prev_tag_open'] = '<li class="previous_page">';
+                $config['prev_tag_close'] = '</li>';
+                $config['first_link'] = '&lt;&lt;';//first link title
+                $config['first_tag_open'] = '<li class="first_page">';//first link open
+                $config['first_tag_close'] = '</li>';//first link close
+                $config['last_link'] = '&gt;&gt;';//last link title
+                $config['last_tag_open'] = '<li class="last_page">';//last link open
+                $config['last_tag_close'] = '</li>';//last link close
+//
+//
+//
+                $this->jquery_pagination->initialize($config);
+                $data['pagination'] = $this->jquery_pagination->create_links();
+                /*** end of pagination ***/
+                $entries = $this->Entry_model->getUndeleted(3, $per_page, $offset = 0);
+                $galleries = array();
+                
+                foreach($entries as $entry){
+                        $galleries[$entry->type_id] = $this->Gallery_model->get_gallery_by_id($entry->type_id);
+                        $galleries[$entry->type_id]['title'] = $entry->title;
+                        $galleries[$entry->type_id]['created'] = $entry->creation_date;
+                }
+                
+//                echo "<pre>";
+//                print_r($galleries);
+//                echo "</pre>";
+                
+                $data['galleries'] = $galleries;
+                
+                $this->load->view('gallery_dialog_view', $data);
         }
 
 }

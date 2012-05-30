@@ -81,6 +81,12 @@ class Image_model extends CI_Model {
 		$this->db->where(array("entry_id"=>$entry_id));
 		$this->db->update('join_entries_images', $data);
 	}
+        
+        public function delete_connection_for_single_image($entry_id, $image_id){
+		$data = array("active" => 0);
+		$this->db->where(array("entry_id" => $entry_id, "image_id" => $image_id));
+		$this->db->update('join_entries_images', $data);
+	}
 }
 /* End of file image_model.php */
 /* Location: ./system/application/models/image_model.php */

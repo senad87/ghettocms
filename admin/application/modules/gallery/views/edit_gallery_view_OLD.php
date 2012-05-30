@@ -1,3 +1,5 @@
+sadasdsads
+
 <div class="headcont">
 <script type="text/javascript" src="<?php echo base_url(); ?>application/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
@@ -7,13 +9,13 @@
 			filebrowserBrowseUrl: '<?php echo base_url(); ?>application/filemanager/index.html'} );
 	};
 </script>
-	<h1 class="heading">Edit Story</h1>
-<?php echo modules::run('toolbar', 'story_title', 'story', array('save', 'cancel')); ?>
+	<h1 class="heading">Edit gallery</h1>
+<?php echo modules::run('toolbar', 'gallery_title', 'gallery', array('save', 'cancel')); ?>
 	<div class="clear"></div>
 </div>
 <div class="container">
 <div style="display:none" id="message"></div>
-<?php echo form_open_multipart('story/edit_post/', array('id'=>'story_form'));?>
+<?php echo form_open_multipart('gallery/edit_post/', array('id'=>'gallery_form'));?>
 	
 	<div class="right-panel">
 	<h5>Choose category:</h5>
@@ -38,10 +40,10 @@
 		<label for="title"><strong>Title:</strong></label><br />
 		<input class="lform2 required"  type="text" name="title" size="50" value="<?php echo $entry->title; ?>"><br />
 		<label for="headline"><strong>Headline:</strong></label><br />
-		<input class="lform2" style="width: 700px;" type="text" name="headline" size="50" value="<?php echo $story->headline; ?>"><br />
+		<input class="lform2" style="width: 700px;" type="text" name="headline" size="50" value="<?php echo $gallery->headline; ?>"><br />
 		<input  type="hidden" name="entry_id" value="<?php echo $entry_id; ?>"><br />
 		<label for="lead"><strong>Lead:</strong></label><br />
-		<textarea class="lform2-textarea required" style="width: 700px;" name="lead" cols="50" rows="5"><?php echo $story->lead; ?></textarea><br />
+		<textarea class="lform2-textarea required" style="width: 700px;" name="lead" cols="50" rows="5"><?php echo $gallery->lead; ?></textarea><br />
 		<label for="title"><strong>Activation Date:</strong></label><br />
 		<input class="lform2" style="width: 150px;" id="datepicker" type="text" name="creation_date" size="20" value="<?php echo $modified_date; ?>"><br />
 		<?php if(isset($thumb_image) && $thumb_image[0]->id > 0){ ?>
@@ -60,7 +62,7 @@
 			<input type="file" name="image_file" size="30"><br />
 		<?php } ?>
 		<label for="body"><strong>Body:</strong></label><br />
-		<textarea class="lform2-textarea" style="width: 700px;" name="editor1" cols="20" rows="10"><?php echo $story->body; ?></textarea><br />
+		<textarea class="lform2-textarea" style="width: 700px;" name="editor1" cols="20" rows="10"><?php echo $gallery->body; ?></textarea><br />
 		<div class="tag-filters">
 		<?php if(count($topics) > 0) { ?>
 		  <?php 
@@ -82,7 +84,7 @@
 		  <?php $i++; } ?>
         <?php } ?>
         </div>
-	<input type="hidden" name="story_id" value="<?php echo $story->id; ?>">
+	<input type="hidden" name="gallery_id" value="<?php echo $gallery->id; ?>">
 	</div><!--end of left-panel-->
 	<div class="clear"></div>
 	</form>
@@ -97,9 +99,5 @@ $('#btnRemovePhoto').click(function ()
 	$("#upload_photo").removeAttr("style");
 	$("#thumb_image").empty();
 });
-</script>
-
-<?php echo modules::run('gallery/galleryDialog'); ?>
-
-
+</script>   
 </html>
