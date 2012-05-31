@@ -20,7 +20,8 @@ CKEDITOR.plugins.add( 'gallery',
 		editor.ui.addButton( 'Gallery',
 			{
 				label : 'Add Gallery',
-				command : pluginName
+				command : pluginName,
+                                icon: this.path + 'images/gallery_icon.jpg'
 			});
 	}
 } );

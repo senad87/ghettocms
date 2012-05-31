@@ -7,6 +7,11 @@ body, input, textarea, select {
 	/*background-color: #efefef;*/
 }
 
+.body-home {
+    background: url('../images/ghettoback.png') no-repeat black;
+    background-position: 719px 372px;
+}
+
 button::-moz-focus-inner,
 input[type="reset"]::-moz-focus-inner,
 input[type="button"]::-moz-focus-inner,
@@ -61,7 +66,7 @@ a:hover  {
 
 .menu {
 	list-style: none;
-	margin: 0;
+	margin: 0 0 0 107px;
 	padding: 0;
 	height: 31px;
 	line-height: 31px;
@@ -834,3 +839,13 @@ ul#files li img{ max-width:180px; max-height:150px; }
 }
 
 /*** senad newsletter END ***/
+
+#logo {
+    height: 29px;
+    width: 108px;
+    margin-left: 10px;
+    margin-top: 2px;
+    position: absolute;
+    
+    background: url('../images/ghetto_admin.png') no-repeat;
+}

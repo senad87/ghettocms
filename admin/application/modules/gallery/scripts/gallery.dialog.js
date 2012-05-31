@@ -12,10 +12,10 @@ $(document).ready(function(){
                                     
                                     $.ajax({
                                         type: 'post',
-                                        url: '<?php echo base_url(); ?>gallery/getFirstImage/',
+                                        url: config.base_url+'gallery/getFirstImage/',
                                         data: { gallery_id: galleryId },
                                         success: function(response) {
-                                            CKEDITOR.instances.editor1.insertHtml("<div class='gallery' id='gallery-"+galleryId+"'><img src='<?php echo root_url(); ?>"+response.image_path+"' /></div>");
+                                            CKEDITOR.instances.editor1.insertHtml("<div class='gallery' id='gallery-"+galleryId+"'><img src='"+config.frontend_url+response.image_path+"' /></div>");
                                         }
                                         });
                                     $(this).dialog( "close" );
