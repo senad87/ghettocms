@@ -8,8 +8,8 @@
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.idTabs.min.js"></script>
 </head>
 <body>
-<div class="menu-top">
-</div>
+<!--<div class="menu-top">
+</div>-->
 <div class="body-wrapper">
         <div class="content-bg">
 	        <div class="content">

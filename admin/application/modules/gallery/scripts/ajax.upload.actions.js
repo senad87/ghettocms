@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 
 
-                        $("#foo").load(config.base_url+"gallery/script/", {id: id, image: file });
+                        //$("#foo").load(config.base_url+"gallery/script/", {id: id, image: file });
                 }
         });
 

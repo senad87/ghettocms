@@ -38,7 +38,9 @@ class Gallery extends MX_Controller {
 	 * @param int $offset used for pagination
 	 */
 	public function index($order="id-desc", $offset=0){
-	
+                //echo "<pre>";
+                //print_r($this->session->userdata('images'));
+                //echo "</pre>";
 		$data['offset'] = $offset;
 		$order_array = explode('-', $order);
 		$data['orderColumn'] = $order_array[0];
@@ -260,7 +262,7 @@ class Gallery extends MX_Controller {
 	 *
 	 */
 	public function edit($entry_id, $message_id = 0){
-
+                $this->session->unset_userdata('images');
 	        $entry = $this->Entry_model->getEntryByID($entry_id);
 	        $data['entry'] = $entry;
 	        $gallery = $this->Gallery_model->get_gallery_by_id($entry->type_id);
@@ -576,22 +578,7 @@ class Gallery extends MX_Controller {
         
         
         
-        ///galerri part
-        function loadEdit(){
-		$ids = $this->input->post('ids');
-		if($ids != ""){
-                    $data['ids'] = implode(',', $ids);
-                    $images = array();
-                    foreach($ids as $id){
-                            $images[] = $this->Images_model->getImage($id);
-                    }
-                    $data['images'] = $images;
-                    $this->load->view('loadEdit_view', $data);
-		}
-		
-		
-		
-	}
+        
 	
 	
 	public function upload(){
@@ -621,7 +608,16 @@ class Gallery extends MX_Controller {
 			echo "file_exists";
 		
 		}
-                //print_r(getimagesize($file));
+                
+               /* $dimensions = $this->Image_model->get_other_dimensions();
+                foreach($dimensions as $dimension){
+                    $copy_name = $dimension->width."x".$dimension->height."_".$file_name;
+                    $copy_file_path = $images_dir."".$copy_name;
+                    $this->resize_poster_photo($file_path, $dimension->width, $dimension->height, $copy_name);
+                    $copy_image_id = $this->Image_model->insert_new($copy_name, $copy_file_path, $image_id, 1, $dimension->id);
+                    $this->Image_model->connect_with_entry($entry_id, $copy_image_id);
+                }
+                  */      
 	}
 	
 	
@@ -641,13 +637,57 @@ class Gallery extends MX_Controller {
 		//$data['image'] = $this->input->post('image');
 		//unlink("upload_img/".$data['image']);
 	}
+        
+        ///galerri part
+        function loadEdit(){
+		$ids = $this->input->post('ids');
+                $sessionImages = $this->session->userdata('images');
+		if($ids != ""){
+                    $data['ids'] = implode(',', $ids);
+                    $images = array();
+                    foreach($ids as $id){
+                        $image = $this->Images_model->getImage($id);
+                        if($image){
+                            $images[] = (array)$image;//cast object to array
+                        }elseif($sessionImages){
+                            if(array_key_exists($id, $sessionImages)){
+                                $images[] = $sessionImages[$id];
+                            }
+                        }    
+                    }
+
+                    $data['images'] = $images;
+                    $this->load->view('loadEdit_view', $data);
+		}
+
+	}
 	
 	public function update(){
 		$data['id'] = $this->input->post('id');
 		$data['title'] = $this->input->post('title');
-		$data['tags'] = $this->input->post('tags');
-		$this->Images_model->updateImage($data['id'], $data['title'], $data['tags']);
+		$data['lead'] = $this->input->post('lead');
+                $image = $this->Images_model->getImage($data['id']);
+                if($image){
+                    $this->Images_model->updateImage($data['id'], $data['title'], $data['lead']);
+                }else{
+                    $this->updateSessionImage($data['id'], $data['title'], $data['lead']);
+                }
+		
 	}
+        
+        private function updateSessionImage($id, $title, $lead){
+            //sleep(5);
+            $image = array('id' => $id, 'title' => $title, 'lead' => $lead);
+            $presentImages = $this->session->userdata('images');
+            if($presentImages){
+                $presentImages[$id] = $image;
+           }else{
+                $presentImages = array($id =>$image);
+           }
+            
+            $this->session->set_userdata('images', $presentImages);
+
+        }
 	
 	public function open(){
 		$id = $this->uri->segment(3);

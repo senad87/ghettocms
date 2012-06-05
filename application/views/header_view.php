@@ -2,9 +2,12 @@
 <head>
 <title>Template</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="<?php echo base_url(); ?>application/views/css/styles.css" rel="stylesheet" type="text/css"
+<link href="<?php echo base_url(); ?>application/views/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/config.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/jquery1.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/jqueryslidemenu.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>application/modules/gallery/scripts/gallery.include.js"></script>
+
 </head>
 <body>
 <!-- start container -->

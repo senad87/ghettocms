@@ -24,7 +24,9 @@
 <!--  <div class="header">
 </div>-->
 <div class="menubar">
-<div id="logo"> </div>
+<a target="_blank" href="<?php echo root_url(); ?>" >
+    <div id="logo"> </div>
+</a>
 <div class="userbox"> 
 <?php if ($this->session->userdata('username')){ ?>
 	<?php echo $this->session->userdata('username'); ?> | <a href="<?php echo base_url(); ?>access/logout/">Logout</a>&nbsp;&nbsp;&nbsp;&nbsp;

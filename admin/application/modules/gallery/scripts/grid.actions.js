@@ -24,13 +24,22 @@ $(document).ready(function(){
         });
     });
 
-    $("#update").live('click',function(){
+    $("#update").live('click',function(e){
+        e.preventDefault();
         var title = $("#title").val();
-        var tags = $("#tags").val();
+        var lead = $("#lead").val();
+        //console.log(lead);
         var ids = $("#ids").attr('value').split(',');
 
         $.each(ids, function(index, value){
-            $.post(config.base_url+"gallery/update/", {id: value, title: title, tags: tags});
+            $.ajax({
+                url: config.base_url+"gallery/update/",
+                type: 'post',
+                data: {id: value, title: title, lead: lead},
+                async: false
+            });
+            
+            //$.post(config.base_url+"gallery/update/", {id: value, title: title, lead: lead});
         });
     });
 });

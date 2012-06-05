@@ -50,12 +50,12 @@
                     <?php }  ?>
                 </ol>
             </div>
-            <div style="width: 380px; float: right;">
+            <div style="width: 380px;">
                 <div id="edit"><!-- space for loading --></div>
                 <br />
                 <div id="selektovano"></div>
                 <br />
-                <div id="foo" ></div>
+                <!--<div id="foo" ></div>-->
             </div>
         </div>	
         <div class="tag-filters">

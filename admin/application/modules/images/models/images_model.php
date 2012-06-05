@@ -37,8 +37,14 @@ class Images_model extends CI_Model {
 	
 	function getImage($id){
 		$sql = "SELECT * FROM images WHERE id=?";
-		$query = $this->db->query($sql, array($id));	
-		return $query->first_row();
+		$query = $this->db->query($sql, array($id));
+                $result = $query->first_row();
+                if(!empty($result)){
+                    return $result;
+                }else{
+                    return false;
+                }
+		//return $query->first_row();
 	}
 	
 	public function deleteImage($id){
@@ -47,9 +53,9 @@ class Images_model extends CI_Model {
 		return true;
 	}
 	
-	public function updateImage($id, $title, $tags){
-		$sql = "UPDATE images SET title=?, tags=? WHERE id=?";
-		$query = $this->db->query($sql, array($title, $tags, $id));
+	public function updateImage($id, $title, $lead){
+		$sql = "UPDATE images SET title=?, lead=? WHERE id=?";
+		$query = $this->db->query($sql, array($title, $lead, $id));
 		return true;
 	}
 	
