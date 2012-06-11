@@ -5,20 +5,26 @@
 <title>ModularCMS</title>
 <link href="<?php echo base_url();?>application/views/css/style.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url();?>application/views/css/smoothness/jquery-ui.custom.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url();?>application/views/css/colorbox.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="<?php echo base_url();?>application/style/js/config.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.min.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/ajaxupload.3.5.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/scripts/custom.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/style/js/custom.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.colorbox-min.js" ></script>
 	<script>
 	$(function() {
 		$( "#tabs" ).tabs();
 	});
 	</script>
 </head>
-<body>
+<body <?php echo current_url()==base_url()?'class="body-home"':''; ?> >
 <!--  <div class="header">
 </div>-->
 <div class="menubar">
+<div id="logo"> </div>
 <div class="userbox"> 
 <?php if ($this->session->userdata('username')){ ?>
 	<?php echo $this->session->userdata('username'); ?> | <a href="<?php echo base_url(); ?>access/logout/">Logout</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -38,7 +44,14 @@
         </ul>
         
         </li>
-	<?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
+        
+        <li><a class="hide" <?php if (current_url() == base_url()."story"){ ?>id="current"<?php } ?> href="javascript:;">Content</a>
+        	<ul>
+        
+        
+        
+        
+     <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
 	<li><a class="hide" <?php if (current_url() == base_url()."story"){ ?>id="current"<?php } ?> href="javascript:;">Stories</a>
                 <ul>
                 	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
@@ -71,7 +84,32 @@
                    	</li>
                </ul>
         </li>
-        <?php } ?>
+        <?php } ?>   
+        
+        
+ <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
+	<li><a class="hide" <?php if (current_url() == base_url()."gallery"){ ?>id="current"<?php } ?> href="javascript:;">Galleries</a>
+                <ul>
+                	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>gallery/createNew/">New gallery</a>
+                	</li>
+                	<?php } ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>gallery">Manage</a>
+                	</li>
+        	       	<li>
+        	       		<a href="<?php echo base_url(); ?>gallery/trash/">Trash</a>
+                   	</li>
+               </ul>
+        </li>
+        <?php } ?>       
+        
+        
+        	</ul>
+        </li>
+        
+	
       	<li><a href="<?php echo base_url();?>comments/" >Comments</a></li>
         <?php if(in_array(5, $this->session->userdata('user_privileges'))){ ?>
         <li><a <?php if (current_url() == base_url()."category"){ ?>id="current"<?php } ?> href="<?php echo base_url(); ?>category">Categories</a></li>
@@ -123,5 +161,6 @@
         </li>
         <?php } ?>
         <li><a href="<?php echo base_url();?>newsletter/" >Newsletter</a></li>
+        
     </ul> 
 </div>
