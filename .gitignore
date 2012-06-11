@@ -1,0 +1,9 @@
+/nbproject/private/
+/images
+index.php~
+/nbproject
+/admin/application/config/
+admin/application/config/config.php
+admin/application/config/database.php
+application/config/config.php
+application/config/database.php
