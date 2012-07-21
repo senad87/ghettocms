@@ -2,4 +2,5 @@
 /images
 index.php~
 /nbproject
+*~
 #/admin/application/config/
