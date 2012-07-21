@@ -3,7 +3,7 @@
 index.php
 /nbproject
 *~
-#/admin/application/helpers/paths_helper.php
-#admin/application/style/js/config.js
+/admin/application/helpers/paths_helper.php
+admin/application/style/js/config.js
 application/views/js/config.js
 #/admin/application/config/
