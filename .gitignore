@@ -1,8 +1,6 @@
 /nbproject/private/
 /images
-index.php~
-#/admin/index.php
-index.php
+#index.php
 /nbproject
 *~
 /admin/application/helpers/paths_helper.php
