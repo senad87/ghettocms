@@ -39,7 +39,7 @@ class MX_Loader extends CI_Loader
 	
 	public $_ci_plugins = array();
 	public $_ci_cached_vars = array();
-	public $_ci_model_paths = array();
+	public $_ci_model_paths = array();//senad added this property
         
 	/** Initialize the loader variables **/
 	public function initialize($controller = NULL) {
