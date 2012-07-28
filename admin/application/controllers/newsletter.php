@@ -9,10 +9,10 @@ class Newsletter extends CI_Controller {
 		$this->load->library('form_validation');
 		//$this->load->model('Comments_model');
 		$this->load->model('Menu_model');
-		$this->load->model('Story_model');
+		$this->load->model('story/Story_model');
 		$this->load->model('Entry_model');
-		$this->load->model('Category_model');
-		$this->load->model('Image_model');
+		$this->load->model('category/Category_model');
+		$this->load->model('image/Image_model');
 		$this->load->model('Newsletter_model');
 		$this->load->library('Jquery_pagination');
 		$this->home_id = $this->Menu_model->get_home_id();
@@ -29,7 +29,8 @@ class Newsletter extends CI_Controller {
 		}
 		
 		$data['home_id'] = $this->Menu_model->get_home_id();
-					$total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1);
+					//$total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1);
+                                        $total_rows = $this->Entry_model->get_number_of_published_entries_by_type(1);
 					$per_page = "20";
 					/*** load pagination ***/
 					//$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
@@ -62,7 +63,7 @@ class Newsletter extends CI_Controller {
 					$this->jquery_pagination->initialize($config);
 					$data['pagination'] = $this->jquery_pagination->create_links();
 					/*** end of pagination ***/
-					$entries = $this->Entry_model->get_undeleted_entries(1, $per_page, $offset = 0);
+					$entries = $this->Entry_model->getUndeleted(1, $per_page, $offset = 0);
 					foreach($entries as $entry){
 						$story = $this->Story_model->get_story_by_id($entry->type_id);
 						$stories_array_of_objects[] = $story[0];		
@@ -77,7 +78,7 @@ class Newsletter extends CI_Controller {
 	
 	public function stories_ajax($offset = 0){
 		//$data['home_id'] = $this->Menu_model->get_home_id();
-		$total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1);
+		$total_rows = $this->Entry_model->get_number_of_published_entries_by_type(1);
 		$per_page = "20";
 		/*** load pagination ***/
 		//$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
@@ -112,7 +113,7 @@ class Newsletter extends CI_Controller {
 					$this->jquery_pagination->initialize($config);
 					$data['pagination'] = $this->jquery_pagination->create_links();
 					/*** end of pagination ***/
-					$entries = $this->Entry_model->get_undeleted_entries(1, $per_page, $offset);
+					$entries = $this->Entry_model->getUndeleted(1, $per_page, $offset);
 					foreach($entries as $entry){
 						$story = $this->Story_model->get_story_by_id($entry->type_id);
 						$stories_array_of_objects[] = $story[0];		

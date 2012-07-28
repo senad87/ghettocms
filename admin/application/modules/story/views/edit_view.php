@@ -97,5 +97,9 @@ $('#btnRemovePhoto').click(function ()
 	$("#upload_photo").removeAttr("style");
 	$("#thumb_image").empty();
 });
-</script>   
+</script>
+
+<?php echo modules::run('gallery/galleryDialog'); ?>
+
+
 </html>

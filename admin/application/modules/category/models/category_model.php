@@ -61,8 +61,11 @@ class Category_model extends CI_Model {
 		$this->db->select('name');
 		$query = $this->db->get_where('categories',array('id'=>$id));
 		$name = $query->first_row();
-		//$category = $query->first_row();
-		return $name->name;
+		if($name){
+                    return $name->name;
+                }else{
+                    return '';
+                }
 	}
 
 	public function update_category_data($id, $name, $menu_id, $parent_id, $description){

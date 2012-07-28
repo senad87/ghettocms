@@ -27,6 +27,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 		$sufix = str_replace(" ", "_", $string).".html";
 		return $sufix;
 	}
+        
+        
 	
 	/**
 	 * Cut string to n symbols and add delim but do not break words.

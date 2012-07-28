@@ -1,9 +1,9 @@
 /nbproject/private/
 /images
-index.php~
+#index.php
 /nbproject
-/admin/application/config/
-admin/application/config/config.php
-admin/application/config/database.php
-application/config/config.php
-application/config/database.php
+*~
+#/admin/application/helpers/paths_helper.php
+#admin/application/style/js/config.js
+application/views/js/config.js
+#/admin/application/config/

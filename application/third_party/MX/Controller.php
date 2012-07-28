@@ -43,17 +43,35 @@ class MX_Controller
 	public function __construct() 
 	{
 		$class = str_replace(CI::$APP->config->item('controller_suffix'), '', get_class($this));
-		log_message('debug', $class." MX_Controller Initialized");	
+		log_message('debug', $class." MX_Controller Initialized");
+		Modules::$registry[strtolower($class)] = $this;	
 		
 		/* copy a loader instance and initialize */
 		$this->load = clone load_class('Loader');
-		$this->load->_init();	
+		$this->load->initialize($this);	
 		
 		/* autoload module items */
 		$this->load->_autoloader($this->autoload);
 	}
 	
 	public function __get($class) {
+//                echo "<pre>";
+//                print_r(CI::$APP->_ci_model_paths);
+//                echo "</pre>";
+                //die;
 		return CI::$APP->$class;
 	}
+        
+        //senad
+        
+//        public function __get($class) {
+//            //return CI::$APP->$class;
+//            
+//            $refObj  = new ReflectionObject( CI );
+//            $refProp = $refObj->getProperty( $class );
+//            // Gather access to this properties value, although it is private
+//            $refProp->setAccessible( true );
+//            return $refProp->getValue( CI );
+//       }
+        
 }

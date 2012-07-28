@@ -21,6 +21,8 @@ class Story extends MX_Controller {
 		$this->load->model('topic/Topic_model');
 		$this->load->model('tag/Tag_model');
 		$this->load->model('Image_model');
+                $this->load->model('gallery/Gallery_model');
+                $this->load->library('Jquery_pagination');
 		$this->lang->load('messages', 'english');
 		$this->language_id = $this->session->userdata('language_id');
 		check_login();
@@ -155,6 +157,7 @@ class Story extends MX_Controller {
 			$data['tags'] = $tags;
 			/*** end of topic initialization ***/
         	}
+                      
 		$this->load->view("header_view");
 		$this->load->view('new_view', $data);
 		

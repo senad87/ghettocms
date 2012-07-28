@@ -4,9 +4,11 @@
 	window.onload = function()
 	{
 		
-		CKEDITOR.replace( 'editor1',{skin : 'v2',
+                var currentInstance = CKEDITOR.replace( 'editor1', {skin : 'v2',
 			filebrowserBrowseUrl: '<?php echo base_url(); ?>application/filemanager/index.html'} );
+
 	};
+
 </script>
 <h1 class="heading">Add New Story</h1>
 <?php echo modules::run('toolbar', 'story_title', 'story', array('save', 'cancel')); ?>
@@ -99,4 +101,8 @@ $(document).ready(function(){
 	}
 });	
 </script>
+
+    <?php echo modules::run('gallery/galleryDialog'); ?>
+
+
 </html>

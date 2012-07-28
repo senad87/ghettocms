@@ -16,9 +16,9 @@ class Module extends CI_Controller {
 	        $this->load->helper('directory');
 	        $this->load->library('form_validation');
 	        $this->load->model('Menu_model');
-	        $this->load->model('Category_model');
+	        $this->load->model('category/Category_model');
 	        $this->load->model('Entry_model');
-	        $this->load->model('Story_model');
+	        $this->load->model('story/Story_model');
 	        $this->load->model('Client_model');
 	        $this->load->model('Module_model');
 	        $this->load->model('Module_instance_model');

@@ -4,9 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ProGame.rs</title>
 <link href="<?php echo base_url();?>application/views/css/global.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/config.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-1.6.1.js"></script>
-
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.idTabs.min.js"></script>
+
+<script src="<?php echo base_url(); ?>application/modules/gallery/scripts/galleria-1.2.7.js"></script>
+<link href="<?php echo base_url(); ?>application/modules/gallery/themes/progamers/galleria.classic.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    // Load the classic theme
+    Galleria.loadTheme('<?php echo base_url(); ?>application/modules/gallery/themes/progamers/galleria.classic.js');
+</script>
+<script type="text/javascript" src="<?php echo base_url(); ?>application/modules/gallery/scripts/gallery.include.js"></script>
+
 <!--<script src="js/cufon-yui.js" type="text/javascript"></script>
 		<script src="js/Euphemia_400.font.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -16,11 +25,11 @@
 </head>
 
 <body>
-<div class="menu-top">
-    <div class="width1124">
+ <!--<div class="menu-top">
+   <div class="width1124">
     ss
     </div>
-</div>
+</div>-->
 <div class="body-wrapper">
         <div class="content-bg">
 	        <div class="content">
