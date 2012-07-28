@@ -38,9 +38,9 @@ class Gallery extends MX_Controller {
 	 * @param int $offset used for pagination
 	 */
 	public function index($order="id-desc", $offset=0){
-                //echo "<pre>";
-                //print_r($this->session->userdata('images'));
-                //echo "</pre>";
+//                echo "<pre>";
+//                print_r($this->session->userdata('images'));
+//                echo "</pre>";
 		$data['offset'] = $offset;
 		$order_array = explode('-', $order);
 		$data['orderColumn'] = $order_array[0];
@@ -139,7 +139,7 @@ class Gallery extends MX_Controller {
 	 *
 	 */
 	public function createNew(){
-
+                $this->session->unset_userdata('images');
 		$root_categories = $this->Category_model->get_category_kids(0, $this->language_id);
 		$data['root_categories'] = $root_categories;
 		$image_dimension = $this->Image_model->get_dimensions();		
@@ -192,22 +192,40 @@ class Gallery extends MX_Controller {
 	        $title = $this->input->post('title');
 	        $lead = $this->input->post('lead');
 	        $creation_date = date('Y-m-d G:i:s');
-                $imagepaths = $this->input->post('images');
+                $images = $this->input->post('images');
+                
+                
+                
+                
 	        
 	        //$creation_date_array = explode("/", $creation_date);
 	        //$creation_date = $creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]." ".date("G:i:s");
 	        
-	        $body = $this->input->post('editor1');
+	        //$body = $this->input->post('editor1');
 
 		$admin_user_id = $this->session->userdata('id');
 		$entry_id = $this->Gallery_model->insert($title, $lead, $category_id, $tags_id, $this->language_id, $creation_date, $admin_user_id);
 		
                 
                 //galleri images insert(they are already uploaded)
-                foreach($imagepaths as $imagepath){
-                    $image_id = $this->Image_model->insert_new('', $imagepath);
+                foreach($images as $image){
+                    $img_data = explode("|", $image);
+                    $temp_id = $img_data[0];
+                    $imagepath = $img_data[1];
+                    //take images info stored in session
+                    $img_tmp_data = $this->session->userdata('images'); 
+//                    $image_title = $img_tmp_data[$temp_id]['title']; 
+//                    $image_lead = $img_tmp_data[$temp_id]['lead'];
+                    $image_title = isset($img_tmp_data[$temp_id]['title']) ? $img_tmp_data[$temp_id]['title'] : ''; 
+                    $image_lead = isset($img_tmp_data[$temp_id]['lead']) ? $img_tmp_data[$temp_id]['lead'] : '';
+                    
+                    //$image_id = $this->Image_model->insert_new('', $imagepath);
+                    $image_id = $this->Image_model->insert_new($image_title, $image_lead, $imagepath);
                     $this->Image_model->connect_with_entry($entry_id, $image_id);
                 }
+                
+                //removes images info from session
+                $this->session->unset_userdata('images');
 		   
 	        /*** file uplaod cofniguration ***/
 		$uplaod_folder = '../images/';
@@ -379,7 +397,7 @@ class Gallery extends MX_Controller {
                 //u slucaju da je user izbrise sliku koja je bila dodata pre pocetka editovanja(prilokom kreiranja) galerije
                 $posted_gallery_images = array();
                 //$added_images_paths sadrzi putanje slika koje su dodate galleriji u toku editovanja
-                $added_images_paths = array();
+                $added_images_data = array();
                 //$image_val is id(for image already added to gallery) or image path(for image added during editing)
                 if(!empty($images)){
                     foreach($images as $image_val){
@@ -387,8 +405,8 @@ class Gallery extends MX_Controller {
                             //slike koje su vec dodate u galeriju, za njih $image_val ima vrednost id-ja
                             $posted_gallery_images[] = $image_val;
                         }else{
-                            //slike koje su dodate prilikom editovanja, za njih dobijam image path to su nove slike
-                            $added_images_paths[] = $image_val;
+                            //slike koje su dodate prilikom editovanja, za njih dobijam string 'temp_id|image_path',  to su nove slike
+                            $added_images_data[] = $image_val;
                         } 
                     }
                 }
@@ -405,8 +423,15 @@ class Gallery extends MX_Controller {
                 }
                //die;
                 //new images 
-                foreach($added_images_paths as $path){
-                    $image_id = $this->Image_model->insert_new('', $path);
+                foreach($added_images_data as $image){
+                    $img_data = explode("|", $image);
+                    $temp_id = $img_data[0];
+                    $imagepath = $img_data[1];
+                    //take images info stored in session
+                    $img_tmp_data = $this->session->userdata('images'); 
+                    $image_title = isset($img_tmp_data[$temp_id]['title']) ? $img_tmp_data[$temp_id]['title'] : ''; 
+                    $image_lead = isset($img_tmp_data[$temp_id]['lead']) ? $img_tmp_data[$temp_id]['lead'] : ''; 
+                    $image_id = $this->Image_model->insert_new($image_title, $image_lead, $imagepath);
                     $this->Image_model->connect_with_entry($entry_id, $image_id);
                 }
 
@@ -686,7 +711,6 @@ class Gallery extends MX_Controller {
            }
             
             $this->session->set_userdata('images', $presentImages);
-
         }
 	
 	public function open(){

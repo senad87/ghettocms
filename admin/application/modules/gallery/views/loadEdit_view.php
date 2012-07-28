@@ -1,5 +1,5 @@
 Title:
-<input id="title" name="title" type="text" value="<?php if(count($images) == 1 && $images[0]['title']){ echo $images[0]['title'];} ?>" /><br />
+<input id="title" name="image-title" type="text" value="<?php if(count($images) == 1 && $images[0]['title']){ echo $images[0]['title'];} ?>" /><br />
 
 
 Lead:

@@ -9,18 +9,19 @@ class Image_model extends CI_Model {
         parent::__construct();
 	}
 	
-	public function insert_new($title, $path, $source_image_id = 0, $poster_photo = 1, $dimension_id = 1){
+	public function insert_new($title='', $lead='', $path, $source_image_id = 0, $poster_photo = 1, $dimension_id = 1){
 		$creation_date = date('Y-m-d G:i:s');
 		$modified_date = date('Y-m-d G:i:s');
 		$data = array(
                        'title' => $title,
+                       'lead' => $lead,
                        'path' => $path,
-        			   'source_image_id' => $source_image_id,	
+                       'source_image_id' => $source_image_id,	
                        'poster_photo' => $poster_photo,
-        			   'dimension_id' => $dimension_id,
-        			   'creation_date' => $creation_date,
+                       'dimension_id' => $dimension_id,
+                       'creation_date' => $creation_date,
                        'modified_date' =>  $modified_date
-	                    );
+	               );
 	                    
         $this->db->insert('images', $data); 
         return $this->db->insert_id();

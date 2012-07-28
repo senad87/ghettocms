@@ -32,7 +32,8 @@ $(document).ready(function(){
                                 $('#selectable').append(
                                 '<li class="ui-state-default modal" id="'+response.id+'"><img width="209" height="135" src="'+config.frontend_url+response.filepath+'" alt="" />'
                                 +'</li>');
-                                $('#hidden-inputs').append("<input class='"+response.id+"' type='hidden' name='images[]' value='"+response.filepath+"' >");
+                                //$('#hidden-inputs').append("<input class='"+response.id+"' type='hidden' name='images[]' value='"+response.filepath+"' >");
+                                $('#hidden-inputs').append("<input class='"+response.id+"' type='hidden' name='images[]' value='"+response.id+"|"+response.filepath+"' >");
                         }
 
 
