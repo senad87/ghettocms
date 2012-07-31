@@ -46,7 +46,9 @@
                 <!-- images grid -->
                 <ol id="selectable" class="ui-selectable">
                     <?php  foreach($images as $image){ ?>
-                        <li id="<?php echo $image->id;?>" class="ui-state-default modal" ><img src="<?php echo root_url().$image->path; ?>" width="209" height="135" /></li>	
+                        <li id="<?php echo $image->id;?>" class="ui-state-default modal" >
+                            <div class="handle"><span class="ui-icon ui-icon-arrow-4"></span></div>    
+                        <img src="<?php echo root_url().$image->path; ?>" width="209" height="135" /></li>	
                     <?php }  ?>
                 </ol>
             </div>
