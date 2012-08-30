@@ -223,14 +223,14 @@ class Story extends MX_Controller {
 			$file_name = $data['upload_data']['file_name'];
 			$file_path = $images_dir."".$data['upload_data']['file_name'];
 				
-		        $image_id = $this->Image_model->insert_new($file_name, $file_path);
+		        $image_id = $this->Image_model->insert_new($file_name, '', $file_path);
 		        $this->Image_model->connect_with_entry($entry_id, $image_id);
 			$dimensions = $this->Image_model->get_other_dimensions();
 		        foreach($dimensions as $dimension){
 		        	$copy_name = $dimension->width."x".$dimension->height."_".$file_name;
 		        	$copy_file_path = $images_dir."".$copy_name;
 		        	$this->resize_poster_photo($file_path, $dimension->width, $dimension->height, $copy_name);
-		        	$copy_image_id = $this->Image_model->insert_new($copy_name, $copy_file_path, $image_id, 1, $dimension->id);
+		        	$copy_image_id = $this->Image_model->insert_new($copy_name, '', $copy_file_path, $image_id, 1, $dimension->id);
 		        	$this->Image_model->connect_with_entry($entry_id, $copy_image_id);
 		        }
 		        //connect image with entrie
@@ -396,14 +396,14 @@ class Story extends MX_Controller {
 				//disconnect entry from all images
 				$this->Image_model->delete_connection($entry_id);
 				//Insert new image
-				$new_image_id = $this->Image_model->insert_new($file_name, $file_path);
+				$new_image_id = $this->Image_model->insert_new($file_name, '', $file_path);
 				$this->Image_model->connect_with_entry($entry_id, $new_image_id);
 				$dimensions = $this->Image_model->get_other_dimensions();
 				foreach($dimensions as $dimension){
 					$copy_name = $dimension->width."x".$dimension->height."_".$file_name;
 					$copy_file_path = $images_dir."".$copy_name;
 					$this->resize_poster_photo($file_path, $dimension->width, $dimension->height, $copy_name);
-					$copy_image_id = $this->Image_model->insert_new($copy_name, $copy_file_path, $new_image_id, 1, $dimension->id);
+					$copy_image_id = $this->Image_model->insert_new($copy_name, '', $copy_file_path, $new_image_id, 1, $dimension->id);
 			    		//connect entry with new copy
 					$this->Image_model->connect_with_entry($entry_id, $copy_image_id);
 				}    	
