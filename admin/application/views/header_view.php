@@ -7,13 +7,12 @@
 <link href="<?php echo base_url();?>application/views/css/smoothness/jquery-ui.custom.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url();?>application/views/css/colorbox.css" type="text/css" rel="stylesheet" />
 
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/config.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.min.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery-ui.custom.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/ajaxupload.3.5.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/scripts/custom.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/custom.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.colorbox-min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/config.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-ui.custom.min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/ajaxupload.3.5.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/custom.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.colorbox-min.js" ></script>
 	<script>
 	$(function() {
 		$( "#tabs" ).tabs();
