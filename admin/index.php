@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+	define('ENVIRONMENT', 'damir');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -32,7 +32,8 @@ if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
 	{
-		case 'development':
+		case 'damir':
+                case 'development':
 			error_reporting(E_ALL);
 		break;
 	
