@@ -7,13 +7,15 @@ class Module extends MX_Controller {
 	function __construct() {
         // Call the Model constructor
         parent::__construct();
-        $this->load->helper('module');
-        $this->load->helper('login_helper.php');
-        $this->load->helper('xml2array_helper.php');
-        $this->load->helper('menus_tree_helper.php');
-        $this->load->helper('categories_list_helper.php');
-        $this->load->helper('directory');
-        $this->load->library('form_validation');
+          $this->load->helper( array('module', 'login', 'xml2array', 'menus_tree', 'categories_list', 'directory') );
+//        $this->load->helper('module');
+//        $this->load->helper('login_helper.php');
+//        $this->load->helper('xml2array_helper.php');
+//        $this->load->helper('menus_tree_helper.php');
+//        $this->load->helper('categories_list_helper.php');
+//        $this->load->helper('directory');
+        
+        //$this->load->library('form_validation');
         $this->load->model('Menu_model');
         $this->load->model('category/Category_model');
         $this->load->model('Entry_model');
@@ -40,9 +42,9 @@ class Module extends MX_Controller {
         $module = $this->input->post('module');
         //var_dump( "../application/modules/" . $module . "/info.xml" );
         $objDOM = new DOMDocument();
-        $objDOM->load("../application/modules/" . $module . "/info.xml"); //make sure path is correct 
+        $objDOM->load( "../application/modules/" . $module . "/info.xml" ); //make sure path is correct 
         //TODO: This is empty for single_story module, must fix this
-        $params = $objDOM->getElementsByTagName("params");
+        $params = $objDOM->getElementsByTagName( "params" );
         //var_dump( $params );
         // for each params tag, parse the document and get values for
         $data['module'] = $module;
@@ -60,6 +62,7 @@ class Module extends MX_Controller {
                 $data['name'] = $param_item->getAttribute("name");
                 $data['label'] = $param_item->getAttribute("label");
                 $data['cssclass'] = $param_item->getAttribute("cssclass");
+                //pre_dump( $data );
                 //load specific params with specific views for each param type
                 if ($param_item->getAttribute("type") == "select") {
                     $data['options'] = $param_item->getElementsByTagName("option");
@@ -85,11 +88,12 @@ class Module extends MX_Controller {
                     $data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
                     $this->load->view("dialog/menus_view", $data);
                 } elseif ($param_item->getAttribute("type") == "stories") {
-                    //echo 'test';
-                    //get all published and unpublished entries of the sotry type
-                    $total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1, $this->language_id);
+                    //get all published and unpublished entries of the story type
+                    //$total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1, $this->language_id);
+                    $total_rows = $this->Entry_model->countByType(1, $this->language_id);
+                    //pre_dump( $total_rows );
                     $per_page = "10";
-                    /*                     * * load pagination ** */
+                    /** * load pagination ** */
                     //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
                     $config['uri_segment'] = 4;
                     $config['num_links'] = 2;
@@ -118,17 +122,12 @@ class Module extends MX_Controller {
                     $this->jquery_pagination->initialize($config);
                     $data['pagination'] = $this->jquery_pagination->create_links();
                     /*                     * * end of pagination ** */
-                    $entries = $this->Entry_model->get_undeleted_entries(1, $per_page, 0, $this->language_id);
-                    foreach ($entries as $entry) {
-                        $story = $this->Story_model->get_story_by_id($entry->type_id);
-                        $stories_array_of_objects[] = $story[0];
-                    }
-                    $data['stories'] = $stories_array_of_objects;
-                    $this->load->view("modules/dialog/stories_view", $data);
+                    $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, 0, $this->language_id);
+                    $this->load->view("dialog/stories_view", $data);
                 }
                 //TODO: Add menu_tree type
             }
-            $this->load->view("modules/dialog/endof_attributes_group_view", $data);
+            $this->load->view("dialog/endof_attributes_group_view", $data);
         }
     }
 
@@ -205,28 +204,27 @@ class Module extends MX_Controller {
         $this->load->view("modules/position_preview_view", $data);
     }
     
-    public function load_module_by_id(){
-		
-		$module_id = $this->input->post('module_id');
-		$module = $this->input->post('module');
-		$position_id = $this->input->post('position_id');
-		$menu_id = $this->input->post('menu_id');
-		
-		$module_object = $this->Module_model->get_module_by_id($module_id);
-		$data['module_id'] = $module_id;
-		$data['module'] = $module;
-		$data['position_id'] = $position_id;
-		$data['module_title'] = $module_object[0]->title;
-		$data['module_description'] = $module_object[0]->description;
-		$mod_pos_menu = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id);
-		//var_dump($mod_pos_menu);
-		if(count($mod_pos_menu) > 0){
-			$this->Module_model->update_join($menu_id, $position_id, $module_id);
-		}else{
-			$this->Module_model->insert_join($menu_id, $position_id, $module_id);
-		}
-		$this->load->view("modules/position_preview_view", $data);
-	
+    public function load_module_by_id() {
+
+        $module_id = $this->input->post('module_id');
+        $module = $this->input->post('module');
+        $position_id = $this->input->post('position_id');
+        $menu_id = $this->input->post('menu_id');
+
+        $module_object = $this->Module_model->get_module_by_id($module_id);
+        $data['module_id'] = $module_id;
+        $data['module'] = $module;
+        $data['position_id'] = $position_id;
+        $data['module_title'] = $module_object[0]->title;
+        $data['module_description'] = $module_object[0]->description;
+        $mod_pos_menu = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id);
+
+        if (count($mod_pos_menu) > 0) {
+            $this->Module_model->update_join($menu_id, $position_id, $module_id);
+        } else {
+            $this->Module_model->insert_join($menu_id, $position_id, $module_id);
+        }
+        $this->load->view("modules/position_preview_view", $data);
     }
     
     //TODO: create metod submit edited module
@@ -258,8 +256,7 @@ class Module extends MX_Controller {
         $objDOM = new DOMDocument();
         $objDOM->load("../application/modules/" . $module[0]->module . "/info.xml"); //make sure path is correct 
         $params = $objDOM->getElementsByTagName("params");
-
-        // for each params tag, parse the document and get values for
+        //for each params tag, parse the document and get values for
         $data['root_module_name'] = $module[0]->module;
         $data['clients'] = $this->Client_model->get_all_clients();
         //load full menu tree
@@ -298,9 +295,10 @@ class Module extends MX_Controller {
                 } elseif ($param_item->getAttribute("type") == "stories") {
 
                     //get all published and unpublished entries of the sotry type
-                    $total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1);
+                    //$total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1);
+                    $total_rows = $this->Entry_model->countByType(1, $this->language_id);
                     $per_page = "10";
-                    /*                     * * load pagination ** */
+                    /*** load pagination ***/
                     //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
                     $config['uri_segment'] = 4;
                     $config['num_links'] = 2;
@@ -328,44 +326,18 @@ class Module extends MX_Controller {
 
                     $this->jquery_pagination->initialize($config);
                     $data['pagination'] = $this->jquery_pagination->create_links();
-                    /*                     * * end of pagination ** */
-                    $entries = $this->Entry_model->get_undeleted_entries(1, $per_page, 0, $this->language_id);
-                    foreach ($entries as $entry) {
-                        $story = $this->Story_model->get_story_by_id($entry->type_id);
-                        $stories_array_of_objects[] = $story[0];
-                    }
-                    $data['stories'] = $stories_array_of_objects;
-                    $this->load->view("modules/dialog/edit/stories_view", $data);
+                    /*** end of pagination ***/
+                    $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, 0, $this->language_id);
+                    $this->load->view("dialog/edit/stories_view", $data);
                 }
             }
-            $this->load->view("modules/dialog/endof_attributes_group_view", $data);
+            $this->load->view("dialog/endof_attributes_group_view", $data);
         }
     }
 
-    /**
-     * 
-     * Function is load from jQuery .post metod when user submit module update from Replace Module flow
-     */
-//    public function load_replace_module() {
-//        /*
-//         * Parse POST and find name => values for all params
-//         */
-//        $data['params'] = serializePost($_POST);
-//
-//        $data['module_title'] = $this->input->post('module_title');
-//        $data['module_description'] = $this->input->post('module_description');
-//        $data['module'] = $this->input->post('module');
-//        $data['menu_id'] = $this->input->post('menu_id');
-//        $data['position_id'] = $this->input->post('position_id');
-//
-//        $data['module_id'] = $this->Module_model->update($data['module_title'], $data['module_description'], $data['module'], $data['menu_id'], $data['position_id'], $data['params']);
-//        $this->load->view("modules/position_preview_view", $data);
-//    }
-//        
-    
     public function stories_ajax($offset = 0) {
 
-        $total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1);
+        $total_rows = $this->Entry_model->countByType(1, $this->language_id);
         $per_page = "10";
         /*         * * load pagination ** */
         //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
@@ -394,39 +366,26 @@ class Module extends MX_Controller {
         $config['last_tag_open'] = '<li class="last_page">'; //last link open
         $config['last_tag_close'] = '</li>'; //last link close
 
-
-
-
         $this->jquery_pagination->initialize($config);
         $data['pagination'] = $this->jquery_pagination->create_links();
         /*         * * end of pagination ** */
-        $entries = $this->Entry_model->get_undeleted_entries(1, $per_page, $offset, $this->language_id);
-        foreach ($entries as $entry) {
-            $story = $this->Story_model->get_story_by_id($entry->type_id);
-            $stories_array_of_objects[] = $story[0];
-        }
-        $data['stories'] = $stories_array_of_objects;
-        $this->load->view("modules/dialog/stories_view", $data);
+        $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, $offset, $this->language_id);
+//        foreach ($entries as $entry) {
+//            $story = $this->Story_model->get_story_by_id($entry->type_id);
+//            $stories_array_of_objects[] = $story[0];
+//        }
+//        $data['stories'] = $stories_array_of_objects;
+        $this->load->view("dialog/stories_view", $data);
     }
     
     public function stories_ajax_edit($module_id, $offset = 0) {
 
         $module = $this->Module_model->get_module_by_id($module_id);
         $data['module'] = $module;
-        /* extract module instance params from database column params and create array */
-//        $params_data_array = explode(";;", $module[0]->params);
-//        $module_params = array();
-//        foreach ($params_data_array as $params_data) {
-//            $param_data = explode(":=", $params_data);
-//            if ($param_data[0] == "categories") {
-//                $param_data[1] = explode(",", $param_data[1]);
-//                //$module_params[$param_data[0]] = $param_data[1];
-//            }
-//            $module_params[$param_data[0]] = $param_data[1];
-//        }
-        //var_dump($module_params);
-        $data['module_params'] = unseralize( $module[0]->params );
-        $total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1);
+
+        $data['module_params'] = unserialize( $module[0]->params );
+        $total_rows = $this->Entry_model->countByType(1, $this->language_id);
+        //var_dump($total_rows);
         $per_page = "10";
         /*         * * load pagination ** */
         //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
@@ -458,12 +417,9 @@ class Module extends MX_Controller {
         $this->jquery_pagination->initialize($config);
         $data['pagination'] = $this->jquery_pagination->create_links();
         /*         * * end of pagination ** */
-        $entries = $this->Entry_model->get_undeleted_entries(1, $per_page, $offset, $this->language_id);
-        foreach ($entries as $entry) {
-            $story = $this->Story_model->get_story_by_id($entry->type_id);
-            $stories_array_of_objects[] = $story[0];
-        }
-        $data['stories'] = $stories_array_of_objects;
-        $this->load->view("modules/dialog/edit/stories_view", $data);
+        $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, $offset, $this->language_id);
+        //var_dump( $data['entries'] );
+        //die();
+        $this->load->view("dialog/edit/stories_view", $data);
     }
 }

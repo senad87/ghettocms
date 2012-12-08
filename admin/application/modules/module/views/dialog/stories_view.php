@@ -9,8 +9,11 @@
 		</thead>
 		<?php 
 		$i=0;
-		if (isset($stories)){
-		foreach($stories as $story) { ?>
+                //var_dump($entries);
+                //die();
+		if ( isset($entries) ){
+                    
+		foreach( $entries as $story ) { ?>
 			<tr class="rolover" <?php if ($i%2 == 0){ ?> bgcolor="#f3f3f3" <?php } ?>>
 			<td align="right"><?php echo $story->id; ?></td>
 			<td align="center" width="20"><input type="radio" name="story_id" value="<?php echo $story->id; ?>"></td>
@@ -20,7 +23,7 @@
 		$i++;
 		 } ?>
 		 <?php } else { ?>
-    <tr><td colspan="8"><?php echo $no_entries; ?></td></tr>
+                <tr><td colspan="8"><?php echo $no_entries; ?></td></tr>
     <?php } ?>
 		<tfoot>
 			<tr>
