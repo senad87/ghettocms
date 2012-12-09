@@ -1,14 +1,19 @@
-<div>
-<p>
-Module: <?php echo $module; ?><br />
-Module Title: <?php echo $module_title; ?><br />
-Module Description: <?php echo $module_description; ?><br />
-</p>
-<input type="hidden" id="module-id-pos-<?php echo $position_id; ?>" value="<?php echo $module_id; ?>" />
-<input type="hidden" id="module" value="<?php echo $module; ?>" />
-<input type="button" id="<?php echo $position_id; ?>" class="edit-module" value="+ Edit Module Settings" /><br />
-<input type="button" id="<?php echo $position_id; ?>" class="replace-module" value="+ Replace Module" />
-</div>
+<?php if( $hasModule ): ?>
+    <div>
+        <p>
+            Module: <?php echo $module; ?><br />
+            Module Title: <?php echo $module_title; ?><br />
+            Module Description: <?php echo $module_description; ?><br />
+        </p>
+        <input type="hidden" id="module-id-pos-<?php echo $position_id; ?>" value="<?php echo $module_id; ?>" />
+        <input type="hidden" id="module" value="<?php echo $module; ?>" />
+        <input type="button" id="<?php echo $position_id; ?>" class="edit-module" value="+ Edit Module Settings" /><br />
+        <input type="button" id="<?php echo $position_id; ?>" class="replace-module" value="+ Replace Module" />
+    </div>
+<?php else: ?>
+    <div id="position<?php echo $position_id; ?>" class="module-box"><input class="add-module" id="<?php echo $position_id; ?>" type="button" value="+ Add Module" />
+    </div>
+<?php endif; ?>
 <script type="text/javascript">
 $(".replace-module").click(function() {
 		var position_id = $( this ).attr("id");
