@@ -42,9 +42,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'mansson';
-$db['default']['password'] = 'pr0gam3_rs';
-$db['default']['database'] = 'admin_progame_db';
+$db['default']['username'] = 'digitalni';
+$db['default']['password'] = 'signal0101#';
+$db['default']['database'] = 'admin_digitalizacija';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
