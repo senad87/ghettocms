@@ -60,17 +60,17 @@ class Template extends CI_Controller {
 		$name = $this->input->post('name');
 		$num_of_positions = $this->input->post('num_of_positions');
 		//$file_name = $this->input->post('file_name');
-		
+		var_dump( $_FILES['template_file']['type']  );
 		/*** file uplaod cofniguration ***/
 		$config['upload_path'] = '../admin/application/views/templates/betemplates';
-		$config['allowed_types'] = 'html|php';
-		$config['max_size']	= '1000';
+		$config['allowed_types'] = 'php|html|x-php';
+		$config['max_size']	= '10000';
 		$config['overwrite']	= TRUE;
 		$this->load->library('upload', $config);
 		/*** end of file upload configuration ***/
 		//TODO:add form validation
 		//file upload validation	
-		if (!$this->upload->do_upload('template_file'))
+		if ( !$this->upload->do_upload('template_file') )
 		{
 			$error = array('error' => $this->upload->display_errors());
 			$this->load->view("header_view");
@@ -147,6 +147,7 @@ class Template extends CI_Controller {
 		$data['template'] = $template;
 		$data['modules'] = $modules;
 		$data['instances'] = $module_instances;
+                
 		$this->load->view('templates/betemplates/'.$template[0]->file_name, $data);
 		$this->load->view('templates/layout_view.php');	
 	}

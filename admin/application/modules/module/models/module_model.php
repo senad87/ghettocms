@@ -40,6 +40,7 @@ class Module_model extends CI_Model {
 
         $this->db->insert('modules', $data); 
         $module_id = $this->db->insert_id();
+        var_dump( $module_id );
         $this->db->insert('join_menu_module_position', array("menu_id" => $menu_id, "position_id" => $position_id, "module_id" => $module_id));
 		
         return $module_id;

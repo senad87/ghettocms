@@ -165,7 +165,9 @@ class Module extends MX_Controller {
         $menu_id = $this->input->get_post('menu_id', TRUE);
         //TODO:get module id by menu and position, if id > 0 display template with module data else return 0
         $menu_module_pos = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id);
+        
         if (count($menu_module_pos) > 0) {
+            //var_dump( $menu_module_pos[0] );
             $module = $this->Module_model->get_module_by_id($menu_module_pos[0]->module_id);
             //var_dump( $module );
             if( count($module) > 0 ){

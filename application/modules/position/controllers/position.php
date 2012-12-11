@@ -24,7 +24,7 @@ class Position extends MX_Controller {
 		//print_r($position_name);
 		$module_pos_menu = $this->Position_model->get_module_by_menu_and_position($menu_id, $position_id);
 		$module_instance = $this->Position_model->get_module_by_id($module_pos_menu[0]->module_id);
-		
+		//var_dump( $module_instance );
 		$module_name = $module_instance[0]->module;
 		$module = $this->load->module($module_name);
 		//var_dump($sub['module_id']);
