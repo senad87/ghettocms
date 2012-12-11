@@ -105,12 +105,16 @@
       
    <!-- Box -->
       <div class="roundedBox">
-  			<div class="threeImages"> <a href="#"><img class="rounded" src="<?php echo base_url();?>application/views/images/revolucija.jpg" width="300" height="200" /></a>
+        <div class="threeImages">
+            <?php echo modules::run('position', 4, $menu[0]->id); ?>
+            <?php echo modules::run('position', 5, $menu[0]->id); ?>
+            <?php echo modules::run('position', 6, $menu[0]->id); ?>
+            <!-- <a href="#"><img class="rounded" src="<?php echo base_url();?>application/views/images/revolucija.jpg" width="300" height="200" /></a>
             <a href="#"><img class="rounded" src="<?php echo base_url();?>application/views/images/signal.jpg" width="300" height="200" /></a>
-            <a href="#"><img class="rounded noMargin" src="<?php echo base_url();?>application/views/images/oprema.jpg" width="300" height="200" /></a>
+            <a href="#"><img class="rounded noMargin" src="<?php echo base_url();?>application/views/images/oprema.jpg" width="300" height="200" /></a> -->
       	</div>
-         
-         <div class="newsList">
+         <?php echo modules::run('position', 7, $menu[0]->id); ?>
+         <!-- <div class="newsList">
          	<h2>Najnovije informacije<a href="#" class="smallButton">Pogledaj sve</a></h2>
             	<ul>
             		<li><a href="#"><img src="<?php echo base_url();?>application/views/images/temp2.jpg" width="60" height="60" /></a> <a class="link" href="#">Ostvareno više od 15% procesa digitalizacije</a> <span>31.12.2012.</span></li>
@@ -123,8 +127,9 @@ radiodifuziji i digitalnoj dividendi </a> <span>11.12.2012.</span></li>
             
             
             
-         </div>
-         <div class="questionsList">
+         </div> -->
+         <?php echo modules::run('position', 8, $menu[0]->id); ?>
+         <!-- <div class="questionsList">
          	<h2>Najčešća pitanja<a href="#" class="smallButton">Pogledaj sve</a></h2>
             <ul>
             	<li><img src="<?php echo base_url();?>application/views/images/qm.png" width="24" height="24" /><div class="qList"><a class="link" href="#">Šta je to SET-TOP-BOX?</a></div></li>
@@ -137,15 +142,16 @@ radiodifuziji i digitalnoj dividendi </a> <span>11.12.2012.</span></li>
             
             
 
-         </div>         
+         </div> -->       
       <div class="clear"></div>
-      
-      <div class="stationList">
+      <?php echo modules::run('position', 9, $menu[0]->id); ?>
+      <!-- <div class="stationList">
       
       	<h5>TV stanice čiji programi mogu da se prate u Inicijalnoj mreži</h5>
          <img src="<?php echo base_url();?>application/views/images/stanice.jpg" width="880" height="196" />
          
-         </div>
+         </div> -->
+      
          <div class="footer">
          Copyright © 2012. Javno preduzeće "Emisiona tehnika i veze" Beograd
          <span class="pw">Produkcija <a href="http://www.amedia.co.rs" target="_blank">A-Media d.o.o.</a></span>
