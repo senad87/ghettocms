@@ -284,6 +284,26 @@ ul.menu li a:hover {
 
 .questionsList ul li {
 	clear: both;
+	margin: 0;
+	min-height: 0;
+}
+
+
+.questionsList .qm {
+	display: block;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/qm.png);
+	margin-top: 13px;
+	background-repeat: no-repeat;
+	float: left;
+}
+
+
+
+.newsList .pagination,
+.questionsList .pagination {
+	display: none;
 }
 
 .questionsList ul li img {
@@ -291,7 +311,7 @@ ul.menu li a:hover {
 	margin-top: 13px;
 }
 
-.qList {
+.questionsList .qList {
 	border-bottom: 1px solid #666;
 	float: right;
 	width: 385px;
