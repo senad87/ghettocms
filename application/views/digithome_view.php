@@ -31,8 +31,7 @@
    </div>
    <div class="clear"></div>
 <div class="container">
-     <?php echo modules::run('position', 3, $menu[0]->id); ?> 
-      
+     <?php echo modules::run('position', 3, $menu[0]->id); ?>
    <!-- Box -->
    <div class="roundedBox">
         <div class="threeImages">
@@ -49,11 +48,8 @@
          Copyright © 2012. Javno preduzeće "Emisiona tehnika i veze" Beograd
          <span class="pw">Produkcija <a href="http://www.amedia.co.rs" target="_blank">A-Media d.o.o.</a></span>
          </div>    
-   </div> 
-         
-      <!--Box end -->
-      
-      
+   </div>
+      <!--Box end -->   
 </div>
 
  <script>

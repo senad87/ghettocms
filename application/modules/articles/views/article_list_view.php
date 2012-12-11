@@ -66,14 +66,6 @@ $a++;
 ?>
 </ul>
 
-            <!-- <div><?php echo $pagination; ?></div> -->
-                   <!-- <?php if ($module_params['link_title'] != "") { ?>
-                   <div class="mainlink"><a href="<?php echo base_url(); ?><?php
-                                        if ($module_params['link_url'] != "") {
-                                            echo $module_params['link_url'];
-                                        }
-                                        ?>" /> <?php echo $module_params['link_title']; ?> > </a></div>
-             <?php } ?> -->
 <?php if ( $total_rows > $module_params['number'] ) { ?>
     <div class="pagination <?php if (isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>">
         <?php echo $pagination; ?>
