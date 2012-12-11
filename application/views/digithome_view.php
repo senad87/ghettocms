@@ -106,40 +106,9 @@
             <?php echo modules::run('position', 4, $menu[0]->id); ?>
             <?php echo modules::run('position', 5, $menu[0]->id); ?>
             <?php echo modules::run('position', 6, $menu[0]->id); ?>
-            <!-- <a href="#"><img class="rounded" src="<?php echo base_url();?>application/views/images/revolucija.jpg" width="300" height="200" /></a>
-            <a href="#"><img class="rounded" src="<?php echo base_url();?>application/views/images/signal.jpg" width="300" height="200" /></a>
-            <a href="#"><img class="rounded noMargin" src="<?php echo base_url();?>application/views/images/oprema.jpg" width="300" height="200" /></a> -->
       	</div>
          <?php echo modules::run('position', 7, $menu[0]->id); ?>
-         <!-- <div class="newsList">
-         	<h2>Najnovije informacije<a href="#" class="smallButton">Pogledaj sve</a></h2>
-            	<ul>
-            		<li><a href="#"><img src="<?php echo base_url();?>application/views/images/temp2.jpg" width="60" height="60" /></a> <a class="link" href="#">Ostvareno više od 15% procesa digitalizacije</a> <span>31.12.2012.</span></li>
-            		<li><a href="#"><img src="<?php echo base_url();?>application/views/images/temp3.jpg" width="60" height="60" /></a><a class="link" href="#">ITU Regionalni seminar o digitalnoj 
-radiodifuziji i digitalnoj dividendi </a> <span>11.12.2012.</span></li>
-                  <li><a href="#"><img src="<?php echo base_url();?>application/views/images/temp4.jpg" width="60" height="60" /></a><a class="link" href="#">Novo merno vozilo, donacija ITU</a> <span>10.11.2012.</span></li>
-            
-            </ul>
-            
-            
-            
-            
-         </div> -->
-         <?php echo modules::run('position', 8, $menu[0]->id); ?>
-         <!-- <div class="questionsList">
-         	<h2>Najčešća pitanja<a href="#" class="smallButton">Pogledaj sve</a></h2>
-            <ul>
-            	<li><img src="<?php echo base_url();?>application/views/images/qm.png" width="24" height="24" /><div class="qList"><a class="link" href="#">Šta je to SET-TOP-BOX?</a></div></li>
-               <li><img src="<?php echo base_url();?>application/views/images/qm.png" width="24" height="24" /><div class="qList"><a class="link" href="#">Imam kablovsku, da li treba da brinem?</a></div></li>
-               <li><img src="<?php echo base_url();?>application/views/images/qm.png" width="24" height="24" /><div class="qList"><a class="link" href="#">Koji televizori mogu da prikažu digitalni signal bez STB-a?</a></div></li>
-               <li><img src="<?php echo base_url();?>application/views/images/qm.png" width="24" height="24" /><div class="qList"><a class="link" href="#">Da li mogu sa STB-om da gledam program kad ja želim, a ne onda kad je po rasporedu?</a></div></li>
-               
-            </ul>
-            
-            
-            
-
-         </div> -->       
+         <?php echo modules::run('position', 8, $menu[0]->id); ?>    
       <div class="clear"></div>
       <?php echo modules::run('position', 9, $menu[0]->id); ?>
       <!-- <div class="stationList">
