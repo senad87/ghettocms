@@ -17,9 +17,6 @@
     <script src="<?php echo base_url();?>application/views/js/jquery-1.7.2.min.js"></script>      
     <script src="<?php echo base_url();?>application/views/js/slider.min.js"></script>    
     <link href="<?php echo base_url();?>application/views/css/slider.css" rel="stylesheet" />
-    
-    
-
 </head>
 <body>
    <div class="header">
