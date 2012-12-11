@@ -299,7 +299,9 @@ ul.menu li a:hover {
 	float: left;
 }
 
-
+.menu_13 {
+	display: none;
+}
 
 .newsList .pagination,
 .questionsList .pagination {
