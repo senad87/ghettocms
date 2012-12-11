@@ -114,6 +114,7 @@ class Articles extends MX_Controller {
         } else {
             include $this->load->_ci_model_paths[0] . 'views/no_articles_view.php';
         }
+        //unset($this->load->_ci_model_paths);
     }
 
 	

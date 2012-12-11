@@ -39,10 +39,11 @@
             <?php echo modules::run('position', 5, $menu[0]->id); ?>
             <?php echo modules::run('position', 6, $menu[0]->id); ?>
       	</div>
+       
          <?php echo modules::run('position', 7, $menu[0]->id); ?>
          <?php echo modules::run('position', 8, $menu[0]->id); ?>    
       <div class="clear"></div>
-      <?php echo modules::run('position', 9, $menu[0]->id); ?>
+      <?php echo modules::run('position', 9, $menu[0]->id, false); ?>
       
          <div class="footer">
          Copyright © 2012. Javno preduzeće "Emisiona tehnika i veze" Beograd

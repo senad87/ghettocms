@@ -5,7 +5,7 @@
             } ?>
             
             
-                        <?php if ( $module_params['readmore'] >= $a ) { ?>
+                        <?php if ( isset( $module_params['link_title'] ) and  $module_params['link_title'] != "" ) { ?>
                             <a class="smallButton" href="<?php echo base_url(); ?><?php echo $story['type_name']; ?>/<?php echo $data['menu_id']; ?>/<?php echo $story['id']; ?>/<?php echo url_title($story['title']); ?>">Pogledaj sve</a>
                         <?php } ?>            
             
@@ -73,6 +73,6 @@ $a++;
 <?php } ?>   
 
 </div>
-<script>
+<!-- <script>
     $('html, body').animate({ scrollTop: $('.body-wrapper').offset().top }, 'slow');
-</script>    
+</script>    -->
