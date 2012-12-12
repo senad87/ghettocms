@@ -73,7 +73,8 @@ class Stories extends MX_Controller {
 			//get author
 			$story_author = $this->Users_model->get_user_by_id($data['entry'][0]->admin_user_id);
 			$data['author'] = $story_author->username;
-			$template_file_name = "story_default_view";
+			//$template_file_name = "story_default_view";
+                        $template_file_name = "story_digit_view";
 			$this->load->view($template_file_name, $data);
 		}else{
 			show_404('page');
