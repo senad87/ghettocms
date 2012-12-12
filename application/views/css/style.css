@@ -637,7 +637,8 @@ ul.menu li a:hover {
 
 /*****  lista vesti  *****/
 
-.contentList {
+.contentList h2 {
+	border: 0;
 }
 
 .contentList img {
@@ -650,12 +651,13 @@ ul.menu li a:hover {
 	width: 535px;
 }
 
-.title {
+.contentList .link {
 	font-size: 24px;
 }
 
-.date {
+.contentList .date {
 	color: #999;
+	display: block;
 	font-size: 18px;
 	padding-bottom: 22px;
 }

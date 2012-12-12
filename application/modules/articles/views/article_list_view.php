@@ -1,4 +1,4 @@
- <div class="newsList <?php if (isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>"> 
+ <div class="<?php if (isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>"> 
         <h2 class="title"><?php
             if ($module_params['box_title'] != "") {
                 echo $module_params['box_title'];
@@ -34,6 +34,8 @@
            
                 <?php if ($module_params['title'] >= $a) { ?>
                     <span class="qm"></span>
+                    
+                    <div class="newsItem">
                     <div class="qList">
                         <a class="link" href="<?php echo base_url(); ?><?php echo $story['type_name']; ?>/<?php echo $data['menu_id']; ?>/<?php echo $story['id']; ?>/<?php echo url_title($story['title']); ?>">
                             <?php echo $story['title']; ?>
@@ -42,7 +44,7 @@
                 <?php } ?>
                 <!-- Creation Date -->    
                 <?php if ($module_params['creation_date'] >= $a) { ?>
-                <span>
+                <span class="date">
                     <?php echo srb_date($story['creation_date']); ?>
                 </span>    
                 <?php } ?>
@@ -53,7 +55,8 @@
                         <?php echo $story['lead']; ?><br />
                     </div>
                 <?php } ?>
-                <!-- end of Lead -->    
+                <!-- end of Lead -->
+                </div>    
                 <div class="clear"></div>
            
       </li>
