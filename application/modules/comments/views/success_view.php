@@ -1,7 +1,7 @@
 <div class="comments-block">
 <span id="comm" ></span>
 <div class="commentsList" >
-<div class="komentari">Коментари</div>
+<h2 class="komentari">Komentari</h2>
 <ul >
 <?php if($comments != false){ ?>		
 	<?php foreach($comments as $comment){ ?>

@@ -13,7 +13,7 @@ function countChars(){
 
 <div class="comments-block" >
 <div class="commentsList" >
-<div class="komentari" id="commlist">Komentari</div>
+<h2 class="komentari" id="commlist">Komentari</h2>
 <ul >
 <?php if($comments != false){ ?>
 			
@@ -31,37 +31,43 @@ function countChars(){
 </div>
 
 <span id="comm" ></span>
-<div  class="komentari"><?php echo $this->lang->line('write_a_comment'); ?></div>
+<!--<div  class="komentari"><?php echo $this->lang->line('write_a_comment'); ?></div>-->
+<h2 class="komentari">Ostavite komentar:</h2>
 <div class="comments-send" id="commentForm" >
 <form action="<?php echo current_url(); ?>#comm" method="POST" >
 
-<p>
+<div>
 					<label for="name"><?php echo $this->lang->line('comment_name'); ?>*</label>
-					<div class="error"><?php echo form_error('name'); ?></div><br />
-					<input type="text" value="<?php echo set_value('name');?>" maxlength="64" size="32" name="name" id="name" class="required" >
-				</p>
-				<p>
+					<div class="error"><?php echo form_error('name'); ?></div>
+					<div class="clear"></div>
+               <input type="text" value="<?php echo set_value('name');?>" maxlength="64" size="32" name="name" id="name" class="required" >
+				</div>
+				<div>
 					<label for="email"><?php echo $this->lang->line('comment_email'); ?>*</label>
-					<div class="error"><?php echo form_error('email'); ?></div><br />
+					<div class="error"><?php echo form_error('email'); ?></div>
+               <div class="clear"></div>
 					<input type="text" value="<?php echo set_value('email');?>" maxlength="64" size="32" name="email" id="email" class="required email">
-				</p>
-				<p>
+				</div>
+				<div>
 					<label for="comment"><?php echo $this->lang->line('your_comment'); ?> *</label> <div class="charcounter"><?php echo $this->lang->line('char_left'); ?> <span id="charCount" class="numb">600</span> <?php echo $this->lang->line('chars'); ?></div>
-					<div class="error"><?php echo form_error('comment'); ?></div><br />
+					<div class="error"><?php echo form_error('comment'); ?></div>
+               <div class="clear"></div>
 					<textarea onkeydown="countChars()" onkeyup="countChars()" name="comment" id="comment" rows="10" cols="70" class="required"><?php echo set_value('comment');?></textarea>
-				</p>
+				</div>
 				<div class="captcha">
 					<div><?php print_r($recaptcha); ?></div>
                     <div class="error"><?php echo form_error('recaptcha_response_field'); ?></div><br />
 					
                     
 				</div>
-				<p>
+            <div class="clear"></div>
+				<div>
 					<input id="menu_id" type="hidden" value="<?php echo $menu_id; ?>" name="menu_id">
 					<input id="item_id" type="hidden" value="<?php echo $item_id;?>" name="item_id">
-					<input id="sub" type="submit" value="<?php echo $this->lang->line('send_comment'); ?>" name="cmtsbmt">
-</p>
+					<input class="commButton" id="sub" type="submit" value="<?php echo $this->lang->line('send_comment'); ?>" name="cmtsbmt">
+			</div>
 </div>
+
 <div class="obavezno">* <?php echo $this->lang->line('mandatory_fields'); ?></div>
 </form>
 </div>
