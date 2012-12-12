@@ -79,6 +79,11 @@ class Images_model extends CI_Model {
 		// tack on the extension and return the filename
 		return $strUid.$strExt;
 	}
+        
+        public function getDimensions(){
+            $query = $this->db->get("dimensions");
+            return $query->result();
+        }
 }
 /* End of file images_model.php */
 /* Location: ./system/application/models/images_model.php */

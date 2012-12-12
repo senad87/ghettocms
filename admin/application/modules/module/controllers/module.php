@@ -20,6 +20,7 @@ class Module extends MX_Controller {
         $this->load->model('category/Category_model');
         $this->load->model('Entry_model');
         $this->load->model('story/Story_model');
+        $this->load->model('images/Images_model');
         $this->load->model('Client_model');
         $this->load->model('Module_model');
         $this->load->model('Module_instance_model');
@@ -51,10 +52,10 @@ class Module extends MX_Controller {
         $data['clients'] = $this->Client_model->get_all_clients();
         //load full menu tree
         $data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
-        $this->load->view("modules/dialog/basic_params_view", $data);
+        $this->load->view("dialog/basic_params_view", $data);
         foreach ($params as $param) {
             $data['group'] = $param->getAttribute("group");
-            $this->load->view("modules/dialog/attributes_group_view", $data);
+            $this->load->view("dialog/attributes_group_view", $data);
             $param = $param->getElementsByTagName("param");
             foreach ($param as $param_item) {
                 //mandatory attributes for all param types
@@ -124,6 +125,11 @@ class Module extends MX_Controller {
                     /*                     * * end of pagination ** */
                     $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, 0, $this->language_id);
                     $this->load->view("dialog/stories_view", $data);
+                }elseif ( $param_item->getAttribute("type") == "photo_size" ) {
+                    //TODO: Get Photo size from database tabe dimeznions
+                    $data['dimensions'] = $this->Images_model->getDimensions();
+                    //pre_dump($data);
+                    $this->load->view("dialog/photosize_view", $data);
                 }
                 //TODO: Add menu_tree type
             }
@@ -263,10 +269,10 @@ class Module extends MX_Controller {
         $data['clients'] = $this->Client_model->get_all_clients();
         //load full menu tree
         $data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
-        $this->load->view("modules/dialog/edit/basic_params_view", $data);
+        $this->load->view("dialog/edit/basic_params_view", $data);
         foreach ($params as $param) {
             $data['group'] = $param->getAttribute("group");
-            $this->load->view("modules/dialog/edit/attributes_group_view", $data);
+            $this->load->view("dialog/edit/attributes_group_view", $data);
             $param = $param->getElementsByTagName("param");
             foreach ($param as $param_item) {
                 //mandatory attributes for all param types
@@ -277,19 +283,19 @@ class Module extends MX_Controller {
                 //load specific params with specific views for each param type
                 if ($param_item->getAttribute("type") == "select") {
                     $data['options'] = $param_item->getElementsByTagName("option");
-                    $this->load->view("modules/dialog/edit/select_view", $data);
+                    $this->load->view("dialog/edit/select_view", $data);
                 } elseif ($param_item->getAttribute("type") == "input") {
-                    $this->load->view("modules/dialog/edit/input_text_view", $data);
+                    $this->load->view("dialog/edit/input_text_view", $data);
                 } elseif ($param_item->getAttribute("type") == "rich_text") {
-                    $this->load->view("modules/dialog/edit/rich_text_view", $data);
+                    $this->load->view("dialog/edit/rich_text_view", $data);
                 } elseif ($param_item->getAttribute("type") == "radio") {
                     $data['options'] = $param_item->getElementsByTagName("option");
-                    $this->load->view("modules/dialog/edit/radio_view", $data);
+                    $this->load->view("dialog/edit/radio_view", $data);
                 } elseif ($param_item->getAttribute("type") == "tags") {
                     //TODO:add possibility to filter content by tags
                 } elseif ($param_item->getAttribute("type") == "categories") {
                     $data['root_categories'] = $this->Category_model->get_category_kids(0, $this->language_id);
-                    $this->load->view("modules/dialog/edit/categories_view", $data);
+                    $this->load->view("dialog/edit/categories_view", $data);
                 } elseif ($param_item->getAttribute("type") == "menus") {
                     //TODO: Load tree view of the menus with checkboxes
                     $data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
@@ -331,6 +337,12 @@ class Module extends MX_Controller {
                     /*** end of pagination ***/
                     $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, 0, $this->language_id);
                     $this->load->view("dialog/edit/stories_view", $data);
+                }elseif ( $param_item->getAttribute("type") == "photo_size" ){
+                    //TODO: Get Photo size from database tabe dimeznions
+                    //pre_dump($data['module_params']);
+                    $data['dimensions'] = $this->Images_model->getDimensions();
+                    //pre_dump($data);
+                    $this->load->view("dialog/edit/photosize_view", $data);
                 }
             }
             $this->load->view("dialog/endof_attributes_group_view", $data);

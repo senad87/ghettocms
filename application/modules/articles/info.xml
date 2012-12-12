@@ -132,7 +132,7 @@
 		<option value="9">Nine</option>
 		<option value="10">Ten</option>
 	</param>
-	<param name="photo_size" type="radio" default="1" label="Choose size of the poster photo" cssclass="" description="Size of the poste photo">
+	<param name="photo_size" type="photo_size" default="1" label="Choose size of the poster photo" cssclass="" description="Size of the poste photo">
 		<option value="1">577x379</option>
 		<option value="2">220x165</option>
 		<option value="3">100x30</option>
