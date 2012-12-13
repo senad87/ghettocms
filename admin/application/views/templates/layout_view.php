@@ -76,16 +76,35 @@ $(document).ready(function()
 		 $.ajax({
 			   type: "POST",
 			   url: "<?php echo base_url(); ?>module/load",
-			   data: "menu_id="+ menu_id +"&position_id="+ i,
+			   data: "menu_id="+ menu_id +"&position_id="+ i + "entry_page=0" ,
 			   async: false,
 			   success: function(response){
 					if(response != 0){
 				   		$("#position"+i).empty();
-		    			$("#position"+i).append(response);
+                                                $("#position"+i).append(response);
 					}
 			   }
 		});
 	}
+        
+        //TODO: Populate modules for second tab
+        $('input.add-module.story').each( function( index, domEl ){
+            
+            var positin_div = $("#positionstory-" + index);
+            //console.log( positin_div );
+            $.ajax({
+                   type: "POST",
+                   url: "<?php echo base_url(); ?>module/load",
+                   data: "menu_id=" + menu_id + "&position_id=" + index + "&entry_page=1",
+                   async: false,
+                   success: function(response){
+                                if(response != 0){
+                                   positin_div.empty();
+                                   positin_div.append( response );
+                                }
+                            }
+                   });
+        });
 	
 	$(".add-module").click(function() {
 		var position_id = $( this ).attr("id");
@@ -138,8 +157,17 @@ $(document).ready(function()
 									var data = jQuery.param( fields );
 									
 									$("#position"+position_id).empty();
-									
-								    $.post("<?php echo base_url(); ?>module/load_add_module", "module="+ module +"&position_id="+ position_id + "&" + data,function(response){
+                                                                        //this part make difference between menu page and story page
+                                                                        var id = position_id.slice(-1);
+                                                                        
+									if (position_id == 'story-' + id){
+                                                                           var entry_page = 1; 
+                                                                        }else{
+                                                                            var entry_page = 0;
+                                                                        }
+                                                                        //end of page decision making
+                                                                        
+								    $.post("<?php echo base_url(); ?>module/load_add_module", "module="+ module + "&position_id="+ id + "&entry_page="+ entry_page + "&" + data,function(response){
 								    	$("#position"+position_id).append(response);
 								   });
 									$( this ).dialog( "close" );
@@ -152,8 +180,16 @@ $(document).ready(function()
 						
 					}else{
 						//TODO: Add module instance to selected position and load name and description
-						$("#position"+position_id).empty();			
-					    $.post("<?php echo base_url(); ?>module/load_module_by_id", "module="+ module +"&position_id="+ position_id + "&menu_id=" + menu_id + "&module_id=" + module_id,function(response){
+						$("#position"+position_id).empty();
+                                                //this part make difference between menu page and story page
+                                                var id = position_id.slice(-1);
+                                                if (position_id == 'story-' + id){
+                                                    var entry_page = 1; 
+                                                }else{
+                                                    var entry_page = 0;
+                                                }
+                                                //end of page decision making
+					    $.post("<?php echo base_url(); ?>module/load_module_by_id", "module="+ module +"&position_id="+ id + "&menu_id=" + menu_id + "&module_id=" + module_id + "&entry_page=" + entry_page,function(response){
 					    	$("#position"+position_id).append(response);
 					   });
 						$( this ).dialog( "close" );
