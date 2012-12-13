@@ -155,7 +155,8 @@ class Module extends MX_Controller {
                 }
                 
 		$data['module_id'] = $this->Module_model->insert($data['module_title'], $data['module_description'], $data['module'], $data['menu_id'], $data['position_id'], $this->language_id, $data['params'], $data['entry_page'] );
-		$this->load->view("position_preview_view", $data);
+		$data['hasModule'] = TRUE;
+                $this->load->view("position_preview_view", $data);
 	}
     /**
      * 
