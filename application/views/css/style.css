@@ -303,6 +303,7 @@ ul.menu li a:hover {
 	display: none;
 }
 
+.listLeft .pagination,
 .newsList .pagination,
 .questionsList .pagination {
 	display: none;
