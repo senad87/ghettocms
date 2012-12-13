@@ -78,8 +78,24 @@
 		<div id="error"></div>	
 		</div>
 		<div id="tabs-2">
-	
-			<p>2 Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+                    <div class="header-box">
+                        <div id="positionstory-1" class="banner-top"><input class="add-module story" id="story-1" type="button" value="+ Add Module" />
+                        </div>
+                        <div id="positionstory-2" class="search"><input class="add-module story" id="story-2" type="button" value="+ Add Module" />
+                        </div>   
+                        <div class="clear"></div>
+                    </div>   <div class="clear"></div>
+                    <div class="headbox">
+                        <div id="positionstory-3" class="hbox"><input class="add-module story" id="story-3" type="button" value="+ Add Module" />
+                        </div>
+                        <div id="positionstory-4" class="hbox"><input class="add-module story" id="story-4" type="button" value="+ Add Module" />
+                        </div> 
+                    </div>
+                        
+                    <div class="module-box">
+                        <div id="positionstory-5" class="footer"><input class="add-module story" id="story-5" type="button" value="+ Add Module" />
+                        </div>
+                    </div>
 		</div>
 	
 	</div>
@@ -105,10 +121,9 @@ $(document).ready(function()
 	//load template if menu does not have set template
 	if(template_id != 0){
 		$("#container").load("<?=base_url(); ?>template/load", {id: template_id, menu_id: menu_id}, function(response, status, xhr) {
-			  if (status == "error") {
-			    var msg = "Sorry but there was an error: "+ xhr.status + " " + xhr.statusText;
-			    console.log(msg);
-			  }
+                    if (status == "error") {
+                        var msg = "Sorry but there was an error: "+ xhr.status + " " + xhr.statusText;
+                    }
 		});
 	}
 	//load template when user choose template from drop down

@@ -7,15 +7,7 @@ class Module extends MX_Controller {
 	function __construct() {
         // Call the Model constructor
         parent::__construct();
-          $this->load->helper( array('module', 'login', 'xml2array', 'menus_tree', 'categories_list', 'directory') );
-//        $this->load->helper('module');
-//        $this->load->helper('login_helper.php');
-//        $this->load->helper('xml2array_helper.php');
-//        $this->load->helper('menus_tree_helper.php');
-//        $this->load->helper('categories_list_helper.php');
-//        $this->load->helper('directory');
-        
-        //$this->load->library('form_validation');
+        $this->load->helper( array('module', 'login', 'xml2array', 'menus_tree', 'categories_list', 'directory') );
         $this->load->model('Menu_model');
         $this->load->model('category/Category_model');
         $this->load->model('Entry_model');
@@ -38,15 +30,13 @@ class Module extends MX_Controller {
 	 * 
 	 */
     public function load_new_module() {
-        //error_reporting(E_ALL);
-        //print_r("load_module_new");
+        
         $module = $this->input->post('module');
-        //var_dump( "../application/modules/" . $module . "/info.xml" );
         $objDOM = new DOMDocument();
         $objDOM->load( "../application/modules/" . $module . "/info.xml" ); //make sure path is correct 
         //TODO: This is empty for single_story module, must fix this
         $params = $objDOM->getElementsByTagName( "params" );
-        //var_dump( $params );
+        
         // for each params tag, parse the document and get values for
         $data['module'] = $module;
         $data['clients'] = $this->Client_model->get_all_clients();
@@ -157,9 +147,15 @@ class Module extends MX_Controller {
 		$data['module'] = $this->input->post('module');
 		$data['menu_id'] = $this->input->post('menu_id');
 		$data['position_id'] = $this->input->post('position_id');
-		
-		$data['module_id'] = $this->Module_model->insert($data['module_title'], $data['module_description'], $data['module'], $data['menu_id'], $data['position_id'], $this->language_id, $data['params']);
-		$this->load->view("modules/position_preview_view", $data);
+                $data['entry_page'] = $this->input->post('entry_page');
+                if($data['entry_page'] == 1){
+                    $data['storypos_id'] = "story-";
+                }else{
+                    $data['storypos_id'] = "";
+                }
+                
+		$data['module_id'] = $this->Module_model->insert($data['module_title'], $data['module_description'], $data['module'], $data['menu_id'], $data['position_id'], $this->language_id, $data['params'], $data['entry_page'] );
+		$this->load->view("position_preview_view", $data);
 	}
     /**
      * 
@@ -169,8 +165,15 @@ class Module extends MX_Controller {
         
         $position_id = $this->input->get_post('position_id', TRUE);
         $menu_id = $this->input->get_post('menu_id', TRUE);
+        $entry_page = $this->input->get_post('entry_page', TRUE);//for entry page templates type
+        if($entry_page == 1){
+            $data['storypos_id'] = "story-";
+        }else{
+            $data['storypos_id'] = "";
+        }
+        //var_dump($entry_page);
         //TODO:get module id by menu and position, if id > 0 display template with module data else return 0
-        $menu_module_pos = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id);
+        $menu_module_pos = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id, $entry_page);
         
         if (count($menu_module_pos) > 0) {
             //var_dump( $menu_module_pos[0] );
@@ -207,9 +210,15 @@ class Module extends MX_Controller {
         $data['module'] = $this->input->post('module');
         $data['menu_id'] = $this->input->post('menu_id');
         $data['position_id'] = $this->input->post('position_id');
-
-        $data['module_id'] = $this->Module_model->update($data['module_title'], $data['module_description'], $data['module'], $data['menu_id'], $data['position_id'], $data['params']);
-        $this->load->view("modules/position_preview_view", $data);
+        $data['entry_page'] = $this->input->post('entry_page');
+        if($data['entry_page'] == 1){
+            $data['storypos_id'] = "story-";
+        }else{
+            $data['storypos_id'] = "";
+        }
+        $data['module_id'] = $this->Module_model->update($data['module_title'], $data['module_description'], $data['module'], $data['menu_id'], $data['position_id'], $data['params'], $data['entry_page']);
+        $data['hasModule'] = TRUE;
+        $this->load->view("position_preview_view", $data);
     }
     
     public function load_module_by_id() {
@@ -218,21 +227,28 @@ class Module extends MX_Controller {
         $module = $this->input->post('module');
         $position_id = $this->input->post('position_id');
         $menu_id = $this->input->post('menu_id');
-
+        $entry_page = $this->input->post('entry_page');
+        
         $module_object = $this->Module_model->get_module_by_id($module_id);
         $data['module_id'] = $module_id;
         $data['module'] = $module;
         $data['position_id'] = $position_id;
         $data['module_title'] = $module_object[0]->title;
         $data['module_description'] = $module_object[0]->description;
-        $mod_pos_menu = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id);
-
+        
+        $mod_pos_menu = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id, $entry_page);
+        $data['hasModule'] = TRUE;
         if (count($mod_pos_menu) > 0) {
-            $this->Module_model->update_join($menu_id, $position_id, $module_id);
+            $this->Module_model->update_join($menu_id, $position_id, $module_id, $entry_page);
         } else {
-            $this->Module_model->insert_join($menu_id, $position_id, $module_id);
+            $this->Module_model->insert_join($menu_id, $position_id, $module_id, $entry_page);
         }
-        $this->load->view("modules/position_preview_view", $data);
+        if($entry_page == 1){
+            $data['storypos_id'] = "story-";
+        }else{
+            $data['storypos_id'] = "";
+        }
+        $this->load->view("position_preview_view", $data);
     }
     
     //TODO: create metod submit edited module
@@ -247,9 +263,15 @@ class Module extends MX_Controller {
         $data['menu_id'] = $this->input->post('menu_id');
         $data['position_id'] = $this->input->post('position_id');
         $data['module_id'] = $this->input->post('module_id');
+        $data['entry_page'] = $this->input->post('entry_page');
+        if( $data['entry_page'] == 1 ){
+            $data['storypos_id'] = "story-";
+        }else{
+            $data['storypos_id'] = "";
+        }
         $this->Module_model->update_module_instance($data['module_title'], $data['module_description'], $data['menu_id'], $data['position_id'], $data['module_id'], $data['params']);
-
-        $this->load->view("modules/position_preview_view", $data);
+        $data['hasModule'] = TRUE;
+        $this->load->view("position_preview_view", $data);
     }
     
     public function load_edit_module() {

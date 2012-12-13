@@ -5,13 +5,13 @@
             Module Title: <?php echo $module_title; ?><br />
             Module Description: <?php echo $module_description; ?><br />
         </p>
-        <input type="hidden" id="module-id-pos-<?php echo $position_id; ?>" value="<?php echo $module_id; ?>" />
+        <input type="hidden" id="module-id-pos-<?php echo $storypos_id; ?><?php echo $position_id; ?>" value="<?php echo $module_id; ?>" />
         <input type="hidden" id="module" value="<?php echo $module; ?>" />
-        <input type="button" id="<?php echo $position_id; ?>" class="edit-module" value="+ Edit Module Settings" /><br />
-        <input type="button" id="<?php echo $position_id; ?>" class="replace-module" value="+ Replace Module" />
+        <input type="button" id="<?php echo $storypos_id; ?><?php echo $position_id; ?>" class="edit-module" value="+ Edit Module Settings" /><br />
+        <input type="button" id="<?php echo $storypos_id; ?><?php echo $position_id; ?>" class="replace-module" value="+ Replace Module" />
     </div>
 <?php else: ?>
-    <div id="position<?php echo $position_id; ?>" class="module-box"><input class="add-module" id="<?php echo $position_id; ?>" type="button" value="+ Add Module" />
+    <div id="position<?php echo $storypos_id; ?><?php echo $position_id; ?>" class="module-box"><input class="add-module" id="<?php echo $storypos_id; ?><?php echo $position_id; ?>" type="button" value="+ Add Module" />
     </div>
 <?php endif; ?>
 <script type="text/javascript">
@@ -47,7 +47,7 @@ $(".replace-module").click(function() {
 							$("#module-properties").load("<?=base_url(); ?>module/load_new_module", {module: module}, function(response, status, xhr) {
 							  if (status == "error") {
 							    var msg = "Sorry but there was an error: "+ xhr.status + " " + xhr.statusText;
-							    console.log(msg);
+							    
 							  }
 							});
 							$( this ).dialog( "close" );
@@ -65,8 +65,17 @@ $(".replace-module").click(function() {
 										var data = jQuery.param( fields );
 										
 										$("#position"+position_id).empty();
+                                                                                //this part make difference between menu page and story page
+                                                                                var id = position_id.slice(-1);
+
+                                                                                if (position_id == 'story-' + id){
+                                                                                   var entry_page = 1; 
+                                                                                }else{
+                                                                                    var entry_page = 0;
+                                                                                }
+                                                                                //end of page decision making
 										
-									    $.post("<?php echo base_url(); ?>module/replace", "module="+ module +"&position_id="+ position_id + "&" + data,function(response){
+									    $.post("<?php echo base_url(); ?>module/replace", "module="+ module +"&position_id="+ id + "&entry_page="+ entry_page + "&" + data,function(response){
 									    	$("#position"+position_id).append(response);
 									   });
 										$( this ).dialog( "close" );
@@ -79,8 +88,16 @@ $(".replace-module").click(function() {
 
 					}else{
 						//TODO: Add module instance to selected position and load name and description
-						$("#position"+position_id).empty();			
-					    $.post("<?php echo base_url(); ?>module/load_module_by_id", "module="+ module +"&position_id="+ position_id + "&menu_id=" + menu_id + "&module_id=" + module_id,function(response){
+						$("#position"+position_id).empty();
+                                                //this part make difference between menu page and story page
+                                                var id = position_id.slice(-1);
+                                                if (position_id == 'story-' + id){
+                                                    var entry_page = 1; 
+                                                }else{
+                                                   var entry_page = 0;
+                                                }
+                                               //end of page decision making
+					    $.post("<?php echo base_url(); ?>module/load_module_by_id", "module="+ module +"&position_id="+ id + "&menu_id=" + menu_id + "&module_id=" + module_id + "&entry_page="+ entry_page,function(response){
 					    	$("#position"+position_id).append(response);
 					   });
 						$( this ).dialog( "close" );
@@ -118,9 +135,19 @@ $(".edit-module").click(function() {
 				var data = jQuery.param( fields );
 				
 				$("#position"+position_id).empty();
-				
-			    $.post("<?php echo base_url(); ?>module/load_update_module", "module="+ module +"module_id="+ module_id +"&position_id="+ position_id + "&" + data,function(response){
-			    	$("#position"+position_id).append(response);
+                                //this part make difference between menu page and story page
+                                var id = position_id.slice(-1);
+                                if (position_id == 'story-' + id){
+                                    var entry_page = 1; 
+                                }else{
+                                    var entry_page = 0;
+                                }
+                                //end of page decision making
+                              
+			    $.post("<?php echo base_url(); ?>module/load_update_module", "module="+ module +"module_id="+ module_id +"&position_id="+ id + "&entry_page="+ entry_page+ "&" + data,function(response){
+			    	console.log( position_id );
+                                $("#position"+position_id).append(response);
+                                //$("#positionstory-"+id).append(response);
 			   });
 				$( this ).dialog( "close" );
 			},

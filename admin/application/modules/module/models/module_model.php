@@ -22,7 +22,7 @@ class Module_model extends CI_Model {
 		return $query->result();
 	}
 	
-	public function insert($title, $description, $module, $menu_id, $position_id, $language_id, $params){
+	public function insert($title, $description, $module, $menu_id, $position_id, $language_id, $params, $entry_page = 0){
 		
 		$created = date('Y-m-d G:i:s');
 		$modified = date('Y-m-d G:i:s');
@@ -40,8 +40,8 @@ class Module_model extends CI_Model {
 
         $this->db->insert('modules', $data); 
         $module_id = $this->db->insert_id();
-        var_dump( $module_id );
-        $this->db->insert('join_menu_module_position', array("menu_id" => $menu_id, "position_id" => $position_id, "module_id" => $module_id));
+        //var_dump( $module_id );
+        $this->db->insert('join_menu_module_position', array("menu_id" => $menu_id, "position_id" => $position_id, "module_id" => $module_id, "entry_page" => $entry_page));
 		
         return $module_id;
 	}
@@ -74,7 +74,7 @@ class Module_model extends CI_Model {
         return $this->db->insert_id();
 	}
 	
-	public function update($title, $description, $module, $menu_id, $position_id, $params){
+	public function update($title, $description, $module, $menu_id, $position_id, $params, $entry_page = 0){
 		$created = date('Y-m-d G:i:s');
 		$modified = date('Y-m-d G:i:s');
 		$published = date('Y-m-d G:i:s');
@@ -91,7 +91,7 @@ class Module_model extends CI_Model {
         $this->db->insert('modules', $data); 
         $module_id = $this->db->insert_id();
         $update_data = array("module_id" => $module_id);
-		$this->db->where(array('menu_id'=>$menu_id, 'position_id' => $position_id));
+		$this->db->where(array('menu_id'=>$menu_id, 'position_id' => $position_id, 'entry_page' => $entry_page));
 		$this->db->update('join_menu_module_position', $update_data);
 		
 		return $module_id;
@@ -121,21 +121,22 @@ class Module_model extends CI_Model {
 		return $query->result();
 	}
 	
-	public function get_module_by_menu_and_position($menu_id, $position_id){
-		$query = $this->db->get_where('join_menu_module_position', array("menu_id"=>$menu_id, "position_id"=>$position_id, "active"=>1));
+	public function get_module_by_menu_and_position($menu_id, $position_id, $entry_page = 0){
+		$query = $this->db->get_where('join_menu_module_position', array("menu_id"=>$menu_id, "position_id"=>$position_id, "entry_page" => $entry_page, "active"=>1));
 		return $query->result();
 	}
 	
-	public function update_join($menu_id, $position_id, $module_id){
+	public function update_join($menu_id, $position_id, $module_id, $entry_page = 0){
 		$data = array('module_id' => $module_id);
-		$this->db->where(array('menu_id'=>$menu_id, 'position_id' => $position_id));
+		$this->db->where(array('menu_id'=>$menu_id, 'position_id' => $position_id, 'entry_page' => $entry_page));
 		$this->db->update('join_menu_module_position', $data);
 	}
 	
-	public function insert_join($menu_id, $position_id, $module_id){
+	public function insert_join($menu_id, $position_id, $module_id, $entry_page = 0){
 		$data = array("menu_id" => $menu_id,
 					  "position_id" => $position_id,
-					  "module_id" => $module_id
+					  "module_id" => $module_id,
+                                          'entry_page' => $entry_page
 					  );
 		$this->db->insert('join_menu_module_position', $data);
 	}

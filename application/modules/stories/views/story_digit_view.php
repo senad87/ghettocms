@@ -24,20 +24,20 @@
 <body>
    <div class="header">
    	<div class="menuContainer">
-         <div class="logo"><a href="#"><img src="<?php echo base_url();?>application/views/images/logo.png" width="306" height="110" /></a></div>
+         <div class="logo"><a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>application/views/images/logo.png" width="306" height="110" /></a></div>
          <div class="menuBox">
-            <?php echo modules::run('position', 1, $from_menu_id ); ?>
-         <?php echo modules::run('position', 2, $from_menu_id ); ?>
+            <?php echo modules::run('position', 1, $from_menu_id, $sub = false, $offset = 0, 1); ?>
+         <?php echo modules::run('position', 2, $from_menu_id, $sub = false, $offset = 0, 1 ); ?>
       </div>
       
       
    </div>
    <div class="clear"></div>
 <div class="container">
-      
-<div class="contentHeader">
+<?php echo modules::run('position', 3, $from_menu_id, $sub = false, $offset = 0, 1 ); ?>      
+<!-- <div class="contentHeader">
    <img src="images/header-page.jpg" width="960" height="125" />
-</div>
+</div> -->
       
 <!-- Box -->
       <div class="roundedBox3">
@@ -46,8 +46,8 @@
             <p><?php echo srb_date($entry[0]->creation_date); ?></p>
          </div>
          <div class="listRight">
-         
-         	<h2>Ostale vesti:</h2>
+             <?php echo modules::run('position', 4, $from_menu_id, $sub = false, $offset = 0, 1 ); ?>
+         	<!-- <h2>Ostale vesti:</h2>
          
          	<ul>
             	<li><a href="#">Digitalizacija u Republici Srbiji</a></li>
@@ -56,13 +56,7 @@
                <li><a href="#">INICIJALNA MREŽA za digitalno emitovanje</a></li>
                <li><a href="#">Šta se menja na strani prijema?</a></li>
 					<li class="noBorder"><a href="#">Pogledaj sve vesti »</a></li>
-				</ul>
-
-         
-         
-         
-         
-         
+				</ul> -->  
          </div>
          <div class="contentLeft">
         	   <p><img src="<?php echo base_url(); ?><?php echo $thumb_image_path; ?>" width="599" height="337" /></p>

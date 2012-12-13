@@ -24,6 +24,7 @@ class Stories extends MX_Controller {
 	 */
     function index($from_menu_id, $id=0){
     	$data['from_menu_id'] = $from_menu_id;
+        //var_dump( $data['from_menu_id'] );
 		//for stories entry type is 1
 		$data['entry'] = $this->Articles_model->get_entry_by_type($id, 1);
 		if($data['entry']){
