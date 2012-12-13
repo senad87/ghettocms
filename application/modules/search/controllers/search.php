@@ -29,14 +29,16 @@ class Search extends MX_Controller {
 //		
 		$module_params = unserialize($module_instance[0]->params);
 		//print_r($this->load->_ci_model_paths[0]);
-		include $this->load->_ci_model_paths[0].'views/search_box_view.php';
+		include 'application/modules/search/views/search_box_view.php';
 
 	}	
 
 	function post(){
+           
 	$keyword = $this->uri->segment(3);
 	$offset = $this->uri->segment(5);
 	$offset==false?$offset=0:"";
+        //var_dump($_POST);
 		if($_POST){
 			$module_id = $this->input->post('id');
 			$sub['module_id'] = $module_id;
@@ -44,13 +46,15 @@ class Search extends MX_Controller {
 			$sub['keyword'] = $this->input->post('keyword');
 			//var_dump($sub['keyword']);
 			$menu = $this->load->module('menu');
-			$menu->index(0, $sub);
+			$menu->index(75, $sub);
 		}elseif($keyword){
 			$sub['module_id'] = $this->uri->segment(4);
 			$sub['offset'] = $offset;
 			$sub['keyword'] = $keyword;
 			$menu = $this->load->module('menu');
-			$menu->index(0, $sub);
+                        //var_dump($sub);
+                        //die();
+                        $menu->index(75, $sub);
 		}else{
 			show_404('page');
 		}
@@ -59,7 +63,7 @@ class Search extends MX_Controller {
 	function dispsub($id, $sub, $data){
 		
 		$offset = $sub['offset'];
-		$keyword = trans($sub['keyword']);
+		$keyword = $sub['keyword'];
 		//var_dump($keyword);
 		$menu_id = $data['menu_id'];		
 		if(isset($keyword) && $keyword!=''){
@@ -68,7 +72,7 @@ class Search extends MX_Controller {
 			/*** load pagination ***/
 			
 			$total_rows = $this->Search_model->countResults($keyword);
-			$per_page = "5";
+			$per_page = "1000";
 	
 			$this->load_pagination("search/post/".$sub['keyword']."/".$id, 5, $total_rows, $per_page);
 			

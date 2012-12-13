@@ -38,12 +38,12 @@
       
 <!-- Box -->
       <div class="roundedBox4">
-      	<?php echo modules::run('position', 4, $menu[0]->id); ?>
-         <!-- <div class="contentTitleZone">
-         	<h1>AKTUELNOSTI</h1>
-            <p>Najnovije vesti vezane za prelazak na digitalnu televiziju</p>
-         </div> -->
+      <?php if( isset( $sub ) ): ?>	
+        <?php echo modules::run('position', 4, $menu[0]->id, $sub, $offset); ?>
+      <?php else: ?>
+        <?php echo modules::run('position', 4, $menu[0]->id); ?>
       	<?php echo modules::run('position', 5, $menu[0]->id); ?>
+      <?php endif; ?>
          <!-- <div class="contentList">
          
          	<ul>

@@ -1,4 +1,4 @@
- <div class="<?php if (isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>"> 
+<div id="<?php echo $module_id; ?>" class="<?php if (isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>"> 
         <h2 class="title"><?php
             if ($module_params['box_title'] != "") {
                 echo $module_params['box_title'];
@@ -73,9 +73,9 @@ $a++;
     <div class="pagination <?php if (isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>">
         <?php echo $pagination; ?>
     </div>
+     <script>
+    $('html, body').animate({ scrollTop: $('.body-wrapper').offset().top }, 'slow');
+</script>
 <?php } ?>   
 
 </div>
-<!-- <script>
-    $('html, body').animate({ scrollTop: $('.body-wrapper').offset().top }, 'slow');
-</script>    -->

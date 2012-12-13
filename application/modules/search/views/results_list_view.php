@@ -1,4 +1,4 @@
-Кључна реч: <strong><?php echo $keyword;?></strong><br />
+Kljucna rec: <strong><?php echo $keyword;?></strong><br />
 <?php //var_dump($results);?>
 <?php if(isset($results) && $results){?>
 	<ul class="rubrike">
@@ -12,11 +12,11 @@
 	</li>
 	<?php } ?>
 	</ul>
-	<div class="pagination"><?php echo $pagination; ?><div>
+	<div class="pagination"><?php //echo $pagination; ?><div>
 	</div>
 	</div>
 <?php }else{?>
-	<?php echo trans($message);?>
+	<?php echo $message;?>
 <?php }?>
 
 	
