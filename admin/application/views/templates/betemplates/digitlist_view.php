@@ -76,7 +76,14 @@
 	background-color: #6CF;
 	padding: 10px 10px 10px 0;	
 	}
+	
+.bgM {
+	background-color: #6CF;
+	padding: 10px 10px 10px 0;	
+	}	
 
+#position3 {
+	margin-bottom: 20px;}
 
 
 </style>
@@ -90,12 +97,15 @@
 <div class="headbox">
     <div id="position3" class="hbox"><input class="add-module" id="3" type="button" value="+ Add Module" />
     </div>
-    <div id="position4" class="hbox"><input class="add-module" id="4" type="button" value="+ Add Module" />
-    </div> 
-</div>
+</div>    
 
-<div class="module-box">
-   <div id="position5" class="footer"><input class="add-module" id="5" type="button" value="+ Add Module" />
-   </div>
+<div>
+   <div id="position4" class="bgM"><input class="add-module" id="4" type="button" value="+ Add Module" />
+   </div> 
+
+<div>
+   <div id="position5" class="bgM" style="margin-top: 20px;"><input class="add-module" id="5" type="button" value="+ Add Module" />
+   </div>    
+
 </div>
 

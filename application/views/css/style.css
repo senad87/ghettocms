@@ -563,7 +563,7 @@ ul.menu li a:hover {
 }
 
 .contentTitleZone h1 {
-	font-size: 36px;
+	font-size: 31px;
 	padding-top: 20px;
 	font-weight: 600;
 }
@@ -875,4 +875,7 @@ h2.komentari,
 }
 
 
+
+.noResults {
+	padding: 60px 30px;}
 

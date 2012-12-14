@@ -77,6 +77,9 @@
 	padding: 10px 10px 10px 0;	
 	}
 
+#positionstory-3 {
+	margin-bottom: 20px;}
+
 
 
 </style>
