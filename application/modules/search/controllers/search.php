@@ -46,7 +46,7 @@ class Search extends MX_Controller {
 			$sub['keyword'] = $this->input->post('keyword');
 			//var_dump($sub['keyword']);
 			$menu = $this->load->module('menu');
-			$menu->index(75, $sub);
+			$menu->index(0, $sub);
 		}elseif($keyword){
 			$sub['module_id'] = $this->uri->segment(4);
 			$sub['offset'] = $offset;
@@ -54,7 +54,7 @@ class Search extends MX_Controller {
 			$menu = $this->load->module('menu');
                         //var_dump($sub);
                         //die();
-                        $menu->index(75, $sub);
+                        $menu->index(0, $sub);
 		}else{
 			show_404('page');
 		}

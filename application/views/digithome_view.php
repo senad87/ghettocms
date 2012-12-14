@@ -31,7 +31,17 @@
    </div>
    <div class="clear"></div>
 <div class="container">
-     <?php echo modules::run('position', 3, $menu[0]->id); ?>
+   <?php if( isset( $sub ) and $sub ): ?>
+    <div class="roundedBox">
+        <?php echo modules::run('position', 3, $menu[0]->id, $sub, $offset); ?>
+    <div class="footer">
+         Copyright © 2012. Javno preduzeće "Emisiona tehnika i veze" Beograd
+         <span class="pw">Produkcija <a href="http://www.amedia.co.rs" target="_blank">A-Media d.o.o.</a></span>
+         </div>    
+   </div>    
+   <?php else: ?>
+   
+    <?php echo modules::run('position', 3, $menu[0]->id); ?>
    <!-- Box -->
    <div class="roundedBox">
         <div class="threeImages">
@@ -50,7 +60,9 @@
          <span class="pw">Produkcija <a href="http://www.amedia.co.rs" target="_blank">A-Media d.o.o.</a></span>
          </div>    
    </div>
-      <!--Box end -->   
+      <!--Box end -->
+      
+      <?php endif; ?>
 </div>
 
  <script>
