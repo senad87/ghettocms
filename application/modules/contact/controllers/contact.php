@@ -16,7 +16,9 @@ class Contact extends MX_Controller {
 	}
         
         public function displayme($module_id, $data = array(), $offset = 0) {
-            //pre_dump( $data );
+            //load module instance by id
+            $module_instance = $this->Position_model->get_module_by_id($module_id);
+            $module_params = unserialize($module_instance[0]->params);
             $data['menu_id'] = $data['menu_id'];
             //$data['item_id'] = $data[1];
             //$data['post'] = $data[2];
@@ -42,31 +44,26 @@ class Contact extends MX_Controller {
 		$this->form_validation->set_rules('recaptcha_response_field', '', 'required');
 		
 		if($this->form_validation->run()==FALSE || $data['cap']==FALSE){
-			$this->load->view('contact_view', $data);
-                    //include 'application/modules/plain_html/views/plain_html_view.php';
+                    $this->load->view('contact_view', $data);
 		}else{
-			
+                    $this->load->library('email');
+                    //email configuration
+                    $config['protocol'] = 'mail';
+                    $config['mailtype'] = 'html';
+                    $this->email->initialize($config);
+                    $this->email->from($email, $name);
+                    $this->email->to( $module_params['recipient_email'] );
+                    $this->email->bcc('mehicdado@gmail.com');
+                    $this->email->subject( $module_params['subject'] );
                         
-                        $this->load->library('email');
-                        //email configuration
-                        $config['protocol'] = 'mail';
-                        $config['mailtype'] = 'html';
-                        $this->email->initialize($config);
-                        $this->email->from($email, $name);
-                        $this->email->to('dragas.milan@gmail.com');
-                        $this->email->bcc('mehicdado@gmail.com');
-                        $this->email->subject('Kontakt - digitalizacija.rs');
-                        
-                        $this->email->message($comment);	
-
-                        $this->email->send();
-                        
-			$this->load->view('success_view');
+                    $this->email->message($comment);	
+                    $this->email->send();
+                    $this->load->view('success_view');
 		}
 			
-		}else{
+            }else{
 		    $data['recaptcha'] = $this->recaptcha->get_html();
-			$this->load->view('contact_view', $data);
-		}
+                    $this->load->view('contact_view', $data);
+            }
         }
 }

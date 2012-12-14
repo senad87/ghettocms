@@ -3,7 +3,11 @@
 <name>articles</name>
 <description>Description of the module</description>
 <params>
+    <param name="subject" type="input" default="" label="Subject of the email" cssclass="lform2" description="Subject of the contact email to be sent">
+    </param>
+    <param name="recipient_email" type="input" default="" label="Email of the recipient" cssclass="lform2" description="Email on which message will be sent">
+    </param>
     <param name="classsuffix" type="input" default="" label="Class suffix" cssclass="lform2" description="Add class suffix to parent div of the module">
-	</param>
+    </param>
 </params>
 </module>
