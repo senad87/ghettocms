@@ -11,3 +11,10 @@ $lang['chars'] = 'Karaktera';
 $lang['send_comment'] = 'Pošalji';
 $lang['mandatory_fields'] = 'Ova polja su obavezna';
 $lang['thank_you'] = 'Poštovani, hvala na poslatom komentaru. Vaš komentar je prosleđen moderatorskom timu i biće objavljen ukoliko zadovoljava pravila.';
+
+//contact form
+$lang['contact_title'] = 'Kontaktirajte nas.';
+$lang['contact_name'] = 'Ime';
+$lang['contact_email'] = 'Vasa email adresa';
+$lang['contact_message'] = 'Tekst';
+$lang['contact_thank_you'] = 'Poštovani, hvala vam sto ste nas kontaktirali.';

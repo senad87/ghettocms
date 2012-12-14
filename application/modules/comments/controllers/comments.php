@@ -47,7 +47,8 @@ class Comments extends MX_Controller {
 				$this->load->view('comments_view', $data);
 			}else{
 				//$status = 2, insert comment as unpublished
-				$this->Comments_model->insert($data['item_id'], $name, $email, $comment, $ip_address, $status = 2);
+                                
+				//$this->Comments_model->insert($data['item_id'], $name, $email, $comment, $ip_address, $status = 2);
 				$this->load->view('success_view', $data);
 			}
 			

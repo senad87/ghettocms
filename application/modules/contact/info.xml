@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+<name>articles</name>
+<description>Description of the module</description>
+<params>
+    <param name="classsuffix" type="input" default="" label="Class suffix" cssclass="lform2" description="Add class suffix to parent div of the module">
+	</param>
+</params>
+</module>
