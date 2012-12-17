@@ -11,9 +11,9 @@ function countChars(){
 </script>
     
     
-<div class="comments-block" >
-    <span id="comm" ></span>
-    <h2 class="komentari"><?php echo $this->lang->line('contact_title'); ?></h2>
+<div class="contentLeft" >
+    
+    <!--<h2 class="komentari"><?php echo $this->lang->line('contact_title'); ?></h2>-->
     <div class="comments-send" id="commentForm" >
         <form action="<?php echo current_url(); ?>#comm" method="POST" >
             
@@ -51,3 +51,4 @@ function countChars(){
     <div class="obavezno">* <?php echo $this->lang->line('mandatory_fields'); ?></div>
 </form>
 </div>
+<div class="clear"></div>
