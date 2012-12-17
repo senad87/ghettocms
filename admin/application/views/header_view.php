@@ -63,6 +63,24 @@
         </li>
         <?php } ?>
         <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
+	<li><a class="hide" <?php if (current_url() == base_url()."banners"){ ?>id="current"<?php } ?> href="<?php echo base_url(); ?>banners">Banners</a>
+                <ul>
+                	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>banners/createNew/">New</a>
+                	</li>
+                	<?php } ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>banners">Manage</a>
+                	</li>
+        	       	<li>
+        	       		<a href="<?php echo base_url(); ?>banners/trash/">Trash</a>
+                   	</li>
+               </ul>
+        </li>
+        <?php } ?>
+        <!-- 
+        <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
 	<li><a class="hide" <?php if (current_url() == base_url()."game"){ ?>id="current"<?php } ?> href="javascript:;">Games</a>
                 <ul>
                 	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
@@ -79,6 +97,7 @@
                </ul>
         </li>
         <?php } ?>
+        -->
       	<li><a href="<?php echo base_url();?>comments/" >Comments</a></li>
         <?php if(in_array(5, $this->session->userdata('user_privileges'))){ ?>
         <li><a <?php if (current_url() == base_url()."category"){ ?>id="current"<?php } ?> href="<?php echo base_url(); ?>category">Categories</a></li>
@@ -86,7 +105,8 @@
         <?php if(in_array(10, $this->session->userdata('user_privileges'))){ ?>
         <li><a <?php if (current_url() == base_url()."admin_user"){ ?>id="current"<?php } ?> href="<?php echo base_url(); ?>admin_user">Users</a></li>
         <?php } ?>
-        <?php if(in_array(16, $this->session->userdata('user_privileges'))){ ?>
+        <!--
+            <?php if(in_array(16, $this->session->userdata('user_privileges'))){ ?>
         <li><a class="hide" <?php if (current_url() == base_url()."group"){ ?>id="current"<?php } ?>  href="javascript:;">Groups</a>
         <ul>
         	<?php if(in_array(19, $this->session->userdata('user_privileges'))){ ?>
@@ -96,9 +116,12 @@
         </ul>
         </li>
          <?php } ?>
+        -->
          <?php if(in_array(27, $this->session->userdata('user_privileges'))){ ?>
         <li><a <?php if (current_url() == base_url()."menu"){ ?>id="current"<?php } ?> href="<?=base_url(); ?>menu">Menus</a></li>
         <?php } ?>
+        
+        <!--
         <?php if(in_array(28, $this->session->userdata('user_privileges'))){ ?>
         <li><a class="hide" <?php if (current_url() == base_url()."template"){ ?>id="current"<?php } ?> href="javascript:;">Templates</a>
         <ul>
@@ -109,6 +132,8 @@
         </ul>
         </li>
         <?php } ?>
+        -->
+        <!--
         <?php if(in_array(28, $this->session->userdata('user_privileges'))){ ?>
         <li><a class="hide" <?php if (current_url() == base_url()."topic"){ ?>id="current"<?php } ?> href="javascript:;">Topics</a>
         <ul>
@@ -119,6 +144,7 @@
         </ul>
         </li>
         <?php } ?>
+       
         <?php if(in_array(28, $this->session->userdata('user_privileges'))){ ?>
         <li><a class="hide" <?php if (current_url() == base_url()."tag"){ ?>id="current"<?php } ?> href="javascript:;">Tags</a>
         <ul>
@@ -129,6 +155,7 @@
         </ul>
         </li>
         <?php } ?>
+         
         <li><a href="<?php echo base_url();?>newsletter/" >Newsletter</a></li>
         <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
 	<li><a class="hide" <?php if (current_url() == base_url()."gallery"){ ?>id="current"<?php } ?> href="javascript:;">Galleries</a>
@@ -147,5 +174,6 @@
                </ul>
         </li>
         <?php } ?>
+        -->
     </ul> 
 </div>
