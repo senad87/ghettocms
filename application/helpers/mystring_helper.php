@@ -62,6 +62,11 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
             print_r("</pre>");
             
         }
+        
+        function fiximgsrc( $relative_path ){
+            $path = str_replace("../", "", $relative_path);
+            return base_url() . $path;
+        }
 	
 	
 	

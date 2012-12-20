@@ -10,13 +10,14 @@ class Module extends MX_Controller {
         $this->load->helper( array('module', 'login', 'xml2array', 'menus_tree', 'categories_list', 'directory') );
         $this->load->model('Menu_model');
         $this->load->model('category/Category_model');
+        $this->load->model('banners/Banners_model');
         $this->load->model('Entry_model');
         $this->load->model('story/Story_model');
         $this->load->model('images/Images_model');
         $this->load->model('Client_model');
         $this->load->model('Module_model');
         $this->load->model('Module_instance_model');
-        $this->load->library('Jquery_pagination');
+        $this->load->library('MYJquery_pagination');
 
         $this->lang->load('messages', 'english');
         $this->language_id = $this->session->userdata('language_id');
@@ -84,35 +85,10 @@ class Module extends MX_Controller {
                     $total_rows = $this->Entry_model->countByType(1, $this->language_id);
                     //pre_dump( $total_rows );
                     $per_page = "10";
-                    /** * load pagination ** */
-                    //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
-                    $config['uri_segment'] = 4;
-                    $config['num_links'] = 2;
-                    $config['base_url'] = base_url() . "/module/stories_ajax";
-                    $config['total_rows'] = $total_rows;
-                    $config['per_page'] = $per_page;
-                    $config['div'] = '#content'; /* Here #content is the CSS selector for target DIV */
-                    //$config['js_rebind'] = "alert('it works !!'); "; /* if you want to bind extra js code */
-                    $config['full_tag_open'] = '<ul class="pagination">'; //surround the entire pagination begining
-                    $config['full_tag_close'] = '</ul>'; //surround the entire pagination end
-                    $config['num_tag_open'] = '<li>'; //digit link open
-                    $config['num_tag_close'] = '</li>'; //digit link close
-                    $config['cur_tag_open'] = '<li class="current_page">'; //current page open
-                    $config['cur_tag_close'] = '</li>'; //current page close
-                    $config['next_tag_open'] = '<li class="next_page">';
-                    $config['next_tag_close'] = '</li>';
-                    $config['prev_tag_open'] = '<li class="previous_page">';
-                    $config['prev_tag_close'] = '</li>';
-                    $config['first_link'] = '&lt;&lt;'; //first link title
-                    $config['first_tag_open'] = '<li class="first_page">'; //first link open
-                    $config['first_tag_close'] = '</li>'; //first link close
-                    $config['last_link'] = '&gt;&gt;'; //last link title
-                    $config['last_tag_open'] = '<li class="last_page">'; //last link open
-                    $config['last_tag_close'] = '</li>'; //last link close
-
-                    $this->jquery_pagination->initialize($config);
-                    $data['pagination'] = $this->jquery_pagination->create_links();
-                    /*                     * * end of pagination ** */
+                    /*** load pagination ***/
+                    $this->myjquery_pagination->load_pagination( base_url() . "/module/stories_ajax", 4, $total_rows, $per_page, "#content" );
+                    $data['pagination'] = $this->myjquery_pagination->create_links();
+                    /*** end of pagination ** */
                     $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, 0, $this->language_id);
                     $this->load->view("dialog/stories_view", $data);
                 }elseif ( $param_item->getAttribute("type") == "photo_size" ) {
@@ -120,6 +96,18 @@ class Module extends MX_Controller {
                     $data['dimensions'] = $this->Images_model->getDimensions();
                     //pre_dump($data);
                     $this->load->view("dialog/photosize_view", $data);
+                }elseif( $param_item->getAttribute("type") == "dragdrop" ){
+                    $data = array();
+                    //get all published and unpublished entries of the story type
+                    $total_rows = $this->Banners_model->countActive( $this->language_id );
+                    $per_page = "2";
+                    /*** load pagination ***/
+                    $this->myjquery_pagination->load_pagination( base_url() . "/module/banners_ajax", 4, $total_rows, $per_page);
+                    $data['pagination'] = $this->myjquery_pagination->create_links();
+                    /*** end of pagination ***/
+                    $data['items'] = $this->Banners_model->getActiveLimited($per_page, 0, $this->language_id, 1);
+                    //pre_dump($data['items']);
+                    $this->load->view("dialog/dragdrop_view", $data);
                 }
                 //TODO: Add menu_tree type
             }
@@ -330,46 +318,53 @@ class Module extends MX_Controller {
                     $total_rows = $this->Entry_model->countByType(1, $this->language_id);
                     $per_page = "10";
                     /*** load pagination ***/
-                    //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
-                    $config['uri_segment'] = 4;
-                    $config['num_links'] = 2;
-                    $config['base_url'] = base_url() . "/module/stories_ajax_edit/" . $module_id;
-                    $config['total_rows'] = $total_rows;
-                    $config['per_page'] = $per_page;
-                    $config['div'] = '#content'; /* Here #content is the CSS selector for target DIV */
-                    //$config['js_rebind'] = "alert('it works !!'); "; /* if you want to bind extra js code */
-                    $config['full_tag_open'] = '<ul class="pagination">'; //surround the entire pagination begining
-                    $config['full_tag_close'] = '</ul>'; //surround the entire pagination end
-                    $config['num_tag_open'] = '<li>'; //digit link open
-                    $config['num_tag_close'] = '</li>'; //digit link close
-                    $config['cur_tag_open'] = '<li class="current_page">'; //current page open
-                    $config['cur_tag_close'] = '</li>'; //current page close
-                    $config['next_tag_open'] = '<li class="next_page">';
-                    $config['next_tag_close'] = '</li>';
-                    $config['prev_tag_open'] = '<li class="previous_page">';
-                    $config['prev_tag_close'] = '</li>';
-                    $config['first_link'] = '&lt;&lt;'; //first link title
-                    $config['first_tag_open'] = '<li class="first_page">'; //first link open
-                    $config['first_tag_close'] = '</li>'; //first link close
-                    $config['last_link'] = '&gt;&gt;'; //last link title
-                    $config['last_tag_open'] = '<li class="last_page">'; //last link open
-                    $config['last_tag_close'] = '</li>'; //last link close
-
-                    $this->jquery_pagination->initialize($config);
-                    $data['pagination'] = $this->jquery_pagination->create_links();
+                    $this->myjquery_pagination->load_pagination( base_url() . "/module/stories_ajax_edit/" . $module_id, 4, $total_rows, $per_page, "#content" );
+                    $data['pagination'] = $this->myjquery_pagination->create_links();
                     /*** end of pagination ***/
                     $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, 0, $this->language_id);
                     $this->load->view("dialog/edit/stories_view", $data);
+                    
                 }elseif ( $param_item->getAttribute("type") == "photo_size" ){
-                    //TODO: Get Photo size from database tabe dimeznions
-                    //pre_dump($data['module_params']);
                     $data['dimensions'] = $this->Images_model->getDimensions();
-                    //pre_dump($data);
                     $this->load->view("dialog/edit/photosize_view", $data);
+                }elseif( $param_item->getAttribute("type") == "dragdrop" ){
+                    $set_items = array();
+                    //var_dump( $data['module_params']['items'] );
+                    foreach ($data['module_params']['items'] as $set_item){
+                        //var_dump($set_item);
+                        $set_items[] = $this->Banners_model->getBannerByID($set_item);
+                    }
+                    //var_dump($set_items);
+                    $data['set_items'] = $set_items;
+                    //get all published and unpublished entries of the story type
+                    $total_rows = $this->Banners_model->countActive( $this->language_id );
+                    $per_page = "2";
+                    /*** load pagination ***/
+                    $this->myjquery_pagination->load_pagination( base_url() . "/module/banners_ajax", 3, $total_rows, $per_page);
+                    $data['pagination'] = $this->myjquery_pagination->create_links();
+                    /*** end of pagination ***/
+                    $data['items'] = $this->Banners_model->getActiveLimited($per_page, 0, $this->language_id, 1);
+                    //pre_dump($data['items']);
+                    $this->load->view("dialog/edit/dragdrop_view", $data);
                 }
             }
             $this->load->view("dialog/endof_attributes_group_view", $data);
         }
+    }
+    
+    public function banners_ajax($offset = 0) {
+
+        $data = array();
+        //get all published and unpublished entries of the story type
+        $total_rows = $this->Banners_model->countActive($this->language_id);
+        $per_page = "2";
+        /*         * * load pagination ** */
+        $this->myjquery_pagination->load_pagination( base_url() . "/module/banners_ajax", 3, $total_rows, $per_page);
+        $data['pagination'] = $this->myjquery_pagination->create_links();
+        /*         * * end of pagination ** */
+        $data['items'] = $this->Banners_model->getActiveLimited($per_page, $offset, $this->language_id, 1);
+        //pre_dump($data['items']);
+        $this->load->view("dialog/dragdrop_ajax_view", $data);
     }
 
     public function stories_ajax($offset = 0) {
@@ -377,41 +372,10 @@ class Module extends MX_Controller {
         $total_rows = $this->Entry_model->countByType(1, $this->language_id);
         $per_page = "10";
         /*         * * load pagination ** */
-        //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
-        $config['uri_segment'] = 3;
-        $config['num_links'] = 2;
-        $config['base_url'] = base_url() . "/module/stories_ajax";
-        $config['total_rows'] = $total_rows;
-        $config['per_page'] = $per_page;
-        $config['div'] = '#content'; /* Here #content is the CSS selector for target DIV */
-        //$config['js_rebind'] = "alert('it works !!'); "; /* if you want to bind extra js code */
-
-        $config['full_tag_open'] = '<ul class="pagination">'; //surround the entire pagination begining
-        $config['full_tag_close'] = '</ul>'; //surround the entire pagination end
-        $config['num_tag_open'] = '<li>'; //digit link open
-        $config['num_tag_close'] = '</li>'; //digit link close
-        $config['cur_tag_open'] = '<li class="current_page">'; //current page open
-        $config['cur_tag_close'] = '</li>'; //current page close
-        $config['next_tag_open'] = '<li class="next_page">';
-        $config['next_tag_close'] = '</li>';
-        $config['prev_tag_open'] = '<li class="previous_page">';
-        $config['prev_tag_close'] = '</li>';
-        $config['first_link'] = '&lt;&lt;'; //first link title
-        $config['first_tag_open'] = '<li class="first_page">'; //first link open
-        $config['first_tag_close'] = '</li>'; //first link close
-        $config['last_link'] = '&gt;&gt;'; //last link title
-        $config['last_tag_open'] = '<li class="last_page">'; //last link open
-        $config['last_tag_close'] = '</li>'; //last link close
-
-        $this->jquery_pagination->initialize($config);
-        $data['pagination'] = $this->jquery_pagination->create_links();
+        $this->myjquery_pagination->load_pagination( base_url() . "/module/stories_ajax", 3, $total_rows, $per_page, "#content" );
+        $data['pagination'] = $this->myjquery_pagination->create_links();
         /*         * * end of pagination ** */
         $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, $offset, $this->language_id);
-//        foreach ($entries as $entry) {
-//            $story = $this->Story_model->get_story_by_id($entry->type_id);
-//            $stories_array_of_objects[] = $story[0];
-//        }
-//        $data['stories'] = $stories_array_of_objects;
         $this->load->view("dialog/stories_view", $data);
     }
     
@@ -419,44 +383,14 @@ class Module extends MX_Controller {
 
         $module = $this->Module_model->get_module_by_id($module_id);
         $data['module'] = $module;
-
         $data['module_params'] = unserialize( $module[0]->params );
         $total_rows = $this->Entry_model->countByType(1, $this->language_id);
-        //var_dump($total_rows);
         $per_page = "10";
-        /*         * * load pagination ** */
-        //$this->pagination->load_pagination("story/index/0", 4, $total_rows, $per_page);
-        $config['uri_segment'] = 4;
-        $config['num_links'] = 2;
-        $config['base_url'] = base_url() . "/module/stories_ajax_edit/" . $module_id;
-        $config['total_rows'] = $total_rows;
-        $config['per_page'] = $per_page;
-        $config['div'] = '#content'; /* Here #content is the CSS selector for target DIV */
-        //$config['js_rebind'] = "alert('it works !!'); "; /* if you want to bind extra js code */
-
-        $config['full_tag_open'] = '<ul class="pagination">'; //surround the entire pagination begining
-        $config['full_tag_close'] = '</ul>'; //surround the entire pagination end
-        $config['num_tag_open'] = '<li>'; //digit link open
-        $config['num_tag_close'] = '</li>'; //digit link close
-        $config['cur_tag_open'] = '<li class="current_page">'; //current page open
-        $config['cur_tag_close'] = '</li>'; //current page close
-        $config['next_tag_open'] = '<li class="next_page">';
-        $config['next_tag_close'] = '</li>';
-        $config['prev_tag_open'] = '<li class="previous_page">';
-        $config['prev_tag_close'] = '</li>';
-        $config['first_link'] = '&lt;&lt;'; //first link title
-        $config['first_tag_open'] = '<li class="first_page">'; //first link open
-        $config['first_tag_close'] = '</li>'; //first link close
-        $config['last_link'] = '&gt;&gt;'; //last link title
-        $config['last_tag_open'] = '<li class="last_page">'; //last link open
-        $config['last_tag_close'] = '</li>'; //last link close
-
-        $this->jquery_pagination->initialize($config);
-        $data['pagination'] = $this->jquery_pagination->create_links();
+        /*** load pagination ***/
+        $this->myjquery_pagination->load_pagination( base_url() . "/module/stories_ajax_edit/" . $module_id, 4, $total_rows, $per_page, "#content" );
+        $data['pagination'] = $this->myjquery_pagination->create_links();
         /*         * * end of pagination ** */
         $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, $offset, $this->language_id);
-        //var_dump( $data['entries'] );
-        //die();
         $this->load->view("dialog/edit/stories_view", $data);
     }
 }

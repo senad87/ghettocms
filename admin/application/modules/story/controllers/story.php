@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Story extends MX_Controller {
 
@@ -31,9 +31,8 @@ class Story extends MX_Controller {
 	/**
 	 * index
 	 *
-	 * Function display list of all stories with status Published or Unpublished
+	 * Function display list of all stories with status
 	 *
-	 * @param int $message_id used to display message after Update or Insert story
 	 * @param int $offset used for pagination
 	 */
 	public function index($order="id-desc", $offset=0){
@@ -480,10 +479,10 @@ class Story extends MX_Controller {
 	 * Function update status of selected stories to unpublished(status id = 2)
 	 */
 	public function unpublish(){
-		$ids = $this->input->post('ids');
-        $ids = explode(",", $ids);
-        $count = count($ids);
-		foreach ($ids as $id){
+            $ids = $this->input->post('ids');
+            $ids = explode(",", $ids);
+            $count = count($ids);
+            foreach ($ids as $id){
 			$this->Entry_model->update_entry_state($id, 2);
 		}
 		$this->messages->add($count.' Stories successfully unpublished', 'success');
@@ -519,8 +518,7 @@ class Story extends MX_Controller {
 		$config['width']	 = $width;
 		$config['height']	= $height;
 		
-		
-		$this->load->library('image_lib', $config);
+                $this->load->library('image_lib', $config);
 		$this->image_lib->initialize($config); 
 		$this->image_lib->resize();
 		return true;

@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Story_model extends CI_Model {
 
@@ -10,7 +10,10 @@ class Story_model extends CI_Model {
 
 	/**
 	 * 
-	 * Insert new story into database trough transaction, first insert data into stories table, than into entries table and than in join_entries_categories
+	 * Insert new story into database trough transaction, 
+         * first insert data into stories table, 
+         * than into entries table and than in join_entries_categories
+         * 
 	 * @param string $title
 	 * @param string $lead
 	 * @param string $body
