@@ -8,7 +8,7 @@
    <div class="rsContent">
     <img class="rsImg" src="<?php echo fiximgsrc( $item->file_location ); ?>" alt="<?php echo $item->name; ?>" />
     <div class="infoBlock infoBlockLeftBlack rsABlock rsNoDrag" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
-       <h4><?php echo $item->name; ?></h4>
+       
       <p><?php echo $item->description; ?></p>
       
  	</div>
