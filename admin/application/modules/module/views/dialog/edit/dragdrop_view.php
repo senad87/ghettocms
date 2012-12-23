@@ -1,7 +1,7 @@
 <style>
     #gallery { float: left; width: 100%; min-height: 12em; } * html #gallery { height: 12em; } /* IE6 */
     .gallery.custom-state-active { background: #eee; }
-    .gallery li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+    .gallery li { float: left; width: 192px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
     .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
     .gallery li a { float: right; }
     .gallery li a.ui-icon-zoomin { float: left; }
@@ -12,15 +12,15 @@
     #trash h4 .ui-icon { float: left; }
     #trash .gallery h5 { display: none; }
 </style>
-
+ <h4 class="ui-widget-header"><span class="ui-icon ui-icon-newwin">Slider</span> Slider</h4>
 <div id="trash" class="ui-widget-content ui-state-default">
-    <h4 class="ui-widget-header"><span class="ui-icon ui-icon-newwin">Slider</span> Slider</h4>
+  
     <ul class="gallery ui-helper-reset">
         <?php foreach( $set_items as $set_item ):  ?>
         <li data-id="<?php echo $set_item->id; ?>" class="ui-widget-content ui-corner-tr ui-draggable" style="display: list-item; width: 96px;">
             <h5 class="ui-widget-header"><?php echo $set_item->name; ?></h5>
             <img width="192" height="26" alt="<?php echo $set_item->name; ?>" src="<?php echo base_url() . $set_item->file_location; ?>" style="height: 14px;">
-            <a class="ui-icon ui-icon-zoomin" title="View larger image" href="<?php echo base_url() . $set_item->file_location; ?>">View larger</a>
+            <!-- <a class="ui-icon ui-icon-zoomin" title="View larger image" href="<?php echo base_url() . $set_item->file_location; ?>">View larger</a> -->
             <input type="hidden" value="<?php echo $set_item->id; ?>" name="items[]"/>
             <a class="ui-icon ui-icon-refresh" title="Recycle this image" href="link/to/recycle/script/when/we/have/js/off">Recycle image</a>
 	</li>
@@ -163,7 +163,7 @@
             <li data-id="<?php echo $item['id']; ?>" class="ui-widget-content ui-corner-tr">
                 <h5 class="ui-widget-header"><?php echo $item['name']; ?></h5>
                 <img src="<?php echo base_url() . $item['file_location']; ?>" alt="<?php echo $item['name']; ?>" width="192" height="26" />
-                <a href="<?php echo base_url() . $item['file_location']; ?>" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+                <!-- <a href="<?php echo base_url() . $item['file_location']; ?>" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a> -->
                 <a href="link/to/trash/script/when/we/have/js/off" title="Add this image" class="ui-icon ui-icon-plus">Add image</a>
             </li>
             <?php endforeach; ?>

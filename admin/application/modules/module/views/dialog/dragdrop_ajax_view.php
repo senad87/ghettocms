@@ -124,7 +124,7 @@
             <li data-id="<?php echo $item['id']; ?>" class="ui-widget-content ui-corner-tr">
                 <h5 class="ui-widget-header"><?php echo $item['name']; ?></h5>
                 <img src="<?php echo base_url() . $item['file_location']; ?>" alt="<?php echo $item['name']; ?>" width="192" height="26" />
-                <a href="<?php echo base_url() . $item['file_location']; ?>" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+                <!-- <a href="<?php echo base_url() . $item['file_location']; ?>" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a> -->
                 <a href="link/to/trash/script/when/we/have/js/off" title="Add this image" class="ui-icon ui-icon-plus">Add image</a>
             </li>
         <?php endforeach; ?>

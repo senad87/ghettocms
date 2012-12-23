@@ -100,7 +100,7 @@ class Module extends MX_Controller {
                     $data = array();
                     //get all published and unpublished entries of the story type
                     $total_rows = $this->Banners_model->countActive( $this->language_id );
-                    $per_page = "2";
+                    $per_page = "6";
                     /*** load pagination ***/
                     $this->myjquery_pagination->load_pagination( base_url() . "/module/banners_ajax", 4, $total_rows, $per_page);
                     $data['pagination'] = $this->myjquery_pagination->create_links();
@@ -338,7 +338,7 @@ class Module extends MX_Controller {
                     $data['set_items'] = $set_items;
                     //get all published and unpublished entries of the story type
                     $total_rows = $this->Banners_model->countActive( $this->language_id );
-                    $per_page = "2";
+                    $per_page = "6";
                     /*** load pagination ***/
                     $this->myjquery_pagination->load_pagination( base_url() . "/module/banners_ajax", 3, $total_rows, $per_page);
                     $data['pagination'] = $this->myjquery_pagination->create_links();
@@ -385,7 +385,7 @@ class Module extends MX_Controller {
         $data['module'] = $module;
         $data['module_params'] = unserialize( $module[0]->params );
         $total_rows = $this->Entry_model->countByType(1, $this->language_id);
-        $per_page = "10";
+        $per_page = "6";
         /*** load pagination ***/
         $this->myjquery_pagination->load_pagination( base_url() . "/module/stories_ajax_edit/" . $module_id, 4, $total_rows, $per_page, "#content" );
         $data['pagination'] = $this->myjquery_pagination->create_links();
