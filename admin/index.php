@@ -32,8 +32,8 @@ if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
 	{
-		case 'development':
-                case 'damir':    
+		case 'damir':
+                case 'development':
 			error_reporting(E_ALL);
 		break;
 	
