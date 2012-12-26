@@ -23,7 +23,7 @@ var am = document.location.pathname.substring(1, document.location.pathname
 // Set this to the directory you wish to manage.
 //var fileRoot = '/' + am + 'uploads/';
 //var fileRoot = '../uploads/';
-var fileRoot = '/ghetto/images/';
+var fileRoot = '/var/www/vhosts/ghetto.rs/subdomains/httpdocs/uploads/';
 // Show image previews in grid views?
 var showThumbs = true;
 
