@@ -8,7 +8,7 @@
 <body>
 
 <div class="login-box">
-	<h2>4M Administration login</h2>
+	<h2>Ghetto Administration login</h2>
 	<?php echo validation_errors('<div class="error">', '</div>'); ?>
 	<?php if(isset($wrong_username_or_pass)) {?>
 		<div class="error"><?php echo $wrong_username_or_pass; ?></div>

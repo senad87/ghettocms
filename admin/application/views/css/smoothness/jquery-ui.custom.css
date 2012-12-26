@@ -63,8 +63,24 @@
 .ui-widget-content img {
 	height: 26px!important;}
 .ui-widget-content a { color: #222222; }
-.ui-widget-header { border-bottom: 1px solid #dddddd; background: #eaf3ff; /*url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; */ color: #222222; font-weight: bold; font-size: 11px; text-align: left; }
+.ui-widget-header { border-bottom: 1px solid #dddddd; background: #eaf3ff; /*url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; */ color: #222222; font-weight: bold; font-size: 11px; text-align: left;   }
 .ui-widget-header a { color: #222222; }
+h4.ui-widget-header {width: 100%;}
+
+
+#trash {
+ width: 690px!important;
+ padding: 10px!important;
+}
+
+.gallery li {
+    width: 110px!important;
+}
+
+#gallery {
+	margin-top: 10px!important;
+ }
+
 
 /* Interaction states
 ----------------------------------*/
