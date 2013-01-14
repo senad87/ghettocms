@@ -1,3 +1,3 @@
 var config = { 
-    base_url: "http://localhost/ghettocms/"
+    base_url: "http://dev.progame.rs/"
 }
