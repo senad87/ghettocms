@@ -126,3 +126,6 @@
 		<div class="pagination<?php if(isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>"><?php echo $pagination; ?></div>
 	<?php } ?>
 </div>
+<script>
+    $('html, body').animate({ scrollTop: $('.body-wrapper').offset().top }, 'slow');
+</script>    

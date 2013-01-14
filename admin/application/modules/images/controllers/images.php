@@ -8,6 +8,7 @@ class Images extends MX_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		$this->load->model('Images_model');
+                $this->load->model('Dimensions_model');
 		$this->load->library('image_lib');
 	}
 	
@@ -147,6 +148,43 @@ class Images extends MX_Controller {
 			//header('Content-type: image/jpeg');
 			//imagejpeg($dst_r, null, $jpeg_quality));*/
 	}
+        
+        public function path( $id ){
+            
+            if($id > 0){
+                $image = $this->Images_model->getImage( $id );
+                $path = base_url() . substr( $image->path, 2 );
+            }else{
+                $path = "../path/to/default/image.jpg";
+            }
+            return $path;
+            
+        }
+        
+        public function pathByEntryAndDimension( $entry_id, $dimension = "large" ){
+            $images = $this->Images_model->getImagesByEntry( $entry_id );
+            $dimension = $this->Dimensions_model->getByName( $dimension );
+            $path = "../path/to/default/image.jpg";
+            //pre_dump($images);
+            foreach ( $images as $image ){
+                $tmp_image = $this->Images_model->getImageByDimesion( $image->image_id, $dimension->id );
+                if( $tmp_image ){
+                    $result_image = $tmp_image;
+                }
+            }
+            //var_dump( $result_image );
+            //TODO: Add frontend path in BE
+            $path = base_url() . $result_image->path;
+            //$path = $result_image->path;
+            return $path;
+        }
+        
+        public function getDimension( $name, $axis ){
+            $dimension = $this->Dimensions_model->getByName( $name );
+            return $dimension->$axis;
+        }
+        
+        
 	
 }
 

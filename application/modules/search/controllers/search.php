@@ -26,12 +26,8 @@ class Search extends MX_Controller {
 	
 		$module_instance = $this->Position_model->get_module_by_id($module_id);
 		//load module params
-		$params_data_array = explode(";;",$module_instance[0]->params);
-		$module_params = array();
-		foreach ($params_data_array as $params_data){
-			$param_data = explode(":=", $params_data);
-			$module_params[$param_data[0]] = $param_data[1];
-		}
+//		
+		$module_params = unserialize($module_instance[0]->params);
 		//print_r($this->load->_ci_model_paths[0]);
 		include $this->load->_ci_model_paths[0].'views/search_box_view.php';
 

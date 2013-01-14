@@ -8,17 +8,15 @@ class Articles_model extends CI_Model {
 	}
 	
 	public function get_entries_by_categories($categories, $limit = 10, $offset = 0, $language_id = 1){
-		$categories = mysql_real_escape_string($categories);
-		$sql = "SELECT * FROM entries WHERE entry_state_id = 3 AND language_id = ".$language_id." AND category_id IN (".$categories.") ORDER BY id DESC LIMIT ".$offset.",".$limit;
-		$query = $this->db->query($sql);
+
+                $this->db->select('*')->from('entries')->where_in('category_id', $categories)->where( array("entry_state_id" => 3, "language_id" => $language_id) )->limit( $limit, $offset );
+                $query = $this->db->get();
 		return $query->result();
 	}
 	
 	public function count_entries_by_categories($categories, $language_id = 1){
-		$categories = mysql_real_escape_string($categories);
-		$sql = "SELECT COUNT(id) AS number FROM entries WHERE entry_state_id = 3 AND language_id = ".$language_id." AND category_id IN (".$categories.")";
-		$query = $this->db->query($sql);
-		return $query->first_row();
+            $this->db->select('*')->from('entries')->where_in('category_id', $categories)->where( array("entry_state_id" => 3, "language_id" => $language_id) );
+            return $this->db->count_all_results();;
 	}
 	
 	

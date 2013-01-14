@@ -57,3 +57,11 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	       return $str;
 	   }
 	}
+        
+        function pre_dump( $var ){
+            
+            print_r("<pre>");
+            var_dump($var);
+            print_r("</pre>");
+            
+        }

@@ -61,7 +61,7 @@ $(".replace-module").click(function() {
 										
 										$("#position"+position_id).empty();
 										
-									    $.post("<?php echo base_url(); ?>module/load_replace_module", "module="+ module +"&position_id="+ position_id + "&" + data,function(response){
+									    $.post("<?php echo base_url(); ?>module/replace", "module="+ module +"&position_id="+ position_id + "&" + data,function(response){
 									    	$("#position"+position_id).append(response);
 									   });
 										$( this ).dialog( "close" );

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+<name>banners</name>
+<description>Description of the module</description>
+<params group="default">
+	
+	<param name="title" type="select" default="0" label="Display Title for Articles" cssclass="filter" description="Display title or not">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</param>
+	<param name="description" type="select" default="1" label="description" cssclass="filter" description="Display description or not">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+        </param>
+</params>
+<params group="advanced">
+    <param name="banners_slider" type="dragdrop" default="1" label="Drag and Drop banners from the list" cssclass="" description="Display description or not">
+        </param>
+</params>
+</module>

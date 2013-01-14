@@ -54,6 +54,14 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 		//$new_string = htmlspecialchars("Р");
 		return $new_string;
 	}
+        
+        function pre_dump( $var ){
+            
+            print_r("<pre>");
+            var_dump($var);
+            print_r("</pre>");
+            
+        }
 	
 	
 	

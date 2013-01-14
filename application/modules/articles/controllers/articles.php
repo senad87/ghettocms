@@ -19,116 +19,102 @@ class Articles extends MX_Controller {
 		$this->load->library('Jquery_pagination');
 	}
 	
-	function displayme($module_id, $data=array(), $offset = 0){
-	
-		//TODO: This is big hack fix ASAP
-		$data_menu_id = $data;
-		if(!is_array($data)){
-			$data = array();
-			$data['menu_id'] = $data_menu_id;	
-		}
-		//load module instance by id
-		$module_instance = $this->Position_model->get_module_by_id($module_id);
-		//var_dump($module_instance);
-		//load module params
-		//TODO: move this part into some helper, fetching module params
-		//TODO: Add check params from xml also, solves problem with error when we add new param in xml
-		$params_data_array = explode(";;",$module_instance[0]->params);
-		$module_params = array();
-		foreach ($params_data_array as $params_data){
-			$param_data = explode(":=", $params_data);
-			$module_params[$param_data[0]] = $param_data[1];
-		}
+	public function displayme($module_id, $data = array(), $offset = 0) {
 
-		//get all entries from selected categories
-		//$entries = $this->Articles_model->get_entries_by_categories($module_params['categories'], $limit = 10, $offset = 0);
-		//number of entries
-		$num_of_entries = $this->Articles_model->count_entries_by_categories($module_params['categories']);
-		//var_dump($num_of_entries);
-		if($num_of_entries->number > 0){
-			//pagination part START
-			$total_rows = $num_of_entries->number;
-			$per_page = $module_params['number'];
-			$entries = $this->Articles_model->get_entries_by_categories($module_params['categories'], $per_page, $offset);
-			//test jQuery pagination
-			$this->load_jquery_pagination("articles/ajax/displayme/".$module_id."/".$data['menu_id']."/", 6, $module_id, $total_rows, $per_page);
-			$pagination = $this->jquery_pagination->create_links();
-			//TODO: Get module for tags, get module by module name and menu_id
-			//LEAVE THIS FOR OTHER VERSION
-			//$home_menu = $this->Menu_model->get_home_menu(); 
-			//var_dump($home_menu);
-			//$home_modules = $this->Menu_model->get_home_modules($home_menu[0]->id);
-			//var_dump($home_modules);
-			$stories[]=array();
-			$i=0;
-			foreach($entries as $entry){
-				/*** Entry tag initialization ***/
-				//Get tags by entry id
-				$tags = $this->Tag_model->get_active_tags_by_entry_id($entry->id);
-				//var_dump($tags);
-				if(count($tags) > 0){
-					//TODO: Get tag by ID
-					$tag_object = $this->Tag_model->get_tag_by_id($tags[0]->tag_id);
-					$topic = $this->Topic_model->get_topic_by_id($tag_object->topic_id);
-					$topic_name = $topic[0]->name;
-					$tag_id = $tag_object->id;
-					$tag = $tag_object->tag;
-				}else{
-					$topic_name = "";
-					$tag_id = 0;
-					$tag = "";
-				}
-				/*** Get poster photo for each entry ***/
-				$thumb_image_id = array();
-				$thumb_image_path = array();
+        //TODO: This is big hack fix ASAP
+        $data_menu_id = $data;
+        if (!is_array($data)) {
+            $data = array();
+            $data['menu_id'] = $data_menu_id;
+        }
+        //load module instance by id
+        $module_instance = $this->Position_model->get_module_by_id($module_id);
+        $module_params = unserialize($module_instance[0]->params);
 
-				$images = $this->Images_model->get_images_by_entry_id($entry->id);
-				if(count($images) > 0){
-					$j = 0;
-					foreach($images as $image){
-						$poster_photos[$j] =  $this->Images_model->get_image($image->image_id);
-						if(isset($poster_photos[$j][0])){
-							if($poster_photos[$j][0]->dimension_id == $module_params['photo_size']){
-								$thumb_image_id = $poster_photos[$j][0]->id;
-								$thumb_image_path = str_replace("../", "", $poster_photos[$j][0]->path);
-							}
-						}
-						$j++;
-					}
-				}
-				/*** End of Poster photo initialization ***/
-				
-				$entry_type = $this->Articles_model->getTableByEntryType($entry->entry_type_id);
-				$item = $this->Articles_model->getEntryType($entry->type_id, $entry_type->table_name);
-				$story_author = $this->Users_model->get_user_by_id($entry->admin_user_id);
-				
-				$category = $this->Categories_model->getCategoryByID($entry->category_id);
-				//var_dump($category);
-				$item->lead?$lead=$item->lead:$lead=FALSE;
-				$stories_row[$i] = array("id" => $entry->type_id,
-							"type_name" => $entry_type->type_name,
-							"title" => $entry->title,
-							"lead" => $lead,
-							"photo_id" => $thumb_image_id,
-							"photo_path" => $thumb_image_path,
-							"category" => $category,
-							"menu_name" => $this->Menu_model->getNameByID($category->menu_id),
-							"creation_date" => $entry->creation_date,
-							"modified_date" => $entry->modified_date,
-							"author_name" => $story_author->username,
-							"topic_name" => $topic_name,
-							"tag" => $tag,
-							"tag_id" => $tag_id
-							);
-				$i++;
-			}
-			include $this->load->_ci_model_paths[0].'views/article_list_view.php';
-			//$this->load->script('select_system_script');
-		}else{
-			include $this->load->_ci_model_paths[0].'views/no_articles_view.php';
-		}
+        //number of entries
+        $total_rows = $this->Articles_model->count_entries_by_categories($module_params['categories']);
 
-	}
+        if ($total_rows > 0) {
+
+            $per_page = $module_params['number'];
+
+            $entries = $this->Articles_model->get_entries_by_categories($module_params['categories'], $per_page, $offset);
+            //pre_dump($entries);
+            //test jQuery pagination
+            $this->load_jquery_pagination("articles/ajax/displayme/" . $module_id . "/" . $data['menu_id'] . "/", 6, $module_id, $total_rows, $per_page);
+            $pagination = $this->jquery_pagination->create_links();
+            //TODO: Get module for tags, get module by module name and menu_id
+            //LEAVE THIS FOR OTHER VERSION
+            
+            $stories[] = array();
+            $i = 0;
+            foreach ($entries as $entry) {
+                /*                 * * Entry tag initialization ** */
+                //Get tags by entry id
+                $tags = $this->Tag_model->get_active_tags_by_entry_id($entry->id);
+                //var_dump($tags);
+                if (count($tags) > 0) {
+                    //TODO: Get tag by ID
+                    $tag_object = $this->Tag_model->get_tag_by_id($tags[0]->tag_id);
+                    $topic = $this->Topic_model->get_topic_by_id($tag_object->topic_id);
+                    $topic_name = $topic[0]->name;
+                    $tag_id = $tag_object->id;
+                    $tag = $tag_object->tag;
+                } else {
+                    $topic_name = "";
+                    $tag_id = 0;
+                    $tag = "";
+                }
+                /*                 * * Get poster photo for each entry ** */
+                $thumb_image_id = array();
+                $thumb_image_path = array();
+
+                $images = $this->Images_model->get_images_by_entry_id($entry->id);
+                if (count($images) > 0) {
+                    $j = 0;
+                    foreach ($images as $image) {
+                        $poster_photos[$j] = $this->Images_model->get_image($image->image_id);
+                        if (isset($poster_photos[$j][0])) {
+                            if ($poster_photos[$j][0]->dimension_id == $module_params['photo_size']) {
+                                $thumb_image_id = $poster_photos[$j][0]->id;
+                                $thumb_image_path = str_replace("../", "", $poster_photos[$j][0]->path);
+                            }
+                        }
+                        $j++;
+                    }
+                }
+                /*                 * * End of Poster photo initialization ** */
+
+                $entry_type = $this->Articles_model->getTableByEntryType($entry->entry_type_id);
+                $item = $this->Articles_model->getEntryType($entry->type_id, $entry_type->table_name);
+                $story_author = $this->Users_model->get_user_by_id($entry->admin_user_id);
+
+                $category = $this->Categories_model->getCategoryByID($entry->category_id);
+                //var_dump($category);
+                $item->lead ? $lead = $item->lead : $lead = FALSE;
+                $stories_row[$i] = array("id" => $entry->type_id,
+                    "type_name" => $entry_type->type_name,
+                    "title" => $entry->title,
+                    "lead" => $lead,
+                    "photo_id" => $thumb_image_id,
+                    "photo_path" => $thumb_image_path,
+                    "category" => $category,
+                    "menu_name" => $this->Menu_model->getNameByID($category->menu_id),
+                    "creation_date" => $entry->creation_date,
+                    "modified_date" => $entry->modified_date,
+                    "author_name" => $story_author->username,
+                    "topic_name" => $topic_name,
+                    "tag" => $tag,
+                    "tag_id" => $tag_id
+                );
+                $i++;
+            }
+            include $this->load->_ci_model_paths[0] . 'views/article_list_view.php';
+            //$this->load->script('select_system_script');
+        } else {
+            include $this->load->_ci_model_paths[0] . 'views/no_articles_view.php';
+        }
+    }
 
 	
 	private function load_pagination($pagination_url, $uri_segments, $total_rows, $per_page){
