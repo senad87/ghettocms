@@ -1,7 +1,7 @@
 
 var config = { 
-    base_url: "http://localhost/ghettocms/admin/",
-    frontend_url: "http://localhost/ghettocms/" 
+    base_url: "http://dev.progame.rs/admin/",
+    frontend_url: "http://dev.progame.rs/" 
 }
 
 
