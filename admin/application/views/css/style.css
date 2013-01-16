@@ -131,9 +131,17 @@ a:hover  {
     position: relative;
 }
 
+
+/*** toolbar with action buttons ***/
+
+#horizontalManager {
+	height: 55px;
+}
+
+
 .toolbar {
 	list-style: none;
-	margin: 0;
+	margin: 10px 0 12px 0;
 	padding: 0;
 	height: 31px;
 	line-height: 31px;
@@ -147,6 +155,7 @@ a:hover  {
 	padding: 0;
 	float: left;
 	position: relative;
+	 margin-right: 5px;	  	
 }
 
 .toolbar li a{
@@ -155,14 +164,68 @@ a:hover  {
 	padding: 0;
 	display: block;
 	padding-left: 13px;
-	padding-right: 16px;
+	padding-right: 13px;
 	text-decoration: none;
 	font: "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
 	color: #444;
 	overflow: hidden;
-
 	margin-right: 2px;
 }
+
+#newli a,
+a.action_button:link,
+a.action_button:visited {
+    background-color: #EEEEEE;
+	 border-bottom: 1px solid rgba(0, 0, 0, 0.25);	
+	 border-right: 1px solid rgba(0, 0, 0, 0.25);
+	 text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+	 color: #FFF; 
+	}
+
+
+/***green button ***/
+#saveli a.action_button,
+#publishli a.action_button {
+	background-color: #91BD09;
+}
+#saveli a.action_button:hover,
+#publishli a.action_button:hover  {
+	background-color: #749a02;
+}
+
+/*** blue button ***/
+#newli a {
+	background-color: #2DAEBF;
+}
+
+#newli a:hover  {
+	background-color: #007d9a;
+}
+
+
+
+
+/*** orange button ***/
+#unpublishli a.action_button {
+	background-color: #FFB515;
+}
+
+#unpublishli a.action_button:hover  {
+	background-color: #fc9200;
+}
+
+/**** red button ***/
+#cancelli a.action_button,
+#deleteli a.action_button {
+	background-color: #E33100;
+
+}
+#cancelli a.action_button:hover,
+#deleteli a.action_button:hover  {
+	background-color: #872300;
+}
+
+
 
 
 
@@ -313,6 +376,16 @@ h2 {
 	text-shadow: 1px 1px 0 #FFFFFF;
 
 }
+
+
+h4 {
+    color: #444444;
+    font-size: 13px;
+    margin: 0px;
+}
+
+
+
 
 h5 {
     color: #66A3D3;
@@ -849,3 +922,8 @@ ul#files li img{ max-width:180px; max-height:150px; }
     
     background: url('../images/ghetto_admin.png') no-repeat;
 }
+
+
+
+
+

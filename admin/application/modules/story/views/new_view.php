@@ -54,7 +54,7 @@
 	<input class="lform2 required" style="width: 150px;" id="datepicker" type="text" name="creation_date" size="20" value=""><br />
 	<label for="body"><strong>Upload Poster Photo:</strong></label><br />
 	<input type="file" name="image_file" size="30"><br />
-	<label for="body"><strong>Dimensions: <?php echo $largest_image->width;?> x <?php echo $largest_image->height;?></strong></label><br />
+	<h4>Dimensions: <?php echo $largest_image->width;?> x <?php echo $largest_image->height;?></h4><br />
 	<label for="body"><strong>Body:</strong></label><br />
 	<textarea name="editor1" cols="20" rows="10"></textarea><br />
 	<!-- <div class="line">
