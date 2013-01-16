@@ -12,10 +12,6 @@ class Position extends MX_Controller {
 	//ako je sub array onda sadrzi informacije vezane za modul, a ako je string onda e offser.
 	//Ovde treba preimenovati promenjivu kako bi bilo ocigledno sta se desava, nazvatije additional data, $add_data ili tako nesto
 	function index($position_id, $menu_id, $sub=false, $offset=0){
-		//echo 'test';
-		//var_dump($sub['module_id']);
-		//var_dump($sub_module_id);
-		//print_r($menu_id);
 		//var_dump($module->load->_ci_model_paths[0]);
 		$data['menu_id'] = $menu_id;
 		$data['offset'] = $offset;
@@ -24,7 +20,7 @@ class Position extends MX_Controller {
 		//print_r($position_name);
 		$module_pos_menu = $this->Position_model->get_module_by_menu_and_position($menu_id, $position_id);
 		$module_instance = $this->Position_model->get_module_by_id($module_pos_menu[0]->module_id);
-		
+		//var_dump( $module_instance );
 		$module_name = $module_instance[0]->module;
 		$module = $this->load->module($module_name);
 		//var_dump($sub['module_id']);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
-<name>banners</name>
+<name>Advaced head box</name>
 <description>Description of the module</description>
 <params group="default">
 	
@@ -14,7 +14,7 @@
         </param>
 </params>
 <params group="advanced">
-    <param name="banners_slider" type="simple_headbox" default="1" label="Drag and Drop banners from the list" cssclass="" description="Display description or not">
+    <param name="banners_slider" type="dragdrop" default="1" label="Drag and Drop banners from the list" cssclass="" description="Display description or not">
         </param>
 </params>
 </module>

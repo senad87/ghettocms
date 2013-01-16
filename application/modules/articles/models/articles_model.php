@@ -131,7 +131,8 @@ class Articles_model extends CI_Model {
 		return $query->result();
 	}
 	
-	public function getEntryByID($id){
+	public function getEntryByID( $id ){
+            
 		$query = $this->db->get_where("entries",array("id" => $id, "entry_state_id" => 3));
 		$result = $query->first_row();
 		if(!empty($result)){
@@ -139,6 +140,7 @@ class Articles_model extends CI_Model {
 		}else{
 			return false;
 		}
+                
 	}
 	
 }
