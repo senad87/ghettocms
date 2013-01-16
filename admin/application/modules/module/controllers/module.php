@@ -35,6 +35,10 @@ class Module extends MX_Controller {
         $module = $this->input->post('module');
         $objDOM = new DOMDocument();
         $objDOM->load( "../application/modules/" . $module . "/info.xml" ); //make sure path is correct 
+        $xmlstr = file_get_contents( "../application/modules/" . $module . "/info.xml" );
+//        $xml = new SimpleXMLElement( $xmlstr );
+//        var_dump( $xml->params[0]->param[0]->attributes()->name );
+//        die();
         //TODO: This is empty for single_story module, must fix this
         $params = $objDOM->getElementsByTagName( "params" );
         
@@ -80,6 +84,7 @@ class Module extends MX_Controller {
                     $data['root_menus'] = $this->Menu_model->get_menu_kids(0, $this->language_id);
                     $this->load->view("dialog/menus_view", $data);
                 } elseif ($param_item->getAttribute("type") == "stories") {
+                    
                     //get all published and unpublished entries of the story type
                     //$total_rows = $this->Entry_model->get_number_of_non_deleted_entries_by_type(1, $this->language_id);
                     $total_rows = $this->Entry_model->countByType(1, $this->language_id);
@@ -91,23 +96,39 @@ class Module extends MX_Controller {
                     /*** end of pagination ** */
                     $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, 0, $this->language_id);
                     $this->load->view("dialog/stories_view", $data);
+                    
                 }elseif ( $param_item->getAttribute("type") == "photo_size" ) {
-                    //TODO: Get Photo size from database table dimeznions
+                    
                     $data['dimensions'] = $this->Images_model->getDimensions();
                     //pre_dump($data);
                     $this->load->view("dialog/photosize_view", $data);
-                }elseif( $param_item->getAttribute("type") == "dragdrop" ){
+                    
+                }elseif( $param_item->getAttribute("type") == "simple_headbox" ){
+                    //used only for basic tasks
                     $data = array();
                     //get all published and unpublished entries of the story type
                     $total_rows = $this->Entry_model->getNumberByState( $entry_type_id = 1, $state = 3, $this->language_id );
-                    
                     $per_page = "6";
                     /*** load pagination ***/
                     $this->myjquery_pagination->load_pagination( base_url() . "/module/entries_ajax", 3, $total_rows, $per_page);
                     $data['pagination'] = $this->myjquery_pagination->create_links();
                     /*** end of pagination ***/
                     $data['items'] = $this->Entry_model->getEntriesByState( $entry_type_id = 1, $state = 3, $per_page, $offset = 0, $language_id = 1, $order_column = "entry_type_id", $order_dir = "desc", $return_array = 0 );
-                    $this->load->view("dialog/dragdrop_view", $data);
+                    $this->load->view( "dialog/dragdrop_view", $data );
+                    
+                }elseif( $param_item->getAttribute("type") == "dragdrop" ){
+                    
+                    $data = array();
+                    //get all published and unpublished entries of the story type
+                    $total_rows = $this->Entry_model->getNumberByState( $entry_type_id = 1, $state = 3, $this->language_id );
+                    $per_page = "6";
+                    /*** load pagination ***/
+                    $this->myjquery_pagination->load_pagination( base_url() . "/module/entries_ajax", 3, $total_rows, $per_page);
+                    $data['pagination'] = $this->myjquery_pagination->create_links();
+                    /*** end of pagination ***/
+                    $data['items'] = $this->Entry_model->getEntriesByState( $entry_type_id = 1, $state = 3, $per_page, $offset = 0, $language_id = 1, $order_column = "entry_type_id", $order_dir = "desc", $return_array = 0 );
+                    $this->load->view( "dialog/dragdrop_view", $data );
+                    
                 }
                 //TODO: Add menu_tree type
             }
@@ -163,7 +184,7 @@ class Module extends MX_Controller {
         //var_dump($entry_page);
         //TODO:get module id by menu and position, if id > 0 display template with module data else return 0
         $menu_module_pos = $this->Module_model->get_module_by_menu_and_position($menu_id, $position_id, $entry_page);
-        
+        //pre_dump($menu_module_pos);
         if (count($menu_module_pos) > 0) {
             //var_dump( $menu_module_pos[0] );
             $module = $this->Module_model->get_module_by_id($menu_module_pos[0]->module_id);
