@@ -43,8 +43,16 @@
             <!-- <li><a href="<?php echo base_url(); ?>language/change/2">Serbian Latin</a></li>
             <li><a href="<?php echo base_url(); ?>language/change/3">English</a> -->   
         </ul>
-        
         </li>
+
+
+
+        <li><a class="hide" <?php if (current_url() == base_url()."story"){ ?>id="current"<?php } ?> href="javascript:;">Content</a>
+        	<ul>
+
+
+
+
 	<?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
 	<li><a class="hide" <?php if (current_url() == base_url()."story"){ ?>id="current"<?php } ?> href="javascript:;">Stories</a>
                 <ul>
@@ -78,6 +86,32 @@
                    	</li>
                </ul>
         </li>
+        
+         <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
+	<li><a class="hide" <?php if (current_url() == base_url()."gallery"){ ?>id="current"<?php } ?> href="javascript:;">Galleries</a>
+                <ul>
+                	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>gallery/createNew/">New gallery</a>
+                	</li>
+                	<?php } ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>gallery">Manage</a>
+                	</li>
+        	       	<li>
+        	       		<a href="<?php echo base_url(); ?>gallery/trash/">Trash</a>
+                   	</li>
+               </ul>
+        </li>
+        <?php } ?>       
+        
+        
+        
+        </ul>
+        </li>
+        
+        
+        
         <?php } ?>
       	<li><a href="<?php echo base_url();?>comments/" >Comments</a></li>
         <?php if(in_array(5, $this->session->userdata('user_privileges'))){ ?>
@@ -130,22 +164,6 @@
         </li>
         <?php } ?>
         <li><a href="<?php echo base_url();?>newsletter/" >Newsletter</a></li>
-        <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
-	<li><a class="hide" <?php if (current_url() == base_url()."gallery"){ ?>id="current"<?php } ?> href="javascript:;">Galleries</a>
-                <ul>
-                	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
-                	<li>
-                		<a href="<?php echo base_url(); ?>gallery/createNew/">New gallery</a>
-                	</li>
-                	<?php } ?>
-                	<li>
-                		<a href="<?php echo base_url(); ?>gallery">Manage</a>
-                	</li>
-        	       	<li>
-        	       		<a href="<?php echo base_url(); ?>gallery/trash/">Trash</a>
-                   	</li>
-               </ul>
-        </li>
-        <?php } ?>
+
     </ul> 
 </div>
