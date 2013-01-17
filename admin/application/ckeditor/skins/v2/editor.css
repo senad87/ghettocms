@@ -918,7 +918,7 @@ a:active.cke_colormore {
 .cke_skin_v2 .cke_button_specialchar .cke_icon:hover { background-position: -34px -680px; cursor:pointer; }
 
 
-.cke_skin_v2 .cke_button_gallery .cke_icon {background-position: 0 -714px }
+.cke_skin_v2 .cke_button_gallery .cke_icon {background-position: 0 -714px; }
 .cke_skin_v2 .cke_button_gallery .cke_icon:hover { background-position: -34px -714px; cursor:pointer; }
 
 
