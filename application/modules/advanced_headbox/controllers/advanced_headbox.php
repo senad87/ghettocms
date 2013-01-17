@@ -72,7 +72,7 @@ class Advanced_headbox extends MX_Controller {
               
         }
         $data['items'] = $items;
-       //pre_dump( $items );
+      //pre_dump( $items );
         //include $this->load->_ci_model_paths[0] . 'views/slider_view.php';
         $this->load->view( "slider_view", $data );
     }
