@@ -10,7 +10,7 @@
                 <?php  endif; ?>
             </div>
             <div data-delay="350" class="bigButton rsNoDrag rsAbsoluteEl" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
-                <a href="<?php echo base_url(); ?><?php echo $item->entry_type->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->id; ?>/<?php echo url_title( $item->title ); ?>">Više informacija</a>
+                <a href="<?php echo base_url(); ?><?php echo $item->entry_type->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->type_id; ?>/<?php echo url_title( $item->title ); ?>">Više informacija</a>
             </div>
        </div>
        <?php endforeach; ?>
