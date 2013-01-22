@@ -404,6 +404,25 @@ class Module extends MX_Controller {
         $data['items'] = $this->Entry_model->getEntriesByState($entry_type_id = 1, $state = 3, $per_page, $offset, $this->language_id, $order_column = "entry_type_id", $order_dir = "desc", $return_array = 0);
         $this->load->view("dialog/dragdrop_ajax_view", $data);
     }
+    
+    public function entries_ajax_edit( $module_id, $offset = 0 ){
+        
+        $module = $this->Module_model->get_module_by_id($module_id);
+        $data['module'] = $module;
+        $data['module_params'] = unserialize( $module[0]->params );
+        
+        $total_rows = $this->Entry_model->countByType(1, $this->language_id);
+        $per_page = "6";
+        
+        /*** load pagination ***/
+        $this->myjquery_pagination->load_pagination( base_url() . "/module/entries_ajax_edit/" . $module_id, 4, $total_rows, $per_page, "#content" );
+        $data['pagination'] = $this->myjquery_pagination->create_links();
+        /*** end of pagination ***/
+        
+        $data['entries'] = $this->Entry_model->getUndeleted(1, $per_page, $offset, $this->language_id);
+        $this->load->view("dialog/edit/entries_view", $data);
+        
+    }
 
     public function stories_ajax($offset = 0) {
 

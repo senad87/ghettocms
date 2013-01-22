@@ -138,7 +138,9 @@
             <?php foreach( $items as $item ): ?>
             <li data-id="<?php echo $item->id; ?>" class="ui-widget-content ui-corner-tr">
                 <h5 class="ui-widget-header"><?php echo $item->title; ?></h5>
-                <img src="<?php echo modules::run( 'images/pathByEntryAndDimension', $item->id, 'large' ); ?>" alt="<?php echo $item->title; ?>" width="<?php echo modules::run( 'images/getDimension', 'medium', 'width' ); ?>" height="<?php echo modules::run( 'images/getDimension', 'medium', 'height' ); ?>" />
+                <img src="<?php echo modules::run( 'images/pathByEntryAndDimension', $item->id, 'large' ); ?>" alt="<?php echo $item->title; ?>" 
+                     width="<?php echo modules::run( 'images/getDimension', 'medium', 'width' ); ?>" 
+                     height="<?php echo modules::run( 'images/getDimension', 'medium', 'height' ); ?>" />
                 <!-- <a href="" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a> -->
                 <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-plus">Add image</a>
             </li>
