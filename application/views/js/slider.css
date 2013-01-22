@@ -68,6 +68,12 @@
 .rsMinW.rsHor .rsArrowLeft .rsArrowIcn { background-position: -68px -36px; }
 .rsMinW.rsHor .rsArrowRight .rsArrowIcn { background-position: -68px -68px; }
 
+.rsMinW.rsHor .rsArrowLeft .rsArrowIcn:hover { background-position: -68px -103px; }
+.rsMinW.rsHor .rsArrowRight .rsArrowIcn:hover { background-position: -68px -135px; }
+
+
+
+
 .rsMinW.rsVer .rsArrowLeft .rsArrowIcn { background-position: -96px -32px; }
 .rsMinW.rsVer .rsArrowRight .rsArrowIcn { background-position: -96px -64px; }
 
