@@ -83,7 +83,7 @@
 .rsMinW .rsBullets {
 	position: absolute;
 	z-index: 35;
-	bottom: 18px;
+	bottom: 11px;
 	right: 78px;
 	width: auto;
 	height: auto;
@@ -91,20 +91,26 @@
 	overflow: hidden;
 	line-height: 8px;
 }
+
+
 .rsMinW .rsBullet {
-	width: 8px;
-	height: 8px;
+	width: 26px;
+	height: 26px;
 	display: inline-block;
 	margin: 0 5px;
-	border-radius: 50%;
-	background: #aaa;
-	background: rgba(255,255,255,0.6);
 
 	*display:inline; 
 	*zoom:1;
+	background-image: url(slider-sprite.png);
+	background-position: -34px -102px;
 }
+
+.rsMinW .rsBullet:hover {
+	cursor: pointer;
+}
+
 .rsMinW .rsBullet.rsNavSelected  {
-	background: #FFF;
+	background-position: -3px -102px;
 }
 
 
@@ -466,7 +472,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=
 .infoBlockLeftBlack {
   color: #FFF;
   left: 0px!important;
-  top: 270px!important;  
+  top: 220px!important;  
   right: auto;
   background: rgba(0,0,0,0.6);
   padding: 25px 20px;
@@ -493,6 +499,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=
   color: #FFF;
   text-decoration: none;
 }
+
+.infoBlock a:hover {
+  color: #f89e23;
+}
+
+
 
 
 .fullWidth {

@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
     arrowsNav: true,
     loop: true,
     keyboardNavEnabled: true,
-    controlsInside: true,
+    controlsInside: false,
     imageScaleMode: 'fit-if-smaller',
     arrowsNavAutoHide: false,
     autoScaleSlider: false, 
@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
     globalCaption: true,
 	     	autoPlay: {
     		// autoplay options go gere
-    		enabled: false,
+    		enabled: true,
 			delay: 4000,
     		pauseOnHover: true
     	}
