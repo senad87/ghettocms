@@ -18,9 +18,10 @@
     <ul class="gallery ui-helper-reset">
         <?php foreach( $set_items as $set_item ):  ?>
         <li data-id="<?php echo $set_item->id; ?>" class="ui-widget-content ui-corner-tr ui-draggable" style="display: list-item; width: 96px;">
-            <h5 class="ui-widget-header"><?php echo $set_item->name; ?></h5>
-            <img width="192" height="26" alt="<?php echo $set_item->name; ?>" src="<?php echo base_url() . $set_item->file_location; ?>" style="height: 14px;">
-            <!-- <a class="ui-icon ui-icon-zoomin" title="View larger image" href="<?php echo base_url() . $set_item->file_location; ?>">View larger</a> -->
+            <h5 class="ui-widget-header"><?php echo $set_item->title; ?></h5>
+            <img width="<?php echo modules::run( 'images/getDimension', 'medium', 'width' ); ?>" 
+                 height="<?php echo modules::run( 'images/getDimension', 'medium', 'height' ); ?>" 
+                 alt="<?php echo $set_item->title; ?>" src="<?php echo modules::run( 'images/pathByEntryAndDimension', $set_item->id, 'large' ); ?>" style="height: 66px;">
             <input type="hidden" value="<?php echo $set_item->id; ?>" name="items[]"/>
             <a class="ui-icon ui-icon-refresh" title="Recycle this image" href="link/to/recycle/script/when/we/have/js/off">Recycle image</a>
 	</li>
@@ -89,9 +90,9 @@
                 $item.find( "a.ui-icon-refresh" ).remove();
                 $item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
                     $item
-                        .animate({ width: "96px" })
+                        .animate({ width: "100px" })
                         .find( "img" )
-                            .animate({ height: "14px" });
+                            .animate({ height: "66px" });
                 });
                 $item.append()
             });
@@ -160,10 +161,13 @@
     <div class="ui-widget ui-helper-clearfix">
         <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
             <?php foreach( $items as $item ):  ?>
-            <li data-id="<?php echo $item['id']; ?>" class="ui-widget-content ui-corner-tr">
-                <h5 class="ui-widget-header"><?php echo $item['name']; ?></h5>
-                <img src="<?php echo base_url() . $item['file_location']; ?>" alt="<?php echo $item['name']; ?>" width="192" height="26" />
-                <!-- <a href="<?php echo base_url() . $item['file_location']; ?>" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a> -->
+            <li data-id="<?php echo $item->id; ?>" class="ui-widget-content ui-corner-tr">
+                <h5 class="ui-widget-header"><?php echo $item->title; ?></h5>
+                <img src="<?php echo modules::run( 'images/pathByEntryAndDimension', $item->id, 'large' ); ?>" 
+                     alt="<?php echo $item->title; ?>" 
+                     width="<?php echo modules::run( 'images/getDimension', 'medium', 'width' ); ?>" 
+                     height="<?php echo modules::run( 'images/getDimension', 'medium', 'height' ); ?>" />
+                
                 <a href="link/to/trash/script/when/we/have/js/off" title="Add this image" class="ui-icon ui-icon-plus">Add image</a>
             </li>
             <?php endforeach; ?>
