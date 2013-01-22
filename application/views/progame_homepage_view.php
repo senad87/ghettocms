@@ -4,8 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ProGame.rs</title>
 <link href="<?php echo base_url();?>application/views/css/global.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-1.4.4.min.js"></script>
+<link href="<?php echo base_url();?>application/views/js/slider.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/slider.min.js"></script>
+
 </head>
 <body>
 <!--<div class="menu-top">
