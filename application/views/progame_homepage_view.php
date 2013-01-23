@@ -26,7 +26,7 @@
               	 <?php echo modules::run('position', 1, $menu[0]->id); ?>
               </div>
               <div class="column-left">
-              	<?php echo modules::run('position', 2, $menu[0]->id); ?>
+              	<?php echo modules::run('position', 2, $menu[0]->id, $sub = false, $offset ); ?>
               </div>
 <div class="column-right">
 	<div class="box-classic">

@@ -1,7 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Articles extends MX_Controller {
-
+        protected $articles_pagination;
+        
 	function __construct()
 	{
 		parent::__construct();
@@ -15,24 +16,26 @@ class Articles extends MX_Controller {
 		$this->load->model('tags/Tag_model');
 		$this->load->model('tags/Topic_model');
 		$this->load->model('menu/Menu_model');
-		//$this->load->library('pagination');
-		$this->load->library('Jquery_pagination');
+		$this->load->library('pagination');
+		//$this->load->library('Jquery_pagination');
 	}
 	
-	public function displayme($module_id, $data = array(), $offset = 0) {
-
+	public function displayme($module_id, $data = array() ) {
+            //var_dump( $data );
         //TODO: This is big hack fix ASAP
         $data_menu_id = $data;
         if (!is_array($data)) {
             $data = array();
             $data['menu_id'] = $data_menu_id;
+        }else{
+            $offset = $data['offset'];
         }
         //load module instance by id
-        $module_instance = $this->Position_model->get_module_by_id($module_id);
+        $module_instance = $this->Position_model->get_module_by_id( $module_id );
         $module_params = unserialize($module_instance[0]->params);
 
         //number of entries
-        $total_rows = $this->Articles_model->count_entries_by_categories($module_params['categories']);
+        $total_rows = $this->Articles_model->count_entries_by_categories( $module_params['categories'] );
 
         if ($total_rows > 0) {
 
@@ -40,9 +43,15 @@ class Articles extends MX_Controller {
 
             $entries = $this->Articles_model->get_entries_by_categories($module_params['categories'], $per_page, $offset);
             //pre_dump($entries);
+            
             //test jQuery pagination
-            $this->load_jquery_pagination("articles/ajax/displayme/" . $module_id . "/" . $data['menu_id'] . "/", 6, $module_id, $total_rows, $per_page);
-            $pagination = $this->jquery_pagination->create_links();
+            //$this->load_jquery_pagination("articles/ajax/displayme/" . $module_id . "/" . $data['menu_id'] . "/", 6, $module_id, $total_rows, $per_page);
+            //$pagination = $this->jquery_pagination->create_links();
+            //TODO: Get current menu
+            $menu_name = $this->Menu_model->getNameByID( $data['menu_id'] );
+            
+            $this->load_pagination( $menu_name->name . "/" . $data['menu_id'] . "/", $uri_segments = 3, $total_rows, $per_page);
+            $pagination = $this->pagination->create_links();
             //TODO: Get module for tags, get module by module name and menu_id
             //LEAVE THIS FOR OTHER VERSION
             
@@ -99,7 +108,7 @@ class Articles extends MX_Controller {
                     "photo_id" => $thumb_image_id,
                     "photo_path" => $thumb_image_path,
                     "category" => $category,
-                    "menu_name" => $this->Menu_model->getNameByID($category->menu_id),
+                    "menu_name" => $this->Menu_model->getNameByID( $category->menu_id ),
                     "creation_date" => $entry->creation_date,
                     "modified_date" => $entry->modified_date,
                     "author_name" => $story_author->username,
@@ -109,6 +118,8 @@ class Articles extends MX_Controller {
                 );
                 $i++;
             }
+            
+            
             include $this->load->_ci_model_paths[0] . 'views/article_list_view.php';
             //$this->load->script('select_system_script');
         } else {

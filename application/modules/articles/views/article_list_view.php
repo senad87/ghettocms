@@ -1,4 +1,4 @@
-<div id="<?php echo $module_id; ?>" class="box<?php if(isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>">
+<div class="jscroll_js" id="<?php echo $module_id; ?>" class="box<?php if(isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>">
 	<h1 class="title"><?php if($module_params['box_title'] != ""){ echo $module_params['box_title']; }?></h1>
 	<?php
 	//counter of the displayed articles
@@ -125,7 +125,10 @@
 	<?php if($total_rows > $module_params['number']){?>
 		<div class="pagination<?php if(isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>"><?php echo $pagination; ?></div>
 	<?php } ?>
+               
 </div>
 <script>
-    $('html, body').animate({ scrollTop: $('.body-wrapper').offset().top }, 'slow');
+    $('html, body').animate({ 
+                        scrollTop: $('.body-wrapper').offset().top 
+                    }, 'fast');
 </script>    

@@ -39,7 +39,9 @@ $route['(:any)/ajax/(:any)'] = "$1/$2";//used for all ajax requests
 $route['story/(:num)/(:num)/(:any)'] = "stories/index/$1/$2/$3";//for single story page
 $route['game/(:num)/(:num)/(:any)'] = "games/index/$1/$2/$3";//for single game page
 $route['tag/(:num)/(:num)/(:any)'] = "tags/index/$1/$2/$3";//for articles by tag list
+$route['(:any)/(:num)/(:num)'] = "menu/index/$2/$3";
 $route['(:any)/(:num)'] = "menu/index/$2";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
