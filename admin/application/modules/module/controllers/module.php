@@ -126,7 +126,9 @@ class Module extends MX_Controller {
                     $this->myjquery_pagination->load_pagination( base_url() . "/module/entries_ajax", 3, $total_rows, $per_page);
                     $data['pagination'] = $this->myjquery_pagination->create_links();
                     /*** end of pagination ***/
-                    $data['items'] = $this->Entry_model->getEntriesByState( $entry_type_id = 1, $state = 3, $per_page, $offset = 0, $language_id = 1, $order_column = "entry_type_id", $order_dir = "desc", $return_array = 0 );
+                    $data['items'] = $this->Entry_model->getEntriesByState( $entry_type_id = 1, $state = 3, $per_page, 
+                                                                            $offset = 0, $language_id = 1, $order_column = "id", 
+                                                                            $order_dir = "desc", $return_array = 0 );
                     $this->load->view( "dialog/dragdrop_view", $data );
                     
                 }
@@ -366,7 +368,9 @@ class Module extends MX_Controller {
                     $this->myjquery_pagination->load_pagination( base_url() . "/module/entries_ajax", 3, $total_rows, $per_page);
                     $data['pagination'] = $this->myjquery_pagination->create_links();
                     /*** end of pagination ***/
-                    $data['items'] = $this->Entry_model->getEntriesByState( $entry_type_id = 1, $state = 3, $per_page, $offset = 0, $language_id = 1, $order_column = "entry_type_id", $order_dir = "desc", $return_array = 0 );
+                    $data['items'] = $this->Entry_model->getEntriesByState( $entry_type_id = 1, $state = 3, $per_page, 
+                                                                            $offset = 0, $language_id = 1, $order_column = "id", 
+                                                                            $order_dir = "desc", $return_array = 0 );
                     
                     $this->load->view("dialog/edit/dragdrop_view", $data);
                 }
