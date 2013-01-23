@@ -1,18 +1,7 @@
-<style>
-    #gallery { float: left; width: 100%; min-height: 12em; } * html #gallery { height: 12em; } /* IE6 */
-    .gallery.custom-state-active { background: #eee; }
-    .gallery li { float: left; width: 192px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
-    .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
-    .gallery li a { float: right; }
-    .gallery li a.ui-icon-zoomin { float: left; }
-    .gallery li img { width: 100%; cursor: move; }
- 
-    #trash { float: left; width: 100%; min-height: 18em; padding: 1%;} * html #trash { height: 18em; } /* IE6 */
-    #trash h4 { line-height: 16px; margin: 0 0 0.4em; }
-    #trash h4 .ui-icon { float: left; }
-    #trash .gallery h5 { display: none; }
-</style>
- <h4 class="ui-widget-header"><span class="ui-icon ui-icon-newwin">Slider</span> Slider</h4>
+<p class="info-area"><span style="float:left; margin:0 7px 0px 0;" class="ui-icon ui-icon-info"></span>Drag news items to slider area to add them to the slider:</p>
+
+
+ <h4 class="ui-widget-header"><span class="ui-icon ui-icon-newwin">Slider</span> Slider container</h4>
 <div id="trash" class="ui-widget-content ui-state-default">
   
     <ul class="gallery ui-helper-reset">
@@ -27,8 +16,9 @@
 	</li>
         <?php endforeach; ?>
     </ul>
+    <div class="clear"></div>
 </div>
-
+<div class="drag-here">^^^</div>
 <div id="content">
     <script>
     
@@ -110,10 +100,10 @@
                     .find( "a.ui-icon-refresh" )
                         .remove()
                     .end()
-                    .css( "width", "192px")
+                    .css( "width", "155px")
                     .append( trash_icon )
                     .find( "img" )
-                        .css( "height", "26px" )
+                        .css( "height", "100px" )
                     .end()
                     .appendTo( $gallery )
                     .fadeIn();
@@ -158,6 +148,11 @@
         });
     });
 </script>
+
+
+
+
+
     <div class="ui-widget ui-helper-clearfix">
         <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
             <?php foreach( $items as $item ):  ?>

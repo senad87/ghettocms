@@ -924,6 +924,59 @@ ul#files li img{ max-width:180px; max-height:150px; }
 }
 
 
+/**********jQuery UI custom**********/
+
+
+    .gallery.custom-state-active { background: #eee; }
+    .gallery li { float: left; width: 192px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+    .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
+    .gallery li a { float: right; }
+    .gallery li a.ui-icon-zoomin { float: left; }
+    .gallery li img { width: 100%; cursor: move; }
+ 
+    #trash { min-height: 8em; padding: 7px;} * html #trash { height: 8em; } /* IE6 */
+    #trash h4 { line-height: 16px; margin: 0 0 0.4em; }
+    #trash h4 .ui-icon { float: left; }
+    #trash .gallery h5 { display: none; }
 
 
 
+.ui-widget-header .ui-icon {
+    float: left;
+}
+
+.info-area {
+	margin: 10px 0;
+	display: block;
+}
+
+
+#gallery {
+    background-color: #E6E6E6;
+    border: 1px solid #D3D3D3;
+    margin-top: -8px;
+    min-height: 12em;
+    padding: 7px;
+}
+* html #gallery { height: 12em; } /* IE6 */
+
+.gallery li {
+    text-align: left;
+   width: 155px;	 
+}
+
+
+.gallery li h5 {
+    cursor: move;
+    font-size: 11px;
+    height: 29px;
+    margin: 0 0 0.4em;
+    overflow: hidden;
+    padding: 3px;
+}
+
+.drag-here {
+	text-align: center;
+	font-size: 28px;
+	color: #09F;
+	}
