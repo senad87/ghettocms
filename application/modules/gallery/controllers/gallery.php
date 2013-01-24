@@ -3,6 +3,7 @@
 class Gallery extends MX_Controller {
 
 	private $entry_type;
+        private $language_id;
         const TYPE_NAME = 'gallery';
 	
 	function __construct(){
@@ -19,16 +20,32 @@ class Gallery extends MX_Controller {
 		$this->load->library('image_lib');
                 //$this->load->library('Jquery_pagination');
                 $this->entry_type = $this->Entry_type_model->getTypeByName( TYPE_NAME );
-	}
-        
+                $this->language_id = 1;
+        }
+                
+        //svaki modul bi trebalo da bude svestam menija na kom se nalazi, 
+        //da prima offset ukoliko se radi o listi,
+        //da prima jos neke dodatne podatke
         public function displayme( $module_id, $data = array() ){
-            
+            if( is_array($data) ){
+                $offset = $data['offset'];
+            }else{
+                $data_menu_id = $data;
+                $data = array();
+                $data['menu_id'] = $data_menu_id;
+            }
+            $menu = $this->Menu_model->getMenuByID( $data['menu_id'] );
             //load module instance by id
             $module_instance = $this->Position_model->get_module_by_id( $module_id );
             $module_params = unserialize($module_instance[0]->params);
             //number of entries
-            $total_rows = $this->Entry_model->count_entries_by_categories( $module_params['categories'] );
-            
+            $total_rows = $this->Entry_model->countByTypeAndCategory( $module_params['categories'], $this->entry_type->id, $this->language_id );
+            if( $total_rows > 0 ){
+                //TODO: Get Galleries
+                 $per_page = $module_params['number'];
+                 $entries = $this->Entries_model->getByTypeAndCategoryLimited( $module_params['categories'], $per_page, $offset, $this->language_id );
+                 //Foreach entry we need tags and topics, autor, poster photo ...
+            }
         }
         
         public function getImages(){
