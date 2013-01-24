@@ -101,7 +101,7 @@
     background-image: url(popout.png);
     right: 84px;
     background-position: 50% 50%;
-	background-color: #e08d21;
+	background-color: #f89e23;
 }
 .galleria-play {
     left: 30px;
@@ -111,7 +111,7 @@
 }
 
 .galleria-thumblink {
-	background-color: #e08d21;
+	background-color: #f89e23;
 }
 
 
@@ -128,7 +128,7 @@
 .galleria-container.notouch .galleria-play:hover,
 .galleria-container.touch .galleria-play:active,
 .galleria-container.notouch .galleria-popout:hover,
-.galleria-container.touch .galleria-popout:active { background-color: #e8a858 }
+.galleria-container.touch .galleria-popout:active { background-color: #e08d21 }
 .galleria-thumbnails-container {
     position: absolute;
     top: 0;
@@ -191,7 +191,7 @@
 	position: absolute;
 	right: 126px;
 	bottom: 0;
-	background-color:#e08d21;
+	background-color:#f89e23;
 	font-family: Arial,Helvetica,sans-serif;
 
 }
@@ -329,7 +329,7 @@
 
 .galleria-lightbox-close {
     background-color: transparent!important;
-    color: #e08d21!important;
+    color: #f89e23!important;
     cursor: pointer;
     font: bold 26px/46px arial,sans-serif!important;
     height: 18px!important;
