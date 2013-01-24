@@ -295,46 +295,54 @@
 
 .galleria-tooltip {z-index: 9999999!important;}
 
+/****** galleria  *****/
+
 .galleria-lightbox-next {
-    background: none repeat scroll 0 0 #ffffff!important;
-    color: #e08d21!important;
-    display: none;
-    font: bold 26px/46px arial,sans-serif!important;
-    height: 45px!important;
-    left: auto;
-    margin-top: -20px;
-    position: absolute;
-    right: 21px!important;
-    text-align: center;
-    top: 50%;
-    width: 46px!important;	
-	text-align: center!important;	
-	
+	display: none;
+	height: 46px !important;
+	left: auto;
+	margin-top: -20px;
+	position: absolute;
+	right: 30px !important;
+	top: 50%;
+	width: 31px !important;
+	text-indent: -9999px;
+	background-color: transparent!important;
+	background-attachment: scroll;
+	background-image: url(fullscreen-arrows.png)!important;
+	background-repeat: no-repeat;
+	background-position: -31px 0!important;
 }
 
 .galleria-lightbox-prev {
-    background: none repeat scroll 0 0 #ffffff!important;
-    color: #e08d21!important;
-    font: bold 26px/46px arial,sans-serif!important;
+	background-color: transparent!important;
     height: 46px!important;
-    left: 20px!important;
-    width: 46px!important;
+    left: 30px!important;
+    width: 31px!important;
 	text-align: center!important;	
+	background-image: url(fullscreen-arrows.png)!important;
+	background-repeat: no-repeat;
+	background-position: 0 0;	
+	text-indent: -9999px;
 	}
 
 
 .galleria-lightbox-close {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background-color: transparent!important;
     color: #e08d21!important;
     cursor: pointer;
     font: bold 26px/46px arial,sans-serif!important;
-    height: 38px!important;
+    height: 18px!important;
     position: absolute;
-    right: 20px!important;
+    right: 25px!important;
     text-align: center;
-    top: 10px;
-    width: 34px!important;
+    top: 25px!important;
+    width: 18px!important;
     z-index: 99999;
+ 	 text-indent: -9999px;
+	background-image: url(close.png)!important;
+	background-repeat: no-repeat;
+	background-position: 0 0;		 
 }
 
 
