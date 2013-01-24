@@ -20,16 +20,23 @@ class Articles extends MX_Controller {
 		//$this->load->library('Jquery_pagination');
 	}
 	
-	public function displayme($module_id, $data = array() ) {
+	public function displayme( $module_id, $data = array() ) {
             //var_dump( $data );
         //TODO: This is big hack fix ASAP
-        $data_menu_id = $data;
-        if (!is_array($data)) {
-            $data = array();
-            $data['menu_id'] = $data_menu_id;
-        }else{
-            $offset = $data['offset'];
-        }
+            if( is_array($data) ){
+                $offset = $data['offset'];
+            }else{
+                $data_menu_id = $data;
+                $data = array();
+                $data['menu_id'] = $data_menu_id;
+            }
+//        $data_menu_id = $data;
+//        if (!is_array($data)) {
+//            $data = array();
+//            $data['menu_id'] = $data_menu_id;
+//        }else{
+//            $offset = $data['offset'];
+//        }
         //load module instance by id
         $module_instance = $this->Position_model->get_module_by_id( $module_id );
         $module_params = unserialize($module_instance[0]->params);

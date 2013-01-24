@@ -6,10 +6,44 @@ private $id;
 private $type_id; 
 private $type_name;
 
-function Entry_model(){
+function __construct(){
         // Call the Model constructor
         parent::__construct();
 }
+
+/**
+ * getEntriesByCategoryLimited
+ * Get all entries with category_id
+ * @param int $category_id
+ */
+public function getEntriesByCategoryLimited( $category_id, $limit = 10, $offset = 0, 
+                                             $order_col = 'id', $order = 'desc', $language_id = 1 ){
+	$query = $this->db->select('*')->from('join_entries_categories')
+                          ->where( array('category_id'=>$category_id, 'active'=>1, 'language_id'=>$language_id ) )
+                          ->limit( $limit, $offset )->order_by( $order_col, $order );
+	return $query->result();
+}
+
+/**
+ * getEntriesByTypeAndCategory
+ * Get all entries with category_id
+ * @param int $category_id
+ */
+public function getByTypeAndCategory( $category_id, $type = 1, $limit = 10, 
+                                      $offset = 0, $order_col = 'id', $order = 'desc', $language_id = 1 ){
+	$query = $this->db->select('*')->from('join_entries_categories')
+                          ->where( array('category_id'=>$category_id, 'active'=>1, 'language_id'=>$language_id ) )
+                          ->limit( $limit, $offset )->order_by( $order_col, $order );
+	return $query->result();
+}
+
+public function countByTypeAndCategory( $category_id, $type = 1, $language_id = 1 ){
+        $query = $this->db->select('*')->from('join_entries_categories')
+                          ->where( array('category_id'=>$category_id, 'active'=>1, 'language_id'=>$language_id ) );
+        $number = $this->db->count_all_results('entries');
+	return $number;
+}
+
 /**
  * 
  * Get entry id by type id, type id is id of the content like story or game id

@@ -2,32 +2,34 @@
 
 class Gallery extends MX_Controller {
 
-	//private $language_id = 1;
+	private $entry_type;
+        const TYPE_NAME = 'gallery';
 	
 	function __construct(){
 		// Call the Model constructor
 		parent::__construct();
 		$this->load->helper(array('form', 'url', 'date'));
-		//$this->load->helper('categories_list_helper.php');
-		//$this->load->helper('category');
-		//$this->load->helper('login_helper.php');
-		//$this->load->library('pagination');
+		
 		$this->load->model('Gallery_model');
-		//$this->load->model('Entry_state_model');
+		
 		$this->load->model('Entry_model');
-		//$this->load->model('Admin_user_model');
-		//$this->load->model('category/Category_model');
-		//$this->load->model('comments/Comments_model');
-		//$this->load->model('topic/Topic_model');
-		//$this->load->model('tag/Tag_model');
-		//$this->load->model('images/Images_model');
-		//$this->lang->load('messages', 'english');
+                $this->load->model('Entry_type_model');
+		
                 $this->load->model('images/Images_model');
 		$this->load->library('image_lib');
                 //$this->load->library('Jquery_pagination');
-		//$this->language_id = $this->session->userdata('language_id');
-		//check_login();
+                $this->entry_type = $this->Entry_type_model->getTypeByName( TYPE_NAME );
 	}
+        
+        public function displayme( $module_id, $data = array() ){
+            
+            //load module instance by id
+            $module_instance = $this->Position_model->get_module_by_id( $module_id );
+            $module_params = unserialize($module_instance[0]->params);
+            //number of entries
+            $total_rows = $this->Entry_model->count_entries_by_categories( $module_params['categories'] );
+            
+        }
         
         public function getImages(){
             $gallery_id = $this->input->post('gallery_id');

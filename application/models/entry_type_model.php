@@ -12,4 +12,10 @@ class Entry_type_model extends CI_Model {
         $result = $this->db->get()->first_row();
         return $result;
     }
+    
+    public function getTypeByName( $name ){
+        $this->db->select('*')->from('entry_types')->where( 'name', $name )->limit(1);
+        $result = $this->db->get()->first_row();
+        return $result;
+    }
 }
