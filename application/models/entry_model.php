@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Entry_model extends CI_Model {
 
@@ -11,26 +11,33 @@ class Entry_model extends CI_Model {
 
     
     public function getEntriesByCategoryLimited( $category_id, $limit = 10, $offset = 0, 
-                                                 $order_col = 'id', $order = 'desc', $language_id = 1 ){
+                                                 $order_col = 'id', $order = 'desc', $language_id = 1, $state_id = 3 ){
             $query = $this->db->select('*')->from('join_entries_categories')
                               ->where( array('category_id'=>$category_id, 'active'=>1, 'language_id'=>$language_id ) )
                               ->limit( $limit, $offset )
                               ->order_by( $order_col, $order );
-            return $query->result();
+            return $this->db->get()->result();
     }
 
     
-    public function getByTypeAndCategoryLimited( $category_id, $type = 1, $limit = 10, 
-                                                 $offset = 0, $language_id = 1, $order_col = 'id', $order = 'desc' ){
-            $query = $this->db->select('*')->from('join_entries_categories')
-                              ->where( array('category_id'=>$category_id, 'active'=>1, 'language_id'=>$language_id ) )
-                              ->limit( $limit, $offset )->order_by( $order_col, $order );
-            return $query->result();
+    public function getByTypeAndCategoryLimited( $categories, $type = 1, $limit = 10, 
+                                                 $offset = 0, $language_id = 1, $order_col = 'id',
+                                                 $order = 'DESC', $state_id = 3 ){
+            $this->db->select('*')->from('entries')
+                                  ->where_in('category_id', $categories)
+                                  ->where( array('entry_type_id' => $type,'entry_state_id'=>$state_id, 'language_id'=>$language_id ) )
+                                  ->limit( $limit, $offset )
+                                  ->order_by( $order_col, $order );
+            
+            return $this->db->get()->result();
     }
 
-    public function countByTypeAndCategory( $category_id, $type = 1, $language_id = 1 ){
-            $query = $this->db->select('*')->from('join_entries_categories')
-                              ->where( array('category_id'=>$category_id, 'active'=>1, 'language_id'=>$language_id ) );
+    public function countByTypeAndCategory( $categories, $type = 1, $language_id = 1, $state_id = 3 ){
+            $query = $this->db->select('*')->from('entries')
+                              ->where_in('category_id', $categories)
+                              ->where( array('entry_type_id'=>$type, 
+                                             'entry_state_id'=>$state_id, 
+                                             'language_id'=>$language_id ) );
             $number = $this->db->count_all_results();
             return $number;
     }

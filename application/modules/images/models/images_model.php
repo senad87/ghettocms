@@ -21,4 +21,15 @@ class Images_model extends CI_Model {
 		$query = $this->db->get_where("images",array("id"=>$id));
 		return $query->result();
 	}
+        
+        public function getImagesByDimension( $images, $dimension_id, $order_col = 'id', $order = 'ASC' ){
+            
+            $this->db->select('*')->from( 'images' )
+                     ->where_in( 'id', $images )
+                     ->where( array('dimension_id' => $dimension_id) )
+                     ->limit(1)
+                     ->order_by( $order_col, $order );
+            return $this->db->get()->result();
+            
+        }
 }
