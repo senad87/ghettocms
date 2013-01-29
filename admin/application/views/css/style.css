@@ -1,5 +1,10 @@
 /* CSS Document */
 
+body {
+    margin-top: 109px !important;
+}
+
+
 body, input, textarea, select {
 	margin: 0;
 	padding: 0;
@@ -53,15 +58,18 @@ a:hover  {
 	
 	}
 	
+
 .menubar {
-	height: 36px;
-	border-bottom: 1px solid #CCC;
-	border-top: 1px solid white;
-	background-color: #EEEEEE;
-	padding-top:2px;
-	/***/
-	z-index: 100;
-	position: relative;
+    background-color: #EEEEEE;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid white;
+    height: 36px;
+    padding-top: 2px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+	 top: 0;
+
 }
 
 .menu {
@@ -135,13 +143,13 @@ a:hover  {
 /*** toolbar with action buttons ***/
 
 #horizontalManager {
-	height: 55px;
+	height: 51px;
 }
 
 
 .toolbar {
 	list-style: none;
-	margin: 10px 0 12px 0;
+	margin: 10px 16px 12px 0;
 	padding: 0;
 	height: 31px;
 	line-height: 31px;
@@ -343,7 +351,11 @@ a.action_button:visited {
 
 .headcont {
 	padding: 0 12px;
-
+	position: fixed;
+	width: 100%;
+	top: 40px;
+	background-color: #FFF;
+	border-bottom: 2px solid #f1f1f1;
 }
 
 
@@ -427,6 +439,13 @@ select.filter option {
 	padding: 3px;
 	border: 0;
 }
+
+
+.width300 {
+	width: 300px!important;
+}
+
+
 
 /*added by damir, need some check here by real web master*/
 select.category_filter{
