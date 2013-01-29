@@ -25,7 +25,7 @@ No properties
 		<label for="title"><strong>Tag:</strong></label><br />
 		<input class="lform2" type="text" name="tag" size="20" value=""><br />
 		<div class="tag-filters" style="margin-top: 10px;">
-		<label for="privileges">Select topic:</label><br />
+		<label for="privileges"><strong>Select topic:</strong></label><br />
 		<select class="filter" name="topic_id">
 			<?php foreach($topics as $topic){ ?>
 			<option value="<?php echo $topic->id; ?>"><?php echo $topic->name; ?></option>
