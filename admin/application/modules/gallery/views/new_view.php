@@ -106,7 +106,9 @@
 <div class="clear"></div>        
 </div>
         
-        <div id="hidden-inputs" > </div>
+        <div id="hidden-inputs" >
+           <input id="images-order" type="hidden" name="imagesOrder" value="">
+        </div>
         
 </form>    
 </body>

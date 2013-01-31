@@ -10,7 +10,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/config.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.min.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery-ui.custom.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/ajaxupload.3.5.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/modules/gallery/scripts/fileuploader.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/scripts/custom.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/custom.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.colorbox-min.js" ></script>

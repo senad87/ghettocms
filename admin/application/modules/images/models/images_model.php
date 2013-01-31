@@ -58,6 +58,12 @@ class Images_model extends CI_Model {
 		$query = $this->db->query($sql, array($title, $lead, $id));
 		return true;
 	}
+        
+        public function updateImageOrder($id, $order){
+            $this->db->where('id', $id);
+            $this->db->update('images', array('order' => $order));
+            return true;
+        }
 	
 	
 	

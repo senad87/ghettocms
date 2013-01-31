@@ -4,10 +4,20 @@ $(document).ready(function(){
         .sortable({
             handle: ".handle",
             stop: function(){
+                var sOrder = '';
+                var count = $( "#selectable" ).children('li').length;
                 $.each($( "#selectable" ).children('li'), function(index, item){
-                    $(item).data('order', index);
+                    var li = $(item);
+                    index += 1;//increment index because it starts from 0
+                    sOrder += li.attr('id')+ ":" + index;
+                    
+                    if(index < count){
+                        sOrder += "|"; 
+                    }
                 });
-                //alert('OPA DRAGANE!!!');
+
+                $('#hidden-inputs').children('#images-order').attr('value', sOrder);
+
             }
         })
         .selectable({
@@ -27,6 +37,7 @@ $(document).ready(function(){
     });
     
     $("#delete").click(function(){
+        //TODO: delete images from file ssystem THIS IS IMPORTANT!!!
         var ids = $("#ids").attr('value').split(',');
         $.each(ids, function(index,value){
             $("#"+value).remove(); //removes <li>

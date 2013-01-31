@@ -193,6 +193,17 @@ class Gallery extends MX_Controller {
 	        $lead = $this->input->post('lead');
 	        $creation_date = date('Y-m-d G:i:s');
                 $images = $this->input->post('images');
+                $images_order_string = $this->input->post('imagesOrder');
+                
+                $images_order_array = explode("|", $images_order_string);
+                
+                $images_order = array();
+                foreach($images_order_array as $item){
+                    $item_array = explode(":", $item);
+                    $tmp_id = $item_array[0];
+                    $order = $item_array[1];
+                    $images_order[$tmp_id] = $order;
+                }
                 
                 
                 
@@ -220,7 +231,7 @@ class Gallery extends MX_Controller {
                     $image_lead = isset($img_tmp_data[$temp_id]['lead']) ? $img_tmp_data[$temp_id]['lead'] : '';
                     
                     //$image_id = $this->Image_model->insert_new('', $imagepath);
-                    $image_id = $this->Image_model->insert_new($image_title, $image_lead, $imagepath);
+                    $image_id = $this->Image_model->insert_new($image_title, $image_lead, $imagepath, $images_order[$temp_id] );
                     $this->Image_model->connect_with_entry($entry_id, $image_id);
                 }
                 
@@ -285,22 +296,34 @@ class Gallery extends MX_Controller {
 	        $data['entry'] = $entry;
 	        $gallery = $this->Gallery_model->get_gallery_by_id($entry->type_id);
                 
-                $data['images_ids'] = $this->Image_model->get_images_by_entry_id($entry_id);
+                //$data['images_ids'] = $this->Image_model->get_images_by_entry_id($entry_id);
+                $data['images_ids'] = $this->Image_model->get_ordered_images_ids($entry_id);
+                
+                
+//                echo '<pre>';
+//                print_r($test);
+//                echo '</pre>';
+//                die;
                 
                 
                 
                 
                 $data['images'] = array();
+//                foreach($data['images_ids'] as $image_ids){
+//                    //print_r($image_ids['image_id']);
+//                    $image = $this->Image_model->get_image($image_ids->image_id);
+//                    $data['images'][$image_ids->image_id] = $image[0];
+//                }
+                
                 foreach($data['images_ids'] as $image_ids){
                     //print_r($image_ids['image_id']);
                     $image = $this->Image_model->get_image($image_ids->image_id);
                     $data['images'][$image_ids->image_id] = $image[0];
                 }
                 
-                //echo "<pre>";
-                //print_r($data['images_ids']);
-                //echo "</pre>";
-                //die;
+                $data['orderString'] = $this->Image_model->createOrderString($data['images']);
+
+                
 	    	$data['entry_id'] = $entry_id;
 	    	$data['set_category'] = $entry->category_id;
 	        $data['root_categories']=$this->Category_model->get_category_kids(0, $this->language_id);
@@ -385,6 +408,17 @@ class Gallery extends MX_Controller {
 		$category_id = $this->input->post('category_id');
                 $creation_date = date('Y-m-d G:i:s');
                 $images = $this->input->post('images');
+                $images_order_string = $this->input->post('imagesOrder');
+                
+                //creates array from order string
+                $images_order_array = explode("|", $images_order_string);
+                $images_order = array();
+                foreach($images_order_array as $item){
+                    $item_array = explode(":", $item);
+                    $tmp_id = $item_array[0];
+                    $order = $item_array[1];
+                    $images_order[$tmp_id] = $order;
+                }
                 
                 $gallery_images = $this->Image_model->get_images_by_entry_id($entry_id);
                 $gallerie_images_array = array();
@@ -413,15 +447,13 @@ class Gallery extends MX_Controller {
                 
                 $forDeletion = array_diff($gallerie_images_array, $posted_gallery_images);
                 
-                //echo "<pre>";
-                //print_r($gallery_images);
-                //echo "</pre>";
+                
                 if(!empty($forDeletion)){
                     foreach($forDeletion as $del_image_id){
                         $this->Image_model->delete_connection_for_single_image($entry_id, $del_image_id);
                     }
                 }
-               //die;
+               
                 //new images 
                 foreach($added_images_data as $image){
                     $img_data = explode("|", $image);
@@ -431,10 +463,15 @@ class Gallery extends MX_Controller {
                     $img_tmp_data = $this->session->userdata('images'); 
                     $image_title = isset($img_tmp_data[$temp_id]['title']) ? $img_tmp_data[$temp_id]['title'] : ''; 
                     $image_lead = isset($img_tmp_data[$temp_id]['lead']) ? $img_tmp_data[$temp_id]['lead'] : ''; 
-                    $image_id = $this->Image_model->insert_new($image_title, $image_lead, $imagepath);
+                    $image_id = $this->Image_model->insert_new($image_title, $image_lead, $imagepath, $images_order[$temp_id]);
                     $this->Image_model->connect_with_entry($entry_id, $image_id);
                 }
-
+                
+                //old images, update order
+                foreach($posted_gallery_images as $image_id){
+                    $this->Images_model->updateImageOrder($image_id, $images_order[$image_id]);
+                }
+                
 		//$image_id = $this->input->post('image_id');
 		$admin_user_id = $this->session->userdata('id');
 		/*** update category ***/
@@ -607,32 +644,71 @@ class Gallery extends MX_Controller {
 	
 	
 	public function upload(){
+            $this->load->library('AjaxFileUploader');
 		//$uploaddir = '../upload_img';
             
-		$uploaddir = '../images/';
+//		$uploaddir = '../images/';
+//		$current_date_string = md5(date("Y-m-d"));
+//		$images_dir = $uploaddir."".$current_date_string."/";
+//		if (!file_exists($images_dir))
+//            		mkdir($images_dir);
+//                
+//		$file = $images_dir . uniqid()."-".basename($_FILES['uploadfile']['name']);
+//		//print_r($_FILES['uploadfile']['error']);
+//                
+//		if(!file_exists($file)){ 
+//                    if(move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file)){ 
+//				//$id = $this->Images_model->insertImage($_FILES['uploadfile']['name'],$tags=$_FILES['uploadfile']['name'], $file);
+//                                $file = substr($file, 2);//removes two dot at begging
+//                                $response = array('id'=>uniqid(), 'filepath'=>$file);
+//
+//                                header('Content-type: application/json');
+//                                echo json_encode($response);
+//			}else{
+//			 	echo "error";
+//			}
+//		}else{
+//			echo "file_exists";
+//		
+//		}
+                
+                $uploaddir = '../images/';
 		$current_date_string = md5(date("Y-m-d"));
 		$images_dir = $uploaddir."".$current_date_string."/";
 		if (!file_exists($images_dir))
             		mkdir($images_dir);
                 
-		$file = $images_dir . uniqid()."-".basename($_FILES['uploadfile']['name']);
-		//print_r($_FILES['uploadfile']['error']);
+                $file_name = $this->ajaxfileuploader->getName();
                 
-		if(!file_exists($file)){ 
-                    if(move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file)){ 
-				//$id = $this->Images_model->insertImage($_FILES['uploadfile']['name'],$tags=$_FILES['uploadfile']['name'], $file);
-                                $file = substr($file, 2);//removes two dot at begging
-                                $response = array('id'=>uniqid(), 'filepath'=>$file);
-
-                                header('Content-type: application/json');
-                                echo json_encode($response);
-			}else{
-			 	echo "error";
-			}
-		}else{
-			echo "file_exists";
+		$file_path = $images_dir . uniqid()."-".basename($file_name);
 		
-		}
+                $saved = $this->ajaxfileuploader->save($file_path);
+                
+                if($saved){
+                    $file_path = substr($file_path, 2);//removes two dot at begging
+                    $response = array('id'=>uniqid(), 'filepath'=>$file_path);
+
+                    header('Content-type: application/json');
+                    echo json_encode($response);
+                }else{
+                    echo 'error';
+                }
+                
+//		if(!file_exists($file)){ 
+//                    if(move_uploaded_file($_FILES['qqfile']['tmp_name'], $file)){ 
+//				//$id = $this->Images_model->insertImage($_FILES['uploadfile']['name'],$tags=$_FILES['uploadfile']['name'], $file);
+//                                $file = substr($file, 2);//removes two dot at begging
+//                                $response = array('id'=>uniqid(), 'filepath'=>$file);
+//
+//                                header('Content-type: application/json');
+//                                echo json_encode($response);
+//			}else{
+//			 	echo "error";
+//			}
+//		}else{
+//			echo "file_exists";
+//		
+//		}
                 
                /* $dimensions = $this->Image_model->get_other_dimensions();
                 foreach($dimensions as $dimension){
@@ -875,6 +951,37 @@ class Gallery extends MX_Controller {
                 
                 $this->load->view('gallery_dialog_view', $data);
         }
+        
+        
+        public function createNewTest(){
+                $this->session->unset_userdata('images');
+		$root_categories = $this->Category_model->get_category_kids(0, $this->language_id);
+		$data['root_categories'] = $root_categories;
+		$image_dimension = $this->Image_model->get_dimensions();		
+		$data['largest_image'] = $image_dimension[0];
+		$current_date = date("Y-m-d");
+		/*** topics initialization ***/
+		$system_topics = $this->Topic_model->get_system(1, $this->language_id);
+        	if(count($system_topics) > 0){
+			foreach($system_topics as $system_topic){
+				$topic = $this->Topic_model->get_topic_by_id($system_topic->topic_id);
+				//get tags by topic id
+				$tags[$system_topic->topic_id] = $this->Tag_model->get_active_tags_by_topic_id($system_topic->topic_id);
+				$topics[] = $topic[0];
+			}
+			//$data['all_topics'] = $this->Topic_model->get_all_active();
+			$data['linked_topics'] = $this->Topic_model->get_linked_topic(1, $this->language_id);
+			$data['topics'] = $topics;
+			$data['tags'] = $tags;
+			/*** end of topic initialization ***/
+        	}
+                
+                $data['images'] = $this->Images_model->getImages();
+                
+		$this->load->view("header_view");
+		$this->load->view('newTest_view', $data);
+		
+	}
 
 }
 /* End of file gallery.php */
