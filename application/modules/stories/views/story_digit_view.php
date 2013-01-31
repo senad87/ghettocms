@@ -22,6 +22,14 @@
 
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=290108991081687";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
    <div class="header">
    	<div class="menuContainer">
          <div class="logo"><a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>application/views/images/logo.png" width="306" height="110" /></a></div>
@@ -62,7 +70,55 @@
         	   <p><img src="<?php echo base_url(); ?><?php echo $thumb_image_path; ?>" width="599" height="337" /></p>
                    <p><?php echo $story[0]->lead; ?></p>
                   <p><?php echo $story[0]->body; ?></p>
-          <div class="share">Ovde dodati social</div>  
+
+
+
+<div class="socshare share">
+                       
+
+<div class="face">
+	<div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial">
+   </div>
+</div> 
+
+<div class="linkedin">
+<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/Share" data-counter="right"></script>
+
+</div>
+
+<div class="gplus">
+<!-- Place this tag where you want the share button to render. -->
+<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+
+<!-- Place this tag after the last share tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'sr'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+</div>
+
+<div class="twitt">
+                      <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
             
             
 <br />
