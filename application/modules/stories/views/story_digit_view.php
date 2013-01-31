@@ -67,7 +67,9 @@
 				</ul> -->  
          </div>
          <div class="contentLeft">
+             <?php if( !empty($thumb_image_path) ): ?>
         	   <p><img src="<?php echo base_url(); ?><?php echo $thumb_image_path; ?>" width="599" height="337" /></p>
+             <?php endif; ?>      
                    <p><?php echo $story[0]->lead; ?></p>
                   <p><?php echo $story[0]->body; ?></p>
 
