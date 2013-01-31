@@ -7,6 +7,8 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/jquery1.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/jqueryslidemenu.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>application/modules/gallery/scripts/gallery.include.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/jquery.js"></script>
+
 
 </head>
 <body>

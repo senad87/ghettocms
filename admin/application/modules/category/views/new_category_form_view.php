@@ -42,7 +42,7 @@
 		<label for="category_name"><strong>Description:</strong></label><br />
 		<textarea class="lform2-textarea" type="text" name="description" value=""></textarea><br />
 		<label for="category_name"><strong>Category Link points to menu :</strong></label><br />
-		<select name="menu_id">
+		<select name="menu_id" class="filter width300">
 		<?php foreach($menus as $menu){ ?>
 			<option value="<?php echo $menu->id; ?>"><?php echo $menu->name; ?></option>
 		<?php } ?>	

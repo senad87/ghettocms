@@ -7,13 +7,13 @@
 <link href="<?php echo base_url();?>application/views/css/smoothness/jquery-ui.custom.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url();?>application/views/css/colorbox.css" type="text/css" rel="stylesheet" />
 
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/config.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.min.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/config.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-ui.custom.min.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/modules/gallery/scripts/fileuploader.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/scripts/custom.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/custom.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/style/js/jquery.colorbox-min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/custom.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.colorbox-min.js" ></script>
+
 	<script>
 	$(function() {
 		$( "#tabs" ).tabs();
@@ -44,8 +44,16 @@
             <!-- <li><a href="<?php echo base_url(); ?>language/change/2">Serbian Latin</a></li>
             <li><a href="<?php echo base_url(); ?>language/change/3">English</a> -->   
         </ul>
-        
         </li>
+
+
+
+        <li><a class="hide" <?php if (current_url() == base_url()."story"){ ?>id="current"<?php } ?> href="javascript:;">Content</a>
+        	<ul>
+
+
+
+
 	<?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
 	<li><a class="hide" <?php if (current_url() == base_url()."story"){ ?>id="current"<?php } ?> href="javascript:;">Stories</a>
                 <ul>
@@ -79,6 +87,32 @@
                    	</li>
                </ul>
         </li>
+        
+         <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
+	<li><a class="hide" <?php if (current_url() == base_url()."gallery"){ ?>id="current"<?php } ?> href="javascript:;">Galleries</a>
+                <ul>
+                	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>gallery/createNew/">New gallery</a>
+                	</li>
+                	<?php } ?>
+                	<li>
+                		<a href="<?php echo base_url(); ?>gallery">Manage</a>
+                	</li>
+        	       	<li>
+        	       		<a href="<?php echo base_url(); ?>gallery/trash/">Trash</a>
+                   	</li>
+               </ul>
+        </li>
+        <?php } ?>       
+        
+        
+        
+        </ul>
+        </li>
+        
+        
+        
         <?php } ?>
       	<li><a href="<?php echo base_url();?>comments/" >Comments</a></li>
         <?php if(in_array(5, $this->session->userdata('user_privileges'))){ ?>
@@ -131,22 +165,6 @@
         </li>
         <?php } ?>
         <li><a href="<?php echo base_url();?>newsletter/" >Newsletter</a></li>
-        <?php if(in_array(1, $this->session->userdata('user_privileges'))){ ?>
-	<li><a class="hide" <?php if (current_url() == base_url()."gallery"){ ?>id="current"<?php } ?> href="javascript:;">Galleries</a>
-                <ul>
-                	<?php if(in_array(6, $this->session->userdata('user_privileges'))){ ?>
-                	<li>
-                		<a href="<?php echo base_url(); ?>gallery/createNew/">New gallery</a>
-                	</li>
-                	<?php } ?>
-                	<li>
-                		<a href="<?php echo base_url(); ?>gallery">Manage</a>
-                	</li>
-        	       	<li>
-        	       		<a href="<?php echo base_url(); ?>gallery/trash/">Trash</a>
-                   	</li>
-               </ul>
-        </li>
-        <?php } ?>
+
     </ul> 
 </div>

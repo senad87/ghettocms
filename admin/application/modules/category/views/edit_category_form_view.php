@@ -45,7 +45,7 @@
     <br />
 	<input type="hidden" name="category_id" value="<?php echo $category->id; ?>"><br />
 	<label for="category_name"><strong>Category Link points to menu :</strong></label><br />
-	<select name="menu_id">
+	<select name="menu_id" class="filter width300">
 		<?php foreach($menus as $menu){ ?>
 			<option value="<?php echo $menu->id; ?>" <?php if($menu->id == $category->menu_id){?>selected="selected" <?php } ?>><?php echo $menu->name; ?></option>
 		<?php } ?>	

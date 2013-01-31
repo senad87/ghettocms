@@ -1,5 +1,10 @@
 /* CSS Document */
 
+body {
+    margin-top: 109px !important;
+}
+
+
 body, input, textarea, select {
 	margin: 0;
 	padding: 0;
@@ -53,15 +58,18 @@ a:hover  {
 	
 	}
 	
+
 .menubar {
-	height: 36px;
-	border-bottom: 1px solid #CCC;
-	border-top: 1px solid white;
-	background-color: #EEEEEE;
-	padding-top:2px;
-	/***/
-	z-index: 100;
-	position: relative;
+    background-color: #EEEEEE;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid white;
+    height: 36px;
+    padding-top: 2px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+	 top: 0;
+
 }
 
 .menu {
@@ -131,9 +139,17 @@ a:hover  {
     position: relative;
 }
 
+
+/*** toolbar with action buttons ***/
+
+#horizontalManager {
+	height: 51px;
+}
+
+
 .toolbar {
 	list-style: none;
-	margin: 0;
+	margin: 10px 16px 12px 0;
 	padding: 0;
 	height: 31px;
 	line-height: 31px;
@@ -147,6 +163,7 @@ a:hover  {
 	padding: 0;
 	float: left;
 	position: relative;
+	 margin-right: 5px;	  	
 }
 
 .toolbar li a{
@@ -155,14 +172,68 @@ a:hover  {
 	padding: 0;
 	display: block;
 	padding-left: 13px;
-	padding-right: 16px;
+	padding-right: 13px;
 	text-decoration: none;
 	font: "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
 	color: #444;
 	overflow: hidden;
-
 	margin-right: 2px;
 }
+
+#newli a,
+a.action_button:link,
+a.action_button:visited {
+    background-color: #EEEEEE;
+	 border-bottom: 1px solid rgba(0, 0, 0, 0.25);	
+	 border-right: 1px solid rgba(0, 0, 0, 0.25);
+	 text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+	 color: #FFF; 
+	}
+
+
+/***green button ***/
+#saveli a.action_button,
+#publishli a.action_button {
+	background-color: #91BD09;
+}
+#saveli a.action_button:hover,
+#publishli a.action_button:hover  {
+	background-color: #749a02;
+}
+
+/*** blue button ***/
+#newli a {
+	background-color: #2DAEBF;
+}
+
+#newli a:hover  {
+	background-color: #007d9a;
+}
+
+
+
+
+/*** orange button ***/
+#unpublishli a.action_button {
+	background-color: #FFB515;
+}
+
+#unpublishli a.action_button:hover  {
+	background-color: #fc9200;
+}
+
+/**** red button ***/
+#cancelli a.action_button,
+#deleteli a.action_button {
+	background-color: #E33100;
+
+}
+#cancelli a.action_button:hover,
+#deleteli a.action_button:hover  {
+	background-color: #872300;
+}
+
+
 
 
 
@@ -280,7 +351,11 @@ a:hover  {
 
 .headcont {
 	padding: 0 12px;
-
+	position: fixed;
+	width: 100%;
+	top: 40px;
+	background-color: #FFF;
+	border-bottom: 2px solid #f1f1f1;
 }
 
 
@@ -313,6 +388,16 @@ h2 {
 	text-shadow: 1px 1px 0 #FFFFFF;
 
 }
+
+
+h4 {
+    color: #444444;
+    font-size: 13px;
+    margin: 0px;
+}
+
+
+
 
 h5 {
     color: #66A3D3;
@@ -354,6 +439,13 @@ select.filter option {
 	padding: 3px;
 	border: 0;
 }
+
+
+.width300 {
+	width: 300px!important;
+}
+
+
 
 /*added by damir, need some check here by real web master*/
 select.category_filter{
@@ -849,3 +941,61 @@ ul#files li img{ max-width:180px; max-height:150px; }
     
     background: url('../images/ghetto_admin.png') no-repeat;
 }
+
+
+/**********jQuery UI custom**********/
+
+
+    .gallery.custom-state-active { background: #eee; }
+    .gallery li { float: left; width: 192px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+    .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
+    .gallery li a { float: right; }
+    .gallery li a.ui-icon-zoomin { float: left; }
+    .gallery li img { width: 100%; cursor: move; }
+ 
+    #trash { min-height: 8em; padding: 7px;} * html #trash { height: 8em; } /* IE6 */
+    #trash h4 { line-height: 16px; margin: 0 0 0.4em; }
+    #trash h4 .ui-icon { float: left; }
+    #trash .gallery h5 { display: none; }
+
+
+
+.ui-widget-header .ui-icon {
+    float: left;
+}
+
+.info-area {
+	margin: 10px 0;
+	display: block;
+}
+
+
+#gallery {
+    background-color: #E6E6E6;
+    border: 1px solid #D3D3D3;
+    margin-top: -8px;
+    min-height: 12em;
+    padding: 7px;
+}
+* html #gallery { height: 12em; } /* IE6 */
+
+.gallery li {
+    text-align: left;
+   width: 155px;	 
+}
+
+
+.gallery li h5 {
+    cursor: move;
+    font-size: 11px;
+    height: 29px;
+    margin: 0 0 0.4em;
+    overflow: hidden;
+    padding: 3px;
+}
+
+.drag-here {
+	text-align: center;
+	font-size: 28px;
+	color: #09F;
+	}

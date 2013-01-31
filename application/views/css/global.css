@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /* CSS Document */
 
 
@@ -2256,7 +2256,49 @@ ul.toplist li a span {
 	
 	
 	
-/****galleria***/
+/******* pagination ******/
+.pagination {
+
+}
+ul.pagination {
+    list-style: none outside none;
+    margin: 12px 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+	 padding: 12px;
+}
+ul.pagination li {
+    float: left;
+    margin: 2px;
+    padding: 0;
+    text-align: center;
+}
+ul.pagination li.current_page {
+    background-color: #000;
+    color: #E99521;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 31px;
+    text-align: center;
+    width: 32px;
+}
+ul.pagination li a {
+    background-color: #eeeeee;
+    color: #333;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 31px;
+    text-align: center;
+    text-decoration: none;
+    width: 32px;
+}
+ul.pagination li a:hover {
+    background-color: #D5E8FB;
+}
 
 
->>>>>>> 8699917cffc6d54aaba5bece5619bc535e4fb52d
+
+

@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Images_model extends CI_Model {
 
@@ -36,8 +36,11 @@ class Images_model extends CI_Model {
 	}
 	
 	function getImage($id){
-		$sql = "SELECT * FROM images WHERE id=?";
-		$query = $this->db->query($sql, array($id));
+//		$sql = "SELECT * FROM images WHERE id=?";
+//		$query = $this->db->query($sql, array($id));
+//                $result = $query->first_row();
+                $this->db->select('*')->from('images')->where( array( "id" => $id ) )->limit(1);
+                $query = $this->db->get();
                 $result = $query->first_row();
                 if(!empty($result)){
                     return $result;
@@ -46,6 +49,28 @@ class Images_model extends CI_Model {
                 }
 		//return $query->first_row();
 	}
+        
+        public function getImageByDimesion($id, $dimension_id = 1) {
+            $this->db->select('*')->from('images')->where( array("id" => $id, "dimension_id" => $dimension_id) )->limit(1);
+            $query = $this->db->get();
+            $result = $query->first_row();
+            if (!empty($result)) {
+                return $result;
+            } else {
+                return false;
+            }
+        }
+        
+        public function getImagesByEntry( $entry_id ){
+            $this->db->select('*')->from('join_entries_images')->where( array("entry_id" => $entry_id, "active" => 1) );
+            $query = $this->db->get();
+            $result = $query->result();
+            if (!empty($result)) {
+                return $result;
+            } else {
+                return false;
+            }
+        }
 	
 	public function deleteImage($id){
 		$sql = "UPDATE images SET status=0 WHERE id=?";

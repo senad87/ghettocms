@@ -138,6 +138,24 @@ class Entry_model extends CI_Model {
 			return $query->result();
 		}
 	}
+        
+        public function getEntriesByState( $entry_type_id, $state = 3, $limit = 10, $offset = 0, $language_id = 1, $order_column = "entry_type_id", $order_dir = "desc", $return_array = 0 ){
+            $this->db->select('*')->from('entries')
+                     ->where( array("entry_type_id" => $entry_type_id, "entry_state_id" => $state, "language_id" => $language_id) )
+                     ->order_by( $order_column, $order_dir )
+                     ->limit($limit, $offset);
+            $query = $this->db->get();
+            if($return_array == 1){
+		return $query->result_array();
+            }else{
+		return $query->result();
+            }
+        }
+        
+        public function getNumberByState( $entry_type_id, $state = 3, $language_id = 1 ){
+            $this->db->from('entries')->where( array("entry_type_id" => $entry_type_id, "entry_state_id" => $state, "language_id" => $language_id) );
+            return $this->db->count_all_results();
+        }
 	
 
 	/**

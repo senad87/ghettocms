@@ -14,16 +14,14 @@ class Menu extends MX_Controller {
 	/**
 	 * 
 	 * Display all pages from menu, handle every request
-	 * @param int $id
-	 * @param int $sub
+	 * @param int $id ID of current menu displayed
+	 * @param int $sub IF array use it for additional params, 
+         *                 IF it is String use it as pagination offset
 	 */
     function index($id = 0, $sub=false){
 	//set language
-	//TODO: Get language by ID
-	//print_r("Hello");
     	$session_language_id = $this->session->userdata('language_id');
     	//if no language data in session set default
-    	//var_dump($session_language_id);
     	if(!$session_language_id){
 		$language = $this->Languages_model->get_by_id(1);
 		$user_session_data = array("language_id" => 1, "language" => $language->language);
@@ -31,22 +29,22 @@ class Menu extends MX_Controller {
 		$this->session->set_userdata($user_session_data);
     	}
     	
-	if($id == 0){
-		$menu = $this->Menu_model->get_home_menu($session_language_id);
+	if( $id == 0 ){//get Home menu by language
+		$menu = $this->Menu_model->get_home_menu( $session_language_id );
 	}else{
-		$menu = $this->Menu_model->get_menu_by_id($id);
+		$menu = $this->Menu_model->get_menu_by_id( $id );
 	}
 	
 	$data['menu'] = $menu;
-	if(is_array($sub)){
+	if( is_array( $sub ) ){
 		$data['sub'] = $sub;
 		$data['offset'] = false;
 	}else{
 		$data['sub'] = false;
 		$data['offset'] = $sub; //if sub is a string that means that offset is in its place for pagination purpose
 	}
-	
-	$template = $this->Templates_model->get_template_by_id($menu[0]->template_id);
+	//Get Template options
+	$template = $this->Templates_model->get_template_by_id( $menu[0]->template_id );
 	$template_file_name_array = explode(".", $template[0]->file_name);	
 	$template_file_name = $template_file_name_array[0];
 	
