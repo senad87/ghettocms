@@ -1,18 +1,11 @@
 <div id="<?php echo $module_id; ?>" class="<?php if (isset($module_params['classsuffix']) && $module_params['classsuffix'] != "") echo $module_params['classsuffix']; ?>"> 
-        <h2 class="title"><?php
-            if ($module_params['box_title'] != "") {
+        <h2 class="title">
+            <?php if ($module_params['box_title'] != "") {
                 echo $module_params['box_title'];
             } ?>
-            
-            
-                        <?php if ( isset( $module_params['link_title'] ) and  $module_params['link_title'] != "" ) { ?>
-                            <a class="smallButton" href="<?php echo base_url(); ?><?php echo $story['type_name']; ?>/<?php echo $data['menu_id']; ?>/<?php echo $story['id']; ?>/<?php echo url_title($story['title']); ?>">Pogledaj sve</a>
-                        <?php } ?>            
-            
-            
-        
-        
-        
+            <?php if ( isset( $module_params['link_title'] ) and  $module_params['link_title'] != "" and !empty( $module_params['link_url'] ) ) { ?>
+                <a class="smallButton" href="<?php echo $module_params['link_url']; ?>">Pogledaj sve</a>
+            <?php } ?>
         </h2>
         
     

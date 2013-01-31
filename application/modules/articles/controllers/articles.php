@@ -30,7 +30,6 @@ class Articles extends MX_Controller {
         //load module instance by id
         $module_instance = $this->Position_model->get_module_by_id($module_id);
         $module_params = unserialize($module_instance[0]->params);
-
         //number of entries
         $total_rows = $this->Articles_model->count_entries_by_categories($module_params['categories']);
 
