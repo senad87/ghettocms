@@ -53,6 +53,7 @@
                 <?php if ( $module_params['lead'] >= $a && $story['lead'] ) { ?>
                     <div class="lead">
                         <?php echo $story['lead']; ?><br />
+                        <div class="readmore"><a href="<?php echo base_url(); ?><?php echo $story['type_name']; ?>/<?php echo $data['menu_id']; ?>/<?php echo $story['id']; ?>/<?php echo url_title($story['title']); ?>">Opširnije ></a></div>
                     </div>
                 <?php } ?>
                 <!-- end of Lead -->
