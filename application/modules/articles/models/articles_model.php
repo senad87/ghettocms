@@ -9,7 +9,10 @@ class Articles_model extends CI_Model {
 	
 	public function get_entries_by_categories($categories, $limit = 10, $offset = 0, $language_id = 1){
 
-                $this->db->select('*')->from('entries')->where_in('category_id', $categories)->where( array("entry_state_id" => 3, "language_id" => $language_id) )->limit( $limit, $offset );
+                $this->db->select('*')->from('entries')->where_in('category_id', $categories)
+                         ->where( array("entry_state_id" => 3, "language_id" => $language_id) )
+                         ->limit( $limit, $offset )
+                         ->order_by('modified_date','DESC');
                 $query = $this->db->get();
 		return $query->result();
 	}
