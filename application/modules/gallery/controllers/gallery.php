@@ -62,7 +62,8 @@ class Gallery extends MX_Controller {
                      $this->entry_images->init( $this->db_images, $entry );
                      $entry->image = $this->entry_images->getImageByDim( $module_params['photo_size'] );
                      
-                     //TODO: Get Tags, Author
+                     //TODO: Get Tags, Author, Number of comments
+                     
                  }
             }else{
                 //TODO: Display message : There is no content in this Category
