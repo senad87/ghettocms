@@ -10,9 +10,10 @@
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/config.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.min.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-ui.custom.min.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/ajaxupload.3.5.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/modules/gallery/scripts/fileuploader.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/custom.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.colorbox-min.js" ></script>
+
 	<script>
 	$(function() {
 		$( "#tabs" ).tabs();

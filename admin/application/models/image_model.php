@@ -9,13 +9,14 @@ class Image_model extends CI_Model {
         parent::__construct();
 	}
 	
-	public function insert_new($title='', $lead='', $path, $source_image_id = 0, $poster_photo = 1, $dimension_id = 1){
+	public function insert_new($title='', $lead='', $path, $order=0, $source_image_id = 0, $poster_photo = 1, $dimension_id = 1){
 		$creation_date = date('Y-m-d G:i:s');
 		$modified_date = date('Y-m-d G:i:s');
 		$data = array(
                        'title' => $title,
                        'lead' => $lead,
                        'path' => $path,
+                       'order' => $order,
                        'source_image_id' => $source_image_id,	
                        'poster_photo' => $poster_photo,
                        'dimension_id' => $dimension_id,
@@ -46,6 +47,41 @@ class Image_model extends CI_Model {
 		$query = $this->db->get_where("join_entries_images",array("entry_id"=>$entry_id, "active"=>1));
 		return $query->result();
 	}
+        
+        public function get_images_ids_by_entry_id($entry_id){
+                $this->db->select('image_id');
+                $this->db->from('join_entries_images');
+                $this->db->where('entry_id =', $entry_id);
+                $this->db->where('active =', 1);
+                
+                $query = $this->db->get();
+                return $query->result();
+
+	}
+        
+        public function get_ordered_images_ids($entry_id){
+            $this->db->select('image_id');
+            $this->db->from('join_entries_images');
+            $this->db->where("entry_id =", $entry_id);
+            $this->db->where("active =", 1);
+            $this->db->join('images', 'join_entries_images.image_id = images.id');
+            $this->db->order_by("order", "ASC");
+
+            $query = $this->db->get();
+            return $query->result();
+
+        }
+        
+        public function createOrderString($images){
+            $orderStr = '';
+            foreach($images as $image){
+               $orderStr .= $image->id.":".$image->order;
+               $orderStr .= "|";
+            }
+            $orderStr = substr($orderStr, 0, strlen($orderStr)-1);
+            return $orderStr;
+            
+        }
 	
 	/*public function get_poster_photo_by_id($id){
 		$query = $this->db->get_where("images",array("id"=>$id, "poster_photo"=>1));
