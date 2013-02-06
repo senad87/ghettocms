@@ -1,33 +1,74 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Gallery extends MX_Controller {
 
-	//private $language_id = 1;
+	private $entry_type;
+        private $entry_images;
+        private $db_images;
+        private $language_id;
+        private $published;
+        const TYPE_NAME = 'gallery';
+        
 	
 	function __construct(){
 		// Call the Model constructor
 		parent::__construct();
 		$this->load->helper(array('form', 'url', 'date'));
-		//$this->load->helper('categories_list_helper.php');
-		//$this->load->helper('category');
-		//$this->load->helper('login_helper.php');
-		//$this->load->library('pagination');
+                $this->load->model('Entry_model');
+                $this->load->model('Entry_type_model');
+                $this->load->model('Entry_state_model');
+		
 		$this->load->model('Gallery_model');
-		//$this->load->model('Entry_state_model');
-		$this->load->model('Entry_model');
-		//$this->load->model('Admin_user_model');
-		//$this->load->model('category/Category_model');
-		//$this->load->model('comments/Comments_model');
-		//$this->load->model('topic/Topic_model');
-		//$this->load->model('tag/Tag_model');
-		//$this->load->model('images/Images_model');
-		//$this->lang->load('messages', 'english');
-                $this->load->model('images/Images_model');
+                
+		$this->db_images = $this->load->model('images/Images_model');
+                $this->entry_images = $this->load->model('images/Entry_images_model');
+                
 		$this->load->library('image_lib');
                 //$this->load->library('Jquery_pagination');
-		//$this->language_id = $this->session->userdata('language_id');
-		//check_login();
-	}
+                $this->entry_type = $this->Entry_type_model->getTypeByName( self::TYPE_NAME );
+                $this->published = $this->Entry_state_model->getStateByName( 'Published' );
+                $this->language_id = 1;
+        }
+                
+        //svaki modul bi trebalo da bude svestam menija na kom se nalazi, 
+        //da prima offset ukoliko se radi o listi,
+        //da prima jos neke dodatne podatke
+        public function displayme( $module_id, $data = array() ){
+            if( is_array($data) ){
+                $offset = $data['offset'];
+            }else{
+                $data_menu_id = $data;
+                $data = array();
+                $data['menu_id'] = $data_menu_id;
+            }
+            $menu = $this->Menu_model->getMenuByID( $data['menu_id'] );
+            //load module instance by id
+            $module_instance = $this->Position_model->get_module_by_id( $module_id );
+            $module_params = unserialize($module_instance[0]->params);
+            
+            //number of entries
+            $total_rows = $this->Entry_model->countByTypeAndCategory( $module_params['categories'], $this->entry_type->id, 
+                                                                      $this->language_id, $this->published->id );
+            
+            if( $total_rows > 0 ){
+                
+                 $per_page = $module_params['number'];
+                 $entries = $this->Entry_model->getByTypeAndCategoryLimited( $module_params['categories'], $this->entry_type->id, 
+                                                                             $per_page, $offset, 
+                                                                             $this->language_id, $order_col = 'id',
+                                                                             $order = 'desc', $this->published->id );
+                 //Foreach entry we need tags and topics, autor, poster photo ...
+                 foreach( $entries as $entry ){
+                     $this->entry_images->init( $this->db_images, $entry );
+                     $entry->image = $this->entry_images->getImageByDim( $module_params['photo_size'] );
+                     
+                     //TODO: Get Tags, Author, Number of comments
+                     
+                 }
+            }else{
+                //TODO: Display message : There is no content in this Category
+            }
+        }
         
         public function getImages(){
             $gallery_id = $this->input->post('gallery_id');

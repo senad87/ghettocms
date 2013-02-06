@@ -7,8 +7,20 @@ class Menu_model extends CI_Model {
 		parent::__construct();
 		
 	}
-
-	/**
+        
+        public function getMenuByID( $id ){
+            $this->db->select('*')->from('menus')
+                     ->where( 'id', $id )->limit(1);
+            return $this->db->get()->first_row();
+        }
+        
+        public function getNameByID($id){
+		$this->db->select('name');
+		$query = $this->db->get_where('menus', array('id' => $id));
+		return $query->first_row();
+	}
+	
+        /**
 	 * 
 	 * get menu by given menu id
 	 * @param int $id
@@ -35,9 +47,5 @@ class Menu_model extends CI_Model {
 		return $query->result();
 	}
 	
-	public function getNameByID($id){
-		$this->db->select('name');
-		$query = $this->db->get_where('menus', array('id' => $id));
-		return $query->first_row();
-	}
+	
 }	
