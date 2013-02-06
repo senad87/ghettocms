@@ -3,16 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ModularCMS</title>
-<link href="<?php echo base_url();?>application/views/css/style.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url();?>application/views/css/smoothness/jquery-ui.custom.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url();?>application/views/css/colorbox.css" type="text/css" rel="stylesheet" />
+<link href="<?php echo base_url();?>application/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url();?>application/css/smoothness/jquery-ui.custom.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url();?>application/css/colorbox.css" type="text/css" rel="stylesheet" />
 
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/config.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.min.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-ui.custom.min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/config.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery.min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery-ui.custom.min.js" ></script>
 <script type="text/javascript" src="<?php echo base_url();?>application/modules/gallery/scripts/fileuploader.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/custom.js" ></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.colorbox-min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/custom.js" ></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery.colorbox-min.js" ></script>
 
 	<script>
 	$(function() {
