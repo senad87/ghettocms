@@ -1,7 +1,7 @@
 <div class="comments-block">
 <span id="comm" ></span>
 <div class="commentsList" >
-<div class="komentari">Коментари</div>
+<div class="komentari">Komentari</div>
 <ul >
 <?php if($comments != false){ ?>		
 	<?php foreach($comments as $comment){ ?>
@@ -14,5 +14,5 @@
 <?php } ?>
 </ul>
 </div>
-<p class="obavezno" ><?php echo $this->lang->line('thank_you'); ?></p>
+<div class="messageSuccess" ><?php echo $this->lang->line('thank_you'); ?></div>
 </div>

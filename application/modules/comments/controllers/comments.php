@@ -35,8 +35,8 @@ class Comments extends MX_Controller {
 			//var_dump($data['cap']);
 			$data['recaptcha'] = $this->recaptcha->get_html();
 			
-			$this->form_validation->set_message('required', 'Ово поље је обавезно');
-			$this->form_validation->set_message('valid_email', 'Email mora biti validan');
+			$this->form_validation->set_message('required', 'Ovo polje je obavezno');
+			$this->form_validation->set_message('valid_email', 'Email mora biti ispravan');
 			$this->form_validation->set_rules('name', 'Ime', 'required|xss_clean');
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
 			$this->form_validation->set_rules('comment', 'comment', 'required|max_length[600]|xss_clean');

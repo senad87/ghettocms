@@ -59,7 +59,7 @@ function countChars(){
 				<p>
 					<input id="menu_id" type="hidden" value="<?php echo $menu_id; ?>" name="menu_id">
 					<input id="item_id" type="hidden" value="<?php echo $item_id;?>" name="item_id">
-					<input id="sub" type="submit" value="<?php echo $this->lang->line('send_comment'); ?>" name="cmtsbmt">
+					<input id="sub" type="submit" value="<?php echo $this->lang->line('send_comment'); ?>" name="cmtsbmt" class="commButton">
 </p>
 </div>
 <div class="obavezno">* <?php echo $this->lang->line('mandatory_fields'); ?></div>
