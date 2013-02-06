@@ -1,4 +1,8 @@
 <?php
+//THIS MODEL MAY NOT BE IN USE(CHECK AS SOON AS POSIBLE)
+//THIS MODEL MAY NOT BE IN USE(CHECK AS SOON AS POSIBLE)
+//THIS MODEL MAY NOT BE IN USE(CHECK AS SOON AS POSIBLE)
+
 
 class Image_model extends CI_Model {
 
@@ -45,6 +49,8 @@ class Image_model extends CI_Model {
 		$query = $this->db->get_where("join_entries_images",array("entry_id"=>$entry_id, "active"=>1));
 		return $query->result();
 	}
+        
+        
 	
 	/*public function get_poster_photo_by_id($id){
 		$query = $this->db->get_where("images",array("id"=>$id, "poster_photo"=>1));

@@ -84,6 +84,7 @@
     </div><!--end of left-panel-->
     <div class="clear"></div>
         <div id="hidden-inputs" >
+           <input id="images-order" type="hidden" name="imagesOrder" value="<?php echo $orderString; ?>">
             <input type="hidden" name="gallery_id" value="<?php echo $gallery['id']; ?>">
             <input  type="hidden" name="entry_id" value="<?php echo $entry_id; ?>">
             <?php foreach($images as $image){ ?>
