@@ -16,8 +16,8 @@
 <?php endif; ?>
 <script type="text/javascript">
 $(".replace-module").click(function() {
-		var position_id = $( this ).attr("id");
-
+		var position_id = $(this).attr("id");
+                //var position_id = $( this ).data("id");
 		//checked module by selected module instance
 		$(".select-module-instance").change(function() {
 			var module_name = $(this).attr('data-name');
@@ -40,7 +40,7 @@ $(".replace-module").click(function() {
 					var module = $(".select-module:checked").val();
 					var module_id = $("#instance-"+module).val();
 					var menu_id = $("#menu-id").val();
-
+                                        //console.log(module_id);
 					if (module_id == 0){
 						
 							//load div with module properties
@@ -115,12 +115,14 @@ $(".edit-module").click(function() {
 	var position_id = $( this ).attr("id");
 	var module_id = $("#module-id-pos-"+ position_id).val();
 	var module = $("#module").val();
+        console.log( $(this) );
 	//alert("Pos ID:"+ position_id +"Module ID"+ module_id);
 	$("#module-properties").load("<?=base_url(); ?>module/load_edit_module", {module_id: module_id, position_id: position_id}, function(response, status, xhr) {
 		  if (status == "error") {
 		    var msg = "Sorry but there was an error: "+ xhr.status + " " + xhr.statusText;
 		    console.log(msg);
 		  }
+                  //return false;
 	});
 	//exit;
 	$( "#dialog-edit" ).dialog({
