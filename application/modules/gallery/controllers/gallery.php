@@ -17,9 +17,7 @@ class Gallery extends MX_Controller {
                 $this->load->model('Entry_model');
                 $this->load->model('Entry_type_model');
                 $this->load->model('Entry_state_model');
-		
 		$this->load->model('Gallery_model');
-                
 		$this->db_images = $this->load->model('images/Images_model');
                 $this->entry_images = $this->load->model('images/Entry_images_model');
                 
@@ -63,6 +61,7 @@ class Gallery extends MX_Controller {
                      $entry->image = $this->entry_images->getImageByDim( $module_params['photo_size'] );
                      
                      //TODO: Get Tags, Author, Number of comments
+                     //TODO: Get Tags, Author, Number of comments
                      
                  }
             }else{
@@ -83,6 +82,7 @@ class Gallery extends MX_Controller {
             }
             $data['gallery_id'] = $gallery_id;
             $data['images_data'] = $images_data;
+            
 
             $this->load->view('gallery_view', $data);            
         }
