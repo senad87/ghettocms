@@ -1174,7 +1174,12 @@ input.commButton:active {
 /***** messages *****/
 
 .messageSuccess {
-	margin-top: 10px;
+    background-color: #DEF1CA;
+    border: 1px solid #4D9303;
+    color: #000000;
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 10px;
 }
 
 
@@ -1224,6 +1229,41 @@ ul.pagination li a:hover {
     background-color: #D5E8FB;
 }
 
+/* Social toolbar */
+
+.utilbar {
+    background-color: #F3F3F3;
+   /* border-bottom: 1px solid #E8E8E8;*/
+    border-top: 1px solid #FFFFFF;
+	 border-right: 1px solid #fafafa;
+	 border-left: 1px solid #fafafa;	 
+
+}
+
+.social {
+    float: left;
+}
 
 
-
+.utilbar span {
+    float: left;
+	 height: 33px;
+}
+.btn-tw {
+    border-right: 1px solid #E8E8E8;
+    border-left: 1px solid #FFFFFF;
+	 padding: 12px 12px 0 12px;
+}
+.btn-gplus {
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #E8E8E8;
+	 padding: 12px 12px 0 12px;
+}
+.btn-fb {
+    border-right: 1px solid #E8E8E8;
+	 padding: 12px 12px 0 12px;
+}
+.btn-blank {
+    border-left: 1px solid #FFFFFF;
+	 padding: 12px 12px 0 12px;
+}

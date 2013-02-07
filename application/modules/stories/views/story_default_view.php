@@ -25,6 +25,14 @@
 </head>
 
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=290108991081687";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
  <!--<div class="menu-top">
    <div class="width1124">
     ss
@@ -65,9 +73,86 @@
                   <?php echo $story[0]->body; ?>
                   
                 </div>
-                <div class="subcontent">
+                
                   <?php echo modules::run('tags/list_tags', array("entry_id" => $entry[0]->id, "from_menu_id" => $from_menu_id)); ?>
                   <?php //echo validation_errors(); ?>
+                  
+
+					<!-- share start -->
+<div class="utilbar">    
+          <div class="social">
+            <span class="btn-fb">
+				<div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="segoe ui"></div>
+				
+            </span>
+                
+            <span class="btn-tw">
+               <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            
+            </span>
+            <span class="btn-gplus">
+            
+               <!-- Place this tag where you want the +1 button to render. -->
+               <div class="g-plusone" data-size="medium"></div>
+               
+               <!-- Place this tag after the last +1 button tag. -->
+               <script type="text/javascript">
+                 window.___gcfg = {lang: 'en-GB'};
+               
+                 (function() {
+                   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                   po.src = 'https://apis.google.com/js/plusone.js';
+                   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                 })();
+               </script>
+            
+            </span>
+
+
+
+		    <span class="btn-blank"></span>            
+            
+          </div>
+           <!-- <div class="utils">
+            	<span class="print"><a href="javascript:;"></a></span>
+            	<span class="pdf"><a href="javascript:;"></a></span>
+            </div>-->
+		<div class="clear"></div>          
+      </div>               
+               <!-- share end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
+                  
+                  <div class="subcontent">
+                  
                   <?php if($cat_comment_status == 1 && $entry_comment_status == 1){?>
 				       <?php echo modules::run('comments', array($from_menu_id, $item_id, $post)); ?>  
                     <?php } ?>
