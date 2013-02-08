@@ -54,6 +54,12 @@ class Tag_model extends CI_Model {
 		return $query->first_row();
 	
 	}
+        
+        public function getTagByID( $id ){
+                $this->db->select('*')->from('tags')
+                                    ->where( array( 'id'=>$id ) );
+		return $this->db->get()->first_row();
+	}
 	
 	
 	/**

@@ -7,10 +7,14 @@ class Comments_model extends CI_Model {
 	}
 	
 	function insert($item_id, $name, $email, $comment, $ip_address, $status=0){
-		$createdDate = date('Y-m-d H:i:s');
-		$sql = "INSERT INTO comments (entry_id, name, email, body, ip_address, status, createdDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		$query = $this->db->query($sql, array($item_id, $name, $email, $comment, $ip_address, $status, $createdDate));
-		if($query){
+		
+                $createdDate = date('Y-m-d H:i:s');
+                $data = array('entry_id' => $item_id, 'name' => $name, 
+                            'email' => $email, 'body' => $comment,
+                            'ip_address'=>$ip_address, 'status' => $status, 'createdDate' => $createdDate );
+                $this->db->insert('comments', $data);
+                
+                if( $this->db->insert_id() > 0){
 			return true;
 		}else{
 			return false;

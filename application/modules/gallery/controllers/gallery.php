@@ -4,9 +4,13 @@ class Gallery extends MX_Controller {
 
 	private $entry_type;
         private $entry_images;
+        private $db_entry_tags;
+        private $db_tag;
         private $db_images;
         private $language_id;
         private $published;
+        private $db_admin_users;
+        private $admin_user;
         const TYPE_NAME = 'gallery';
         
 	
@@ -21,7 +25,13 @@ class Gallery extends MX_Controller {
 		$this->db_images = $this->load->model('images/Images_model');
                 $this->entry_images = $this->load->model('images/Entry_images_model');
                 
-		$this->load->library('image_lib');
+                $this->db_admin_users = $this->load->model('admin_users/Adminuser_model');
+		$this->admin_user = $this->load->model('admin_users/Adminuser');
+                
+                $this->load->model('comments/Comments_model');
+                $this->db_entry_tags = $this->load->model('Entry_tags_model');
+                $this->db_tag = $this->load->model('tags/Tag_model');
+                $this->load->library('image_lib');
                 //$this->load->library('Jquery_pagination');
                 $this->entry_type = $this->Entry_type_model->getTypeByName( self::TYPE_NAME );
                 $this->published = $this->Entry_state_model->getStateByName( 'Published' );
@@ -40,6 +50,7 @@ class Gallery extends MX_Controller {
                 $data['menu_id'] = $data_menu_id;
             }
             $menu = $this->Menu_model->getMenuByID( $data['menu_id'] );
+            /*** get module params ***/
             //load module instance by id
             $module_instance = $this->Position_model->get_module_by_id( $module_id );
             $module_params = unserialize($module_instance[0]->params);
@@ -57,12 +68,17 @@ class Gallery extends MX_Controller {
                                                                              $order = 'desc', $this->published->id );
                  //Foreach entry we need tags and topics, autor, poster photo ...
                  foreach( $entries as $entry ){
+                     
                      $this->entry_images->init( $this->db_images, $entry );
                      $entry->image = $this->entry_images->getImageByDim( $module_params['photo_size'] );
                      
-                     //TODO: Get Tags, Author, Number of comments
-                     //TODO: Get Tags, Author, Number of comments
+                     $author = $this->admin_user->init( $entry->admin_user_id, $this->db_admin_users );
+                     $entry->author_name = $author->getUsername();
                      
+                     $entry->num_of_comments = $this->Comments_model->countEntryComments( $entry->id );
+                     //TODO: Get Tags and Topics
+                     $entry = $this->db_entry_tags->attachTags( $entry, $this->db_tag );
+                     pre_dump($entry);
                  }
             }else{
                 //TODO: Display message : There is no content in this Category

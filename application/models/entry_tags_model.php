@@ -9,11 +9,10 @@ class Entry_tags_model extends CI_Model {
     }
     
     public function attachTags( stdClass $object, Tag_model $tags_db_model ){
-        pre_dump( $object );
         $object->tags = array();
         $object_tags = $this->getTagsByEntry( $object->id );
         foreach( $object_tags as $tag ){
-            $object->tags[] = $tags_db_model->getTagByID( $tag->id );
+            $object->tags[] = $tags_db_model->getTagByID( $tag->tag_id );
         }
         return $object;
     }
