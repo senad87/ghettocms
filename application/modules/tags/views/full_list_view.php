@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ProGame.rs</title>
-<link href="<?php echo base_url();?>application/views/css/global.css"
+<link href="<?php echo base_url();?>application/css/global.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
-	src="<?php echo base_url();?>application/views/js/jquery-1.4.4.min.js"></script>
+	src="<?php echo base_url();?>application/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript"
-	src="<?php echo base_url();?>application/views/js/jquery.idTabs.min.js"></script>
+	src="<?php echo base_url();?>application/js/jquery.idTabs.min.js"></script>
 </head>
 <body>
 <div class="menu-top"></div>
@@ -17,10 +17,10 @@
 <div class="content">
 <div class="header">
 <div class="logo"><a href="index1.php"><img
-	src="<?php echo base_url();?>application/views/images/logo.png"
+	src="<?php echo base_url();?>application/images/logo.png"
 	alt="ProGame.rs" title="ProGame.rs" width="260" height="110" /></a></div>
 <div class="banner-top"><a href="#"><img
-	src="<?php echo base_url();?>application/views/images/temp728x90.jpg"
+	src="<?php echo base_url();?>application/images/temp728x90.jpg"
 	alt="Banner" width="728" height="90" /></a></div>
 <div class="clear"></div>
 </div>
