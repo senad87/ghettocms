@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>4M Login</title>
-<link href="<?php echo base_url(); ?>application/views/css/style.css" rel="stylesheet" type="text/css" /> 
+<link href="<?php echo base_url(); ?>application/css/style.css" rel="stylesheet" type="text/css" /> 
 </head>
 <body>
 
