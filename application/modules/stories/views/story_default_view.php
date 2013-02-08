@@ -21,8 +21,8 @@
 		<script type="text/javascript">
 			Cufon.replace('.readmore');
 		</script> -->
-<!--<meta name="description" content="Gužva ispred blagajne SC Mladost, popularnog &quot;Jezera&quot;. Navijači su iznenađeni što ne mogu da kupe kartu za (verovatni) okršaj Radničkog i Zvezde." />
-<meta name="keywords" content="KUP:,Nema,ulaznica,za,drugo,polufinale!" />-->
+
+<meta name="description" content="<?php echo $story[0]->lead; ?>" />
 
 <meta property="fb:app_id" content="602203836462577">
 <meta property="og:type" content="article"/>
