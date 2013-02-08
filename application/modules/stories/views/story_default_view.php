@@ -21,6 +21,16 @@
 		<script type="text/javascript">
 			Cufon.replace('.readmore');
 		</script> -->
+<meta name="description" content="Gužva ispred blagajne SC Mladost, popularnog &quot;Jezera&quot;. Navijači su iznenađeni što ne mogu da kupe kartu za (verovatni) okršaj Radničkog i Zvezde." />
+<meta name="keywords" content="KUP:,Nema,ulaznica,za,drugo,polufinale!" />
+
+<meta property="fb:app_id" content="602203836462577">
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="<?php echo $entry[0]->title; ?>"/>
+<meta property="og:image" content="<?php echo base_url(); ?><?php echo $thumb_image_path; ?>"/>
+<meta property="og:url" content="<?php echo $_SERVER['REQUEST_URI']; ?>"/>
+<meta property="og:site_name" content="Progame.rs"/>
+
 
 </head>
 
@@ -30,7 +40,7 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=290108991081687";
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=602203836462577";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
  <!--<div class="menu-top">
