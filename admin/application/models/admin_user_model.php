@@ -112,7 +112,8 @@ class Admin_user_model extends CI_Model {
 	}
 	
 	public function update_user_data($id, $name, $username, $password, $group_id, $email = ""){
-		$password = sha1($password);
+		//$password = sha1($password);
+      $password = $this->phpass->hash($password);
 		$data = array(
 	                       'name' => $name,
 	                       'username' => $username,
