@@ -299,6 +299,7 @@ ul.menu li a:hover {
 	float: left;
 }
 
+.menu_78,
 .menu_13 {
 	display: none;
 }
@@ -649,7 +650,7 @@ ul.menu li a:hover {
 .contentList .newsItem {
 	float: left;
 	margin-left: 40px;
-	width: 535px;
+	width: 90%;
 }
 
 .contentList .link {
@@ -677,6 +678,49 @@ ul.menu li a:hover {
 	border-bottom: 1px solid #cccccc;
 	padding: 40px 0;
 }
+
+
+
+/*****  lista vesti 2 *****/
+
+.contentList2 h2 {
+	border: 0;
+}
+
+.contentList2 img {
+	float: left;
+}
+
+.contentList2 .newsItem {
+	float: left;
+	margin-left: 40px;
+	width: 535px;
+}
+
+.contentList2 .link {
+	font-size: 24px;
+}
+
+.contentList2 .date {
+	color: #999;
+	display: block;
+	font-size: 18px;
+	padding-bottom: 22px;
+}
+
+
+
+.contentList2 ul {
+	margin: 0 40px 20px 40px;
+
+}
+
+.contentList2 ul li {
+	border-bottom: 1px solid #cccccc;
+	padding: 40px 0;
+}
+
+
 
 
 /**** paginacija ***/
@@ -967,4 +1011,11 @@ table td {
     font-weight: bold;
     margin: 0;
     padding: 0 0 3px;
+}
+
+
+
+.readmore {
+	padding-top: 5px;
+	text-align: right;
 }
