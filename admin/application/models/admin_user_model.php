@@ -5,6 +5,7 @@ class Admin_user_model extends CI_Model {
 	function __construct(){
 	        // Call the Model constructor
 	        parent::__construct();
+           $this->load->library('phpass');
 	}
 	
 	/**
@@ -21,7 +22,8 @@ class Admin_user_model extends CI_Model {
 	 @ @return int $id User id, auto_increment from database
 	 */
 	public function insert_new_user($name, $username, $password, $role_id, $email = ""){
-		$password = sha1($password);
+		//$password = sha1($password);
+      $password = $this->phpass->hash($password);
 		$register_date = date('Y-m-d G:i:s');
 		$last_access_date = $register_date;
 		$data = array(
@@ -144,10 +146,15 @@ class Admin_user_model extends CI_Model {
 	}
 	
 	public function get_user_by_username_and_password($username, $password){
-		
 		$password = sha1($password);
+      //$user = $this->get_user_by_username($username);
 		$query = $this->db->get_where("admin_users",array("username"=>$username, "password"=>$password));
 		return $query->result();
+	}
+   
+   public function get_user_by_username($username){
+		$query = $this->db->get_where("admin_users",array("username"=>$username));
+		return $query->row();
 	}
 	/**
 	 * get_user_privileges_by_group_id
