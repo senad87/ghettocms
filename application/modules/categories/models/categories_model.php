@@ -32,6 +32,7 @@ class Categories_model extends CI_Model {
 	        $query = $this->db->get_where('categories',array('id'=>$id));
 	        return $query->first_row();
 	}
+        
 	
 	public function getCategoryName($id){
 		$this->db->select('name');

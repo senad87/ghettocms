@@ -2,11 +2,13 @@
 
 class Gallery extends MX_Controller {
 
-	private $entry_type;
+	private $db_model;
+        private $entry_type;
         private $entry_images;
         private $db_entry_tags;
         private $db_tag;
         private $db_images;
+        private $db_categories;
         private $language_id;
         private $published;
         private $db_admin_users;
@@ -18,10 +20,11 @@ class Gallery extends MX_Controller {
 		// Call the Model constructor
 		parent::__construct();
 		$this->load->helper(array('form', 'url', 'date'));
+                $this->db_categories = $this->load->model('categories/Categories_model');
                 $this->load->model('Entry_model');
                 $this->load->model('Entry_type_model');
                 $this->load->model('Entry_state_model');
-		$this->load->model('Gallery_model');
+		$this->db_model = $this->load->model('Gallery_model');
 		$this->db_images = $this->load->model('images/Images_model');
                 $this->entry_images = $this->load->model('images/Entry_images_model');
                 
@@ -54,21 +57,26 @@ class Gallery extends MX_Controller {
             //load module instance by id
             $module_instance = $this->Position_model->get_module_by_id( $module_id );
             $module_params = unserialize($module_instance[0]->params);
-            
+            $data['module_id'] = $module_id;
+            $data['module_params'] = $module_params;
             //number of entries
             $total_rows = $this->Entry_model->countByTypeAndCategory( $module_params['categories'], $this->entry_type->id, 
                                                                       $this->language_id, $this->published->id );
             
             if( $total_rows > 0 ){
-                
+                $data['items'] = array();
                  $per_page = $module_params['number'];
                  $entries = $this->Entry_model->getByTypeAndCategoryLimited( $module_params['categories'], $this->entry_type->id, 
                                                                              $per_page, $offset, 
                                                                              $this->language_id, $order_col = 'id',
                                                                              $order = 'desc', $this->published->id );
-                 //Foreach entry we need tags and topics, autor, poster photo ...
+                 //Foreach entry we need tags and topics, author, poster photo ...
                  foreach( $entries as $entry ){
                      
+                     $entry->type_name = self::TYPE_NAME;
+                     $entry->category = $this->db_categories->getCategoryByID( $entry->category_id );
+                     $entry->gallery = $this->db_model->get_gallery_by_id( $entry->type_id );
+                     $entry->menu = $this->Menu_model->getMenuByID( $entry->category->menu_id );
                      $this->entry_images->init( $this->db_images, $entry );
                      $entry->image = $this->entry_images->getImageByDim( $module_params['photo_size'] );
                      
@@ -78,9 +86,12 @@ class Gallery extends MX_Controller {
                      $entry->num_of_comments = $this->Comments_model->countEntryComments( $entry->id );
                      //TODO: Get Tags and Topics
                      $entry = $this->db_entry_tags->attachTags( $entry, $this->db_tag );
-                     pre_dump($entry);
+                     $data['items'][] = $entry;
                  }
+                 $data['total_rows'] = $total_rows;
+                 $this->load->view( 'list_view', $data );
             }else{
+                show_404();
                 //TODO: Display message : There is no content in this Category
             }
         }
