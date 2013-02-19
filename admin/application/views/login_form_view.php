@@ -3,10 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>4M Login</title>
-<link href="<?php echo base_url(); ?>application/views/css/style.css" rel="stylesheet" type="text/css" /> 
+<link href="<?php echo base_url(); ?>application/css/style.css" rel="stylesheet" type="text/css" /> 
 </head>
 <body>
-
 <div class="login-box">
 	<h2>4M Administration login</h2>
 	<?php echo validation_errors('<div class="error">', '</div>'); ?>

@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>HIV Podrska</title>
-<link href="<?php echo base_url();?>application/views/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/slider.js"></script>
+<link href="<?php echo base_url();?>application/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/slider.js"></script>
 	
 
 

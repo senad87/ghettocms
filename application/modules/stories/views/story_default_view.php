@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>ProGame.rs</title>
-<link href="<?php echo base_url();?>application/views/css/global.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo base_url(); ?>application/views/js/config.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-1.6.1.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.idTabs.min.js"></script>
+<title>ProGame.rs - <?php echo $entry[0]->title; ?></title>
+<link href="<?php echo base_url();?>application/css/global.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url(); ?>application/js/config.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery.idTabs.min.js"></script>
 
 <script src="<?php echo base_url(); ?>application/modules/gallery/scripts/galleria-1.2.7.js"></script>
 <link href="<?php echo base_url(); ?>application/modules/gallery/themes/progamers/galleria.classic.css" rel="stylesheet" type="text/css">
@@ -17,11 +17,18 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>application/modules/gallery/scripts/gallery.include.js"></script>
 
 <!--<script src="js/cufon-yui.js" type="text/javascript"></script>
-		<script src="js/Euphemia_400.font.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			Cufon.replace('.readmore');
-		</script> -->
+<script src="js/Euphemia_400.font.js" type="text/javascript"></script>
+<script type="text/javascript">
+   Cufon.replace('.readmore');
+</script> -->
 
+<meta name="description" content="<?php echo $story[0]->lead; ?>" />
+<meta property="fb:app_id" content="602203836462577">
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="<?php echo $entry[0]->title; ?>"/>
+<meta property="og:image" content="<?php echo base_url(); ?><?php echo $thumb_image_path; ?>"/>
+<meta property="og:url" content="<?php echo base_url();?><?php echo substr($_SERVER['REQUEST_URI'], 1); ?>"/>
+<meta property="og:site_name" content="Progame.rs"/>
 </head>
 
 <body>
@@ -30,7 +37,7 @@
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=290108991081687";
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=602203836462577";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
  <!--<div class="menu-top">
@@ -42,9 +49,9 @@
         <div class="content-bg">
 	        <div class="content">
            	  <div class="header">
-                <div class="logo"> <a href="index1.php"><img src="<?php echo base_url();?>application/views/images/logo.png" alt="ProGame.rs" title="ProGame.rs" width="260" height="110" /></a>
+                <div class="logo"> <a href="index1.php"><img src="<?php echo base_url();?>application/images/logo.png" alt="ProGame.rs" title="ProGame.rs" width="260" height="110" /></a>
                 </div>
-                <div class="banner-top"> <a href="#"><img src="<?php echo base_url();?>application/views/images/temp728x90.jpg" alt="Banner" width="728" height="90" /></a></div>
+                <div class="banner-top"> <a href="#"><img src="<?php echo base_url();?>application/images/temp728x90.jpg" alt="Banner" width="728" height="90" /></a></div>
                 <div class="clear"></div>
               </div>
               <div class="menu-bg">
@@ -79,34 +86,16 @@
                   
 
 					<!-- share start -->
-<div class="utilbar">    
+   <div class="utilbar">    
           <div class="social">
             <span class="btn-fb">
-				<div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="segoe ui"></div>
-				
-            </span>
-                
+               <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="segoe ui"></div>
+            </span>  
             <span class="btn-tw">
                <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            
             </span>
             <span class="btn-gplus">
-            
-               <!-- Place this tag where you want the +1 button to render. -->
                <div class="g-plusone" data-size="medium"></div>
-               
-               <!-- Place this tag after the last +1 button tag. -->
-               <script type="text/javascript">
-                 window.___gcfg = {lang: 'en-GB'};
-               
-                 (function() {
-                   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                   po.src = 'https://apis.google.com/js/plusone.js';
-                   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                 })();
-               </script>
-            
             </span>
 
 
@@ -121,36 +110,6 @@
 		<div class="clear"></div>          
       </div>               
                <!-- share end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  
-                  
                   <div class="subcontent">
                   
                   <?php if($cat_comment_status == 1 && $entry_comment_status == 1){?>
@@ -328,13 +287,24 @@
             
             </div>
             </div>
-            
-            
         </div>
-
-
-
-
 </div>
+ 
+<script type="text/javascript">
+window.___gcfg = {lang: 'en-GB'};
+(function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=602203836462577";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>

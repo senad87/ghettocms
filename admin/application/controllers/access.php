@@ -1,7 +1,7 @@
 <?php
 
 class Access extends CI_Controller {
-
+   
 	function __construct(){
 
 		parent::__construct();
@@ -11,6 +11,7 @@ class Access extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('Admin_user_model');
 		$this->load->model('Language_model');
+      $this->load->library('phpass');
 	}
 	/**
 	 * login_form
@@ -19,7 +20,7 @@ class Access extends CI_Controller {
 	 *
 	 */
 	 
-	public function login_form(){
+	public function login_form(){    
 		$this->load->view('login_form_view');
 	}
 	
@@ -42,28 +43,30 @@ class Access extends CI_Controller {
 			$this->load->view('login_form_view');
 		}else{
 			//check user data in db
-			$user = $this->Admin_user_model->get_user_by_username_and_password($username, $password);
-		        
-		        if (count($user) == 1){
+			//$user = $this->Admin_user_model->get_user_by_username_and_password($username, $password);
+         $user = $this->Admin_user_model->get_user_by_username($username);
+		   $hashed_pass = $user->password;
+		        //if (count($user) == 1){
+              if ($this->phpass->check($password, $hashed_pass)){
 			        //TODO: Get user role and add to session data to be displayed in the header
 			        //get user privileges from database
-			        $privileges_array = $this->Admin_user_model->get_user_privileges_by_group_id($user[0]->group_id);
+			        $privileges_array = $this->Admin_user_model->get_user_privileges_by_group_id($user->group_id);
 			        $language = $this->Language_model->get_by_id(1);
 			        //set session data and display user name in the header
-			        $user_session_data = array("id"=>$user[0]->id,
-			                                   "name"=>$user[0]->name,
-			                                   "username"=>$user[0]->username,
+			        $user_session_data = array("id"=>$user->id,
+			                                   "name"=>$user->name,
+			                                   "username"=>$user->username,
 			                                   "user_privileges"=>$privileges_array,
 			                                   "language_id" => 1,
-			        						   "language" => $language->language,
+                                            "language" => $language->language,
 			                                   "loggedIn"=>TRUE);
 	                        $this->session->set_userdata($user_session_data);
-	                        $data['username']=$user[0]->username;
+	                        $data['username']=$user->username;
 	                        $this->load->view('header_view');
 	                        $this->load->view('home_view');  
 	                             
 		        }else{
-			        $data['wrong_username_or_pass']= $this->lang->line('wrong_username_or_password');;
+			        $data['wrong_username_or_pass'] = $this->lang->line('wrong_username_or_password');;
 			        $this->load->view('login_form_view', $data);
 		        }
 		}

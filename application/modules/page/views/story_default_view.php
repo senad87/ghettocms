@@ -3,10 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ProGame.rs</title>
-<link href="<?php echo base_url();?>application/views/css/global.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery-1.6.1.js"></script>
+<link href="<?php echo base_url();?>application/css/global.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery-1.6.1.js"></script>
 
-<script type="text/javascript" src="<?php echo base_url();?>application/views/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>application/js/jquery.idTabs.min.js"></script>
 <!--<script src="js/cufon-yui.js" type="text/javascript"></script>
 		<script src="js/Euphemia_400.font.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -25,9 +25,9 @@
         <div class="content-bg">
 	        <div class="content">
            	  <div class="header">
-                <div class="logo"> <a href="index1.php"><img src="<?php echo base_url();?>application/views/images/logo.png" alt="ProGame.rs" title="ProGame.rs" width="260" height="110" /></a>
+                <div class="logo"> <a href="index1.php"><img src="<?php echo base_url();?>application/images/logo.png" alt="ProGame.rs" title="ProGame.rs" width="260" height="110" /></a>
                 </div>
-                <div class="banner-top"> <a href="#"><img src="<?php echo base_url();?>application/views/images/temp728x90.jpg" alt="Banner" width="728" height="90" /></a></div>
+                <div class="banner-top"> <a href="#"><img src="<?php echo base_url();?>application/images/temp728x90.jpg" alt="Banner" width="728" height="90" /></a></div>
                 <div class="clear"></div>
               </div>
               <div class="menu-bg">
@@ -237,10 +237,6 @@
             
             
         </div>
-
-
-
-
 </div>
 </body>
 </html>
