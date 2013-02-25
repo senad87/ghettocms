@@ -24,7 +24,8 @@ class Filemanager {
   protected $doc_root = '';
 
   public function __construct($config) {
-  	  $this->config = $config;
+  	  date_default_timezone_set('Europe/Belgrade');
+          $this->config = $config;
   	  $this->root = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
   	  $this->properties = array(
   	  	  'Date Created'=>null,

@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://digitalizacija.ghetto.rs/admin/';
+$config['base_url']	= 'http://www.digitalizacija.rs/admin/';
 
 /*
 |--------------------------------------------------------------------------
