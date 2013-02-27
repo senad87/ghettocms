@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Gallery_model extends CI_Model {
 
@@ -69,6 +69,13 @@ class Gallery_model extends CI_Model {
 		$query = $this->db->get_where("galleries",array("id"=>$gallery_id));
 		return (array)$query->first_row();
 	}
+        
+        public function getGalleryByID( $gallery_id ){
+            $this->db->select('*')->from('galleries')
+                              ->where( array( 'id' => $gallery_id ) )
+                              ->limit(1);
+            return $this->db->get()->first_row();
+        }
 
 	/**
 	 * 

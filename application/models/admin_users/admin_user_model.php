@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Description of au_entity_model
+ * Entity class for Admin User
  *
  * @author damir
  */
-class Adminuser  extends CI_Model{
+class Admin_User_model  extends CI_Model{
     
     private $id;
     private $name;
@@ -20,7 +20,7 @@ class Adminuser  extends CI_Model{
         parent::__construct();
     }
     
-    public function init( $user_id, Adminuser_model $db_model ){
+    public function init( $user_id, Admin_Users_model $db_model ){
         
         $this->db_model = $db_model;
         $user = $this->db_model->get( $user_id );

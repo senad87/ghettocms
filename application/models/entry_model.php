@@ -3,6 +3,7 @@
 class Entry_model extends CI_Model {
 
     private $id;
+    const PUBLISHED = 3;
 
     function __construct(){
             // Call the Model constructor
@@ -40,6 +41,11 @@ class Entry_model extends CI_Model {
                                              'language_id'=>$language_id ) );
             $number = $this->db->count_all_results();
             return $number;
+    }
+    
+    public function getEntryByID( $entry_id ){
+        $this->db->select('*')->from('entries')->where( array( 'id'=>$entry_id, 'entry_state_id' => self::PUBLISHED ) );
+        return $this->db->get()->first_row();
     }
 
 /**
