@@ -34,4 +34,6 @@ class Entry_images_model extends CI_Model {
                 return FALSE;
             }
         }
+        
+        
 }

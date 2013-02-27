@@ -1,10 +1,10 @@
 <?php
 /**
- * Description of admin_user_model
+ * Class is database layer and contain queries on admin_users table
  *
  * @author damir
  */
-class Adminuser_model extends CI_Model {
+class Admin_Users_model extends CI_Model {
 
 	function __construct(){
 		// Call the Model constructor

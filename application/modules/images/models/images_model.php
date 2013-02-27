@@ -22,6 +22,12 @@ class Images_model extends CI_Model {
 		return $query->result();
 	}
         
+        public function getImagesByEntryID( $entry_id ){
+            $this->db->select('*')->from('join_entries_images')
+                     ->where( array( 'entry_id' => $entry_id, 'active' => 1 ) );
+            return $this->db->get()->result();
+        }
+        
         public function getImagesByDimension( $images, $dimension_id, $order_col = 'id', $order = 'ASC' ){
             
             $this->db->select('*')->from( 'images' )
@@ -31,5 +37,10 @@ class Images_model extends CI_Model {
                      ->order_by( $order_col, $order );
             return $this->db->get()->result();
             
+        }
+        
+        public function getImageByID( $image_id ){
+            $this->db->select('*')->from('images')->where( 'id', $image_id );
+            return $this->db->get()->first_row();
         }
 }

@@ -4,8 +4,8 @@
 	//counter of the displayed articles
 	$a = 1;
 	foreach($stories_row as $story){ ?>
-    
-    
+  
+  
 <div class="block">
                 
                 
