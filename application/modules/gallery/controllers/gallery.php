@@ -40,6 +40,8 @@ class Gallery extends MX_Controller {
                 $this->entry_type = $this->Entry_type_model->getTypeByName( self::TYPE_NAME );
                 $this->published = $this->Entry_state_model->getStateByName( 'Published' );
                 $this->language_id = 1;
+                
+                $this->load->library('pagination');
         }
         
         //display single gallery
@@ -55,13 +57,10 @@ class Gallery extends MX_Controller {
         } else {
             $data['post'] = false;
         }
-        //pre_dump( $menu );
-        //pre_dump( $gallery_id );
-        //TODO: GetGallery By ID
+        
         $entry = $this->Entry_model->getEntryByID($entry_id);
         $entry->category = $this->db_categories->getCategoryByID($entry->category_id);
-        //pre_dump( $entry );
-        //$gallery = $this->db_model->getGalleryByID( $gallery_id );
+        
         $images = $this->db_images->getImagesByEntryID($entry_id);
 
         foreach ($images as $image) {
@@ -75,19 +74,13 @@ class Gallery extends MX_Controller {
         $cat_ids = $this->Comments_model->getEntryCategoryId($entry->id);
         $cat_comment_status = $this->Comments_model->checkStatusForCat($cat_ids);
         $entry_comment_status = $this->Comments_model->checkStatusForEntry($entry->id);
-
         $data['cat_comment_status'] = $cat_comment_status;
         $data['entry_comment_status'] = $entry_comment_status;
-
         $entry->num_of_comments = $this->Comments_model->countEntryComments($entry->id);
-        //TODO: Get Tags and Topics
         $entry = $this->db_entry_tags->attachTags($entry, $this->db_tag);
 
-        //pre_dump( $entry );
         $data['item'] = $entry;
-        //pre_dump( $entry );
-        //die();
-        //pre_dump($data);
+        
         $this->load->view('single_default_view', $data);
     }
                 
@@ -103,6 +96,8 @@ class Gallery extends MX_Controller {
                 $data['menu_id'] = $data_menu_id;
             }
             $menu = $this->Menu_model->getMenuByID( $data['menu_id'] );
+           //pre_dump( $menu );
+           $data['menu'] = $menu;
             /*** get module params ***/
             //load module instance by id
             $module_instance = $this->Position_model->get_module_by_id( $module_id );
@@ -112,10 +107,15 @@ class Gallery extends MX_Controller {
             //number of entries
             $total_rows = $this->Entry_model->countByTypeAndCategory( $module_params['categories'], $this->entry_type->id, 
                                                                       $this->language_id, $this->published->id );
-            
+           
             if( $total_rows > 0 ){
                 $data['items'] = array();
-                 $per_page = $module_params['number'];
+                $data['total_rows'] = $total_rows; 
+                $per_page = $module_params['number'];
+                $this->load_pagination( $menu->name . "/" . $data['menu_id'] . "/", $uri_segments = 3, $total_rows, $per_page);
+                $data['pagination'] = $this->pagination->create_links();
+                 
+                 
                  $entries = $this->Entry_model->getByTypeAndCategoryLimited( $module_params['categories'], $this->entry_type->id, 
                                                                              $per_page, $offset, 
                                                                              $this->language_id, $order_col = 'id',
@@ -163,6 +163,32 @@ class Gallery extends MX_Controller {
 
             $this->load->view('gallery_view', $data);            
         }
+        
+        private function load_pagination($pagination_url, $uri_segments, $total_rows, $per_page){
+		$config['uri_segment'] = $uri_segments;
+		$config['num_links'] = 2;
+		$config['base_url'] = base_url()."".$pagination_url;
+		$config['total_rows'] = $total_rows;
+		$config['per_page'] = $per_page;
+		
+		$config['full_tag_open'] = '<ul class="pagination">';//surround the entire pagination begining
+		$config['full_tag_close'] = '</ul>';//surround the entire pagination end
+		$config['num_tag_open'] = '<li>';//digit link open
+		$config['num_tag_close'] = '</li>';//digit link close
+		$config['cur_tag_open'] = '<li class="current_page">';//current page open
+		$config['cur_tag_close'] = '</li>';//current page close
+		$config['next_tag_open'] = '<li class="next_page">';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li class="previous_page">';
+		$config['prev_tag_close'] = '</li>';
+		$config['first_link'] = '&lt;&lt;';//first link title
+		$config['first_tag_open'] = '<li class="first_page">';//first link open
+		$config['first_tag_close'] = '</li>';//first link close
+		$config['last_link'] = '&gt;&gt;';//last link title
+		$config['last_tag_open'] = '<li class="last_page">';//last link open
+		$config['last_tag_close'] = '</li>';//last link close
+		$this->pagination->initialize($config);
+	}
 }
 /* End of file gallery.php */
 /* Location: ./system/application/controllers/gallery.php */
