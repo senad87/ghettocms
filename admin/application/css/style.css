@@ -999,3 +999,27 @@ ul#files li img{ max-width:180px; max-height:150px; }
 	font-size: 28px;
 	color: #09F;
 	}
+	
+	
+	
+/**** Messages ****/
+
+#message {
+	position: absolute;
+	top: 0;
+	z-index: 1000;
+   left: 40%;
+	padding: 3px 10px;
+	background-color: #FFF;
+	border: 1px solid #FFF;
+	border-top: 0;
+	color: #FFF;
+	font-size: 14px;
+}	
+
+#message.success {
+	background-color: #91BD09;
+	border: 1px solid #6d8e07;
+	border-top: 0;
+}	
+
