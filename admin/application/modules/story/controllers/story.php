@@ -226,15 +226,20 @@ class Story extends MX_Controller {
 		        $image_id = $this->Image_model->insert_new($file_name, '', $file_path);
 		        $this->Image_model->connect_with_entry($entry_id, $image_id);
 			$dimensions = $this->Image_model->get_other_dimensions();
+                        //var_dump( $dimensions );
 		        foreach($dimensions as $dimension){
 		        	$copy_name = $dimension->width."x".$dimension->height."_".$file_name;
 		        	$copy_file_path = $images_dir."".$copy_name;
 		        	$this->resize_poster_photo($file_path, $dimension->width, $dimension->height, $copy_name);
-		        	$copy_image_id = $this->Image_model->insert_new($copy_name, '', $copy_file_path, $image_id, 1, $dimension->id);
-		        	$this->Image_model->connect_with_entry($entry_id, $copy_image_id);
+                               // var_dump( $dimension->id );
+		        	$copy_image_id = $this->Image_model->insert_new($copy_name, '', $copy_file_path, $order= 0, $image_id, 1, $dimension->id);
+		        	//print_r( $copy_image_id );
+                                $this->Image_model->connect_with_entry($entry_id, $copy_image_id);
 		        }
 		        //connect image with entrie
-		}
+		}else{
+                    $this->upload->display_errors();
+                }
 		
 		/*** insert tags ***/
 		if ($entry_id > 0){
@@ -262,10 +267,11 @@ class Story extends MX_Controller {
 	        $story = $this->Story_model->get_story_by_id($entry->type_id);
 	 
 	        $images = $this->Image_model->get_images_by_entry_id($entry_id);
+               // var_dump( $images );
 	        $i = 0;
 	        foreach($images as $image){
 	        	$poster_photos[$i] =  $this->Image_model->get_image($image->image_id);
-	        	
+	        	//var_dump( $poster_photos );
 	        	if(isset($poster_photos[$i][0])){
 	        		if($poster_photos[$i][0]->poster_photo == 1 && $poster_photos[$i][0]->dimension_id == 2){
 	        		
@@ -274,7 +280,7 @@ class Story extends MX_Controller {
 	        	}
 	        	$i++;
 	        }
-	        
+	        //var_dump( $thumb_image );
 	        //TODO:check url for image display
 	        if(isset($thumb_image)){
 	        	$data['thumb_image'] = $thumb_image;
@@ -403,7 +409,7 @@ class Story extends MX_Controller {
 					$copy_name = $dimension->width."x".$dimension->height."_".$file_name;
 					$copy_file_path = $images_dir."".$copy_name;
 					$this->resize_poster_photo($file_path, $dimension->width, $dimension->height, $copy_name);
-					$copy_image_id = $this->Image_model->insert_new($copy_name, '', $copy_file_path, $new_image_id, 1, $dimension->id);
+					$copy_image_id = $this->Image_model->insert_new($copy_name, '', $copy_file_path, $order= 0, $new_image_id, 1, $dimension->id);
 			    		//connect entry with new copy
 					$this->Image_model->connect_with_entry($entry_id, $copy_image_id);
 				}    	
