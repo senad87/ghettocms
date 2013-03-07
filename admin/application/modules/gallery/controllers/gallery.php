@@ -685,7 +685,8 @@ class Gallery extends MX_Controller {
                 $saved = $this->ajaxfileuploader->save($file_path);
                 
                 if($saved){
-                    $file_path = substr($file_path, 2);//removes two dot at begging
+                    //$file_path = substr($file_path, 2);//removes two dot at begging
+                    $file_path = substr($file_path, 3);//removes two dot at begging and slash
                     $response = array('id'=>uniqid(), 'filepath'=>$file_path);
 
                     header('Content-type: application/json');
