@@ -7,7 +7,7 @@ class Gallery extends MX_Controller {
 	function __construct(){
 		// Call the Model constructor
 		parent::__construct();
-		$this->load->helper(array('form', 'url', 'date'));
+		$this->load->helper(array('form', 'url', 'date', 'path'));
 		$this->load->helper('categories_list_helper.php');
 		$this->load->helper('category');
 		$this->load->helper('login_helper.php');
