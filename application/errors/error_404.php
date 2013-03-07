@@ -39,7 +39,7 @@ h1 {
 	<div id="content">
 		<div class="centered">
 			<h1><?php echo $heading; ?></h1>
-			<a class="back-home" href="<?php echo base_url(); ?>" >Back to Home</a>
+			<a class="back-home" href="<?php //echo base_url(); ?>" >Back to Home</a>
 		</div>
 	</div>
 </body>
