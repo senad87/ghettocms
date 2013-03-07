@@ -11,7 +11,10 @@ function createUploader(){
                         //On completion clear the status
                         //status.text('');
                         //Add uploaded file to list
-                        var id = uniqid();
+                        var id = uniqid(),
+                            $images = $('#images'),
+                            $url = $images.data('href'),
+                            $fe_url = $images.data('fe_href');
                         
                         //console.log(response);
                         if(response==="error"){
@@ -23,10 +26,10 @@ function createUploader(){
                                 +'File '+file+' already exists!<a class="close">X</a>'
                                 +'</span>');
                         }else{
-                                //u ovom slucaju response je json sa podacima
+                                //response is JSON with data
                                 var imageHtml = '<li class="ui-state-default modal" id="'+response.id+'">';
                                 imageHtml += '<div class="handle"><span class="ui-icon ui-icon-arrow-4"></span></div>';
-                                imageHtml += '<img width="209" height="135" src="'+config.frontend_url+response.filepath+'" alt="" />';
+                                imageHtml += '<img width="209" height="135" src="'+$fe_url+response.filepath+'" alt="" />';
                                 imageHtml += '</li>';
 //                                $('#selectable').append(
 //                                '<li class="ui-state-default modal" id="'+response.id+'"><img width="209" height="135" src="'+config.frontend_url+response.filepath+'" alt="" />'

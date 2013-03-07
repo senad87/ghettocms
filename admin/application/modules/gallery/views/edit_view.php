@@ -35,7 +35,7 @@
 
 	                
         <label for="image"><strong>Upload Images:</strong></label><br />
-        <div id="images">
+        <div id="images" data-fe_href="<?php echo root_url(); ?>" data-href="<?php echo base_url(); ?>gallery/getFirstImage/">
             <div id="mainbody" >
                 <div id="error" ></div>	
                 <div id="upload" ><span>+</span></div>
@@ -46,9 +46,9 @@
                 <!-- images grid -->
                 <ol id="selectable" class="ui-selectable">
                     <?php  foreach($images as $image){ ?>
-                        <li id="<?php echo $image->id;?>" class="ui-state-default modal" >
+                        <li id="<?php echo $image->id; ?>" class="ui-state-default modal" >
                             <div class="handle"><span class="ui-icon ui-icon-arrow-4"></span></div>    
-                        <img src="<?php echo root_url().$image->path; ?>" width="209" height="135" /></li>	
+                        <img src="<?php echo root_url() . $image->path; ?>" width="209" height="135" /></li>	
                     <?php }  ?>
                 </ol>
             </div>

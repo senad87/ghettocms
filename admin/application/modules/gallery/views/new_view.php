@@ -41,7 +41,7 @@
 	<textarea class="lform2-textarea" style="width: 700px;" name="lead" cols="50" rows="5"></textarea>
         <br />
 	<label for="image"><strong>Upload Images:</strong></label><br />
-        <div id="images">
+        <div id="images" data-fe_href="<?php echo root_url(); ?>" data-href="<?php echo base_url(); ?>gallery/getFirstImage/">
             <div id="mainbody" >
                 <div id="error" ></div>	
                     <div id="upload" >
