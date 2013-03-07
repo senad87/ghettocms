@@ -10,7 +10,7 @@ class Gallery_model extends CI_Model {
 
 	/**
 	 * 
-	 * Insert new gallery into database trough transaction, first insert data into stories table, than into entries table and than in join_entries_categories
+	 * Insert new gallery into database trough transaction, first insert data into galleries table, than into entries table and than in join_entries_categories
 	 * @param string $title
 	 * @param string $lead
 	 * @param string $body
