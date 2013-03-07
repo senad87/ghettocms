@@ -146,6 +146,53 @@ a:hover {
 	background-repeat: no-repeat;
 	background-position: center bottom;
  }
+ 
+ 
+.gallery-block {
+	background-color: #fafafa;
+	border: 1px solid #f3f2f2;
+	border-bottom: 0;
+	margin: 12px;
+	margin-bottom: 0;
+	border-bottom: 0;
+	background-image: url(../images/bg-news-block.png);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+ }  
+ 
+.gallery-block .title {
+    padding: 14px 14px 0;
+}
+
+.gallery-block .title h1 {
+    color: #E63B00;
+    font-size: 28px;
+    line-height: 32px;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000000;
+} 
+ 
+.oneGallery-block{
+	position: relative;
+	margin-left: 12px;
+	margin-right: 12px;	
+
+} 
+ 
+
+.oneGallery-block .galleria-info {
+    width: 486px;
+} 
+ 
+.galleryDescription {
+	font-size: 15px;
+	margin: 0 15px 35px 15px;
+	padding-top: 15px;
+}
+ 
+ 
+ 
+ 
 /*bris*/
 .img-block img {
 	border: 1px solid #eeeeee;

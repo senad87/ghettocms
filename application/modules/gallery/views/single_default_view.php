@@ -59,8 +59,25 @@
               </div>
               <div class="column-left">
                 <div class="block">
-                <div class="img-block2">
-                    <?php //style u narednom duv-u je vrlo bitan, od njega zavisi da li ce galerija da se prikaze ili ne :) ?>
+                  <div class="gallery-block">
+                     <div class="title">
+                     	<h1><?php echo $item->title; ?></h1>
+                     </div>
+                     <div class="news-block-info">
+                     Postavio: <a href="#"><?php echo $item->author_name; ?></a>
+                     <span class="separator">&nbsp;</span>
+                     <?php echo srb_date($item->creation_date); ?>
+                     <span class="separator">&nbsp;</span>
+                     <a href="<?php echo base_url(); ?><?php //echo $menu_name->name; ?>/<?php echo $item->category->menu_id; ?>/"><?php //echo $menu_name->name; ?></a>
+                     <span class="separator">&nbsp;</span>
+                     <?php if($item->num_of_comments){?><a href="#"><?php echo $item->num_of_comments; ?>komentara</a><?php }else{ ?><a href="#">0 komentara</a><?php } ?>
+                     </div>                
+                  </div>
+                
+                
+                
+                <div class="oneGallery-block">
+                    <?php //style u narednom div-u je vrlo bitan, od njega zavisi da li ce galerija da se prikaze ili ne :) ?>
 <div id="<?php echo $item->id; ?>" style="height: 432px; " >
 <?php foreach($item->images as $image_data){ ?>
         <a href="<?php echo base_url().$image_data->path; ?>">
@@ -73,19 +90,9 @@
                 
                 
               <div class="news-block">
-                  
-              <div class="title"><h1><?php echo $item->title; ?></h1></div>
-                        	<div class="news-block-info">
-                Postavio: <a href="#"><?php echo $item->author_name; ?></a>
-                <span class="separator">&nbsp;</span>
-                	<?php echo srb_date($item->creation_date); ?>
-                <span class="separator">&nbsp;</span>
-                	<a href="<?php echo base_url(); ?><?php //echo $menu_name->name; ?>/<?php echo $item->category->menu_id; ?>/"><?php //echo $menu_name->name; ?></a>
-                <span class="separator">&nbsp;</span>
-                	<?php if($item->num_of_comments){?><a href="#"><?php echo $item->num_of_comments; ?>komentara</a><?php }else{ ?><a href="#">0 komentara</a><?php } ?>
-                </div>
-                <div class="news-block-content">
-                  
+
+                <div class="galleryDescription">
+                  Ovde vuces Lead galerije :)
                 </div>
                 
                   <?php echo modules::run('tags/list_tags', array("entry_id" => $item->id, "from_menu_id" => $from_menu_id )); ?>
