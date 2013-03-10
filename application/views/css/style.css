@@ -126,7 +126,7 @@ ul.menu {
 
 ul.menu li {
 	float: left;
-	margin-right: 20px;
+	margin-right: 17px;
 }
 
 ul.menu li a {
@@ -299,6 +299,7 @@ ul.menu li a:hover {
 	float: left;
 }
 
+.menu_79,
 .menu_78,
 .menu_13 {
 	display: none;
