@@ -26,12 +26,19 @@ class Stories extends MX_Controller {
     	$data['from_menu_id'] = $from_menu_id;
         //var_dump( $data['from_menu_id'] );
 		//for stories entry type is 1
-		$data['entry'] = $this->Articles_model->get_entry_by_type($id, 1);
+                //var_dump($data);
+                //var_dump($id);
+                
+                $data['entry'] = $this->Articles_model->get_entry_by_type($id, 1);
+                //var_dump($data['entry']);
+                //die();
 		if($data['entry']){
 			$data['story'] = $this->Stories_model->get_story_by_id($data['entry'][0]->type_id);
 			$data['item_id'] = $data['entry'][0]->id;
 			//senad: getting post data if anything is posted to this menu/page/item or what eva
-			if(count($_POST) > 0){
+//			var_dump( $_POST );
+//                        die();
+                        if(count($_POST) > 0){
 				$data['post'] = $_POST;
 			}else{
 				$data['post'] = false;	
@@ -75,6 +82,8 @@ class Stories extends MX_Controller {
 			$story_author = $this->Users_model->get_user_by_id($data['entry'][0]->admin_user_id);
 			$data['author'] = $story_author->username;
 			//$template_file_name = "story_default_view";
+                        //var_dump( $data );
+                        //die();
                         $template_file_name = "story_digit_view";
 			$this->load->view($template_file_name, $data);
 		}else{

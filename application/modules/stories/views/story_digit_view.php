@@ -90,10 +90,10 @@
 </div>
 
 <div class="gplus">
-<!-- Place this tag where you want the share button to render. -->
+ <!-- Place this tag where you want the share button to render. -->
 <div class="g-plus" data-action="share" data-annotation="bubble"></div>
 
-<!-- Place this tag after the last share tag. -->
+ <!-- Place this tag after the last share tag. -->
 <script type="text/javascript">
   window.___gcfg = {lang: 'sr'};
 

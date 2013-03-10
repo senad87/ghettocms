@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 The reCaptcha server keys and API locations
 

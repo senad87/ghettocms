@@ -30,9 +30,12 @@ class Comments extends MX_Controller {
 			$comment = $this->input->post('comment');
 			$response = $this->input->post('recaptcha_response_field');
 			$challenge = $this->input->post('recaptcha_challenge_field');
-			$data['cap'] = $this->recaptcha->check_answer($this->input->ip_address(),$challenge,$response);
+//			var_dump( $data );
+//                        die();
+                        $data['cap'] = $this->recaptcha->check_answer($this->input->ip_address(),$challenge,$response);
 			$ip_address = $this->session->userdata('ip_address');
 			//var_dump($data['cap']);
+                        
 			$data['recaptcha'] = $this->recaptcha->get_html();
 			
 			$this->form_validation->set_message('required', 'Ово поље је обавезно');
@@ -48,7 +51,7 @@ class Comments extends MX_Controller {
 			}else{
 				//$status = 2, insert comment as unpublished
                                 
-				//$this->Comments_model->insert($data['item_id'], $name, $email, $comment, $ip_address, $status = 2);
+				$this->Comments_model->insert($data['item_id'], $name, $email, $comment, $ip_address, $status = 2);
 				$this->load->view('success_view', $data);
 			}
 			
