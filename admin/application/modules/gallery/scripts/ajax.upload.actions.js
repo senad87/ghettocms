@@ -5,7 +5,7 @@ function createUploader(){
             var uploader = new qq.FileUploaderBasic({
                 //element: document.getElementById('file-uploader-demo1'),
                 button: document.getElementById('upload'), 
-                action: 'http://localhost/ghettocms/admin/gallery/gallery/upload/',
+                action: $('#upload').data('href'),
                 debug: false,
                 onComplete: function(id, file, response){
                         //On completion clear the status
