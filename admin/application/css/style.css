@@ -50,6 +50,12 @@ a:hover  {
 }
 
 
+.floatLeft {
+	float: left;
+}
+
+
+
 .header {
 	background-color: #BBBBBB;
 	border-bottom: 1px solid #AAA;
@@ -897,19 +903,45 @@ img, fieldset {
 }
 /*Damir end of auto complete*/
 
-/*senad upload css*/
-#upload{
-	margin:30px 200px; padding:15px;
-	font-weight:bold; font-size:1.3em;
-	font-family:Arial, Helvetica, sans-serif;
-	text-align:center;
-	background:#f2f2f2;
-	color:#3366cc;
-	border:1px solid #ccc;
-	width:150px;
-	cursor:pointer !important;
-	-moz-border-radius:5px; -webkit-border-radius:5px;
+
+
+.gallMenu {
+	margin: 10px 0 15px 0; 
 }
+
+
+.def_button {
+	 display: block;
+    margin: 0 2px 0 0;
+    overflow: hidden;
+    padding: 3px 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);	
+	 cursor:pointer !important;
+	 font-size: 14px;
+	 
+}
+.green {
+   background-color: #91BD09;	  
+}	
+.green:hover {
+   background-color: #749a02;
+	text-decoration: none;	  
+}
+
+.red {
+	background-color: #E33100;
+}
+.red:hover {
+   background-color: #872300;
+	text-decoration: none;
+}
+
+
+
 .darkbg{
 	background:#ddd !important;
 }
@@ -921,6 +953,65 @@ ul#files li{ padding:10px; margin-bottom:2px; float: left; width:200px; margin-r
 ul#files li img{ max-width:180px; max-height:150px; }
 /*.success{ background:#99f099; border:1px solid #339933; }*/
 .error{ background:#f0c6c3; border:1px solid #cc6622; }
+
+
+
+#images{
+       width: 98%;
+       height: auto;
+}
+.gallery-images-li {
+    display: block;
+    width: 200px;
+    float: left;
+    margin: 10px;
+}
+.gallery-images{
+    display: block;
+    margin-bottom: 50px;
+}
+
+
+#feedback { font-size: 1.4em; }
+#selectable .ui-selecting { background: #66A3D3; }
+#selectable .ui-selected { background: #66A3D3; color: white; }
+#selectable {	 list-style-type: none; 
+	 margin: 0; 
+ }
+#selectable li { margin: 3px; padding: 1px; float: left; font-size: 4em; text-align: center; }
+#selectable li img { width: 130px; height: 80px;}
+.ui-selected img { opacity: 0.4; }
+.ui-selecting img { opacity: 0.4; }
+
+.GallImages {
+	padding: 3px; 
+	border: 1px solid #F4F9FE;
+	outline: 1px solid #DDDDDD;	 
+	height: 318px;
+	width: 46%;
+	overflow-x: hidden;
+	float: left;
+	}
+
+.ImageDesc {
+	float: left;
+	margin-left: 15px;
+}
+
+.GallContainer {
+	width: 100%;
+}
+
+
+.subTitle {
+	color: #66A3D3;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+
+
+
 
 /*senad upload css END*/
 

@@ -40,18 +40,18 @@
 	<label for="lead"><strong>Lead:</strong></label><br />
 	<textarea class="lform2-textarea" style="width: 700px;" name="lead" cols="50" rows="5"></textarea>
         <br />
-	<label for="image"><strong>Manage Images:</strong></label><br />
+	<label for="image"><strong>Gallery Images:</strong></label><br />
         <div id="images" data-fe_href="<?php echo root_url(); ?>" data-href="<?php echo base_url(); ?>gallery/getFirstImage/">
-            <div id="mainbody" >
+            <div id="mainbody" class="gallMenu" >
                 <div id="error" ></div>	
-                    <div id="upload" >
-                        <span>+</span>
+                    <div id="upload" class="def_button green floatLeft">
+                        <span>Add image(s)</span>
                     </div>
-                    <a id="delete" >Delete</a>  
+                    <a id="delete" class="def_button red floatLeft">Delete image(s)</a>  
                 <span id="status" ></span>
             </div>
             
-            <div style="width: 1280px;">
+            <div style="width: 100%;">
             <div  style="width: 100%; float: left;">
                 <!-- images grid -->
                 <ol id="selectable" class="ui-selectable">

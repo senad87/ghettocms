@@ -34,30 +34,37 @@
         <textarea class="lform2-textarea required" style="width: 700px;" name="lead" cols="50" rows="5"><?php echo $gallery['lead']; ?></textarea><br />
 
 	                
-        <label for="image"><strong>Upload Images:</strong></label><br />
+        <label for="image"><strong>Gallery Images:</strong></label><br />
         <div id="images" data-fe_href="<?php echo root_url(); ?>" data-href="<?php echo base_url(); ?>gallery/getFirstImage/">
-            <div id="mainbody" >
+            <div id="mainbody" class="gallMenu">
                 <div id="error" ></div>	
-                <div id="upload" ><span>+</span></div>
-                <a id="delete" >Delete</a>
+                <div id="upload"  class="def_button green floatLeft"><span>Add image(s)</span></div>
+                <a id="delete" class="def_button red floatLeft">Delete image(s)</a>
                 <span id="status" ></span>
             </div>
-            <div  style="width: 100%; float: left;">
-                <!-- images grid -->
-                <ol id="selectable" class="ui-selectable">
-                    <?php  foreach($images as $image){ ?>
-                        <li id="<?php echo $image->id; ?>" class="ui-state-default modal" >
-                            <div class="handle"><span class="ui-icon ui-icon-arrow-4"></span></div>    
-                        <img src="<?php echo root_url() . $image->path; ?>" width="209" height="135" /></li>	
-                    <?php }  ?>
-                </ol>
-            </div>
-            <div style="width: 380px;">
-                <div id="edit"><!-- space for loading --></div>
-                <br />
-                <div id="selektovano"></div>
-                <br />
-                <!--<div id="foo" ></div>-->
+            <div class="GallContainer">
+               <div class="GallImages">
+                   <!-- images grid -->
+                   <ol id="selectable" class="ui-selectable">
+                       <?php  foreach($images as $image){ ?>
+                           <li id="<?php echo $image->id; ?>" class="ui-state-default modal" >
+                               <div class="handle"><span class="ui-icon ui-icon-arrow-4"></span></div>    
+                           <img src="<?php echo root_url() . $image->path; ?>" width="209" height="135" /></li>	
+                       <?php }  ?>
+                   </ol>
+                   
+               </div>
+               <div class="ImageDesc">
+               	<div class="subTitle">Click on the image to add description for it.</div>
+               
+               
+                   <div id="edit"><!-- space for loading --></div>
+                   <br />
+                   <div id="selektovano"></div>
+                   <br />
+                   <!--<div id="foo" ></div>-->
+               </div>
+               <div class="clear"></div>
             </div>
         </div>	
         <div class="tag-filters">
