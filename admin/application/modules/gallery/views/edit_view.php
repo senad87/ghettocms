@@ -38,7 +38,7 @@
         <div id="images" data-fe_href="<?php echo root_url(); ?>" data-href="<?php echo base_url(); ?>gallery/getFirstImage/" data-update_href="<?php echo base_url(); ?>gallery/update/">
             <div id="mainbody" class="gallMenu">
                 <div id="error" ></div>	
-                <div id="upload"  class="def_button green floatLeft"><span>Add image(s)</span></div>
+                <div id="upload"  data-href="<?php echo base_url(); ?>gallery/upload/" class="def_button green floatLeft"><span>Add image(s)</span></div>
                 <a id="delete" class="def_button red floatLeft">Delete image(s)</a>
                 <span id="status" ></span>
             </div>
