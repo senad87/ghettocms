@@ -683,7 +683,7 @@ class Gallery extends MX_Controller {
 		$file_path = $images_dir . uniqid()."-".basename($file_name);
 		
                 $saved = $this->ajaxfileuploader->save($file_path);
-                
+                log_message('debug', 'Save image on fie system: ' . print_r($saved, TRUE) );
                 if($saved){
                     //$file_path = substr($file_path, 2);//removes two dot at begging
                     $file_path = substr($file_path, 3);//removes two dot at begging and slash
