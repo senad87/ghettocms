@@ -35,7 +35,7 @@
 
 	                
         <label for="image"><strong>Gallery Images:</strong></label><br />
-        <div id="images" data-fe_href="<?php echo root_url(); ?>" data-href="<?php echo base_url(); ?>gallery/getFirstImage/">
+        <div id="images" data-fe_href="<?php echo root_url(); ?>" data-href="<?php echo base_url(); ?>gallery/getFirstImage/" data-update_href="<?php echo base_url(); ?>gallery/update/">
             <div id="mainbody" class="gallMenu">
                 <div id="error" ></div>	
                 <div id="upload"  class="def_button green floatLeft"><span>Add image(s)</span></div>
@@ -58,7 +58,7 @@
                	<div class="subTitle">Click on the image to add description for it.</div>
                
                
-                   <div id="edit"><!-- space for loading --></div>
+                   <div id="edit" data-href="<?php echo base_url(); ?>gallery/loadEdit/"><!-- space for loading --></div>
                    <br />
                    <div id="selektovano"></div>
                    <br />

@@ -30,8 +30,9 @@ $(document).ready(function(){
                 qwerty[index] = $(this).attr('id');
             });
             var ids = cleanArray(qwerty);
-
-            $("#edit").load(config.base_url+"gallery/loadEdit/", {ids: ids});
+            console.log('Edit image name and lead');
+            //$("#edit").load(config.base_url+"gallery/loadEdit/", {ids: ids});
+            $("#edit").load( $('#edit').data('href'), {ids: ids});
             //$("#crop_button").attr('href', '<?php  echo base_url();?>gallery/open/'+ids[0]);
         }
     });
@@ -57,7 +58,8 @@ $(document).ready(function(){
 
         $.each(ids, function(index, value){
             $.ajax({
-                url: config.base_url+"gallery/update/",
+                //url: config.base_url+"gallery/update/",
+                url: $('#images').data('update_href'),
                 type: 'post',
                 data: {id: value, title: title, lead: lead},
                 async: false
