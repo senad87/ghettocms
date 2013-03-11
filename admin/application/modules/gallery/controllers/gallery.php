@@ -644,6 +644,7 @@ class Gallery extends MX_Controller {
 	
 	
 	public function upload(){
+            log_message('error', 'Gallery/upload init' );
             $this->load->library('AjaxFileUploader');
 		//$uploaddir = '../upload_img';
             
