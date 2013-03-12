@@ -92,7 +92,7 @@
               <div class="news-block">
 
                 <div class="galleryDescription">
-                  Ovde vuces Lead galerije :)
+                  <?php echo $item->gallery->lead ? $item->gallery->lead:''; ?>
                 </div>
                 
                   <?php echo modules::run('tags/list_tags', array("entry_id" => $item->id, "from_menu_id" => $from_menu_id )); ?>

@@ -59,6 +59,8 @@ class Gallery extends MX_Controller {
         }
         
         $entry = $this->Entry_model->getEntryByID($entry_id);
+        $entry->gallery = $this->db_model->getGalleryByID( $entry->type_id );
+        //pre_dump( $entry->gallery );
         $entry->category = $this->db_categories->getCategoryByID($entry->category_id);
         
         $images = $this->db_images->getImagesByEntryID($entry_id);
@@ -77,7 +79,7 @@ class Gallery extends MX_Controller {
         $data['cat_comment_status'] = $cat_comment_status;
         $data['entry_comment_status'] = $entry_comment_status;
         $entry->num_of_comments = $this->Comments_model->countEntryComments($entry->id);
-        $entry = $this->db_entry_tags->attachTags($entry, $this->db_tag);
+        $entry->tags = $this->db_entry_tags->attachTags($entry, $this->db_tag);
 
         $data['item'] = $entry;
         
