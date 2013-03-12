@@ -5,7 +5,8 @@ $(document).ready(function(){
         $.each(galleries, function(index, gallery){
             //console.log(gallery.id);
             $.ajax({
-                url: config.base_url+'/gallery/getImages/',
+                //url: config.base_url+'/gallery/getImages/',
+                url: gallery.data('href'),
                 type: 'post',
                 data: {gallery_id: gallery.id}
             }).done(function(response){
