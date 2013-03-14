@@ -49,7 +49,7 @@ $(document).ready(function(){
     //$("#update").live('click',function(e){
     //$(".instant-update").live('input',function(e){
     //edit by damir, update on focusout
-      $(".instant-update").live('focusout',function(e){
+      $(".instant-update").live('input',function(e){
       e.preventDefault();
         var title = $("#title").val();
         var lead = $("#lead").val();

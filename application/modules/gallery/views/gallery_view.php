@@ -10,7 +10,7 @@ Galleria.configure({
 <div data-href="<?php echo base_url(); ?>gallery/getImages/" id="<?php echo $gallery_id; ?>" style="height: 432px; " >
 <?php foreach($images_data as $image_data){ ?>
         <a href="<?php echo base_url().$image_data->path; ?>">
-            <img data-title="<?php echo $image_data->lead?$image_data->lead:''; ?><?php echo $image_data->lead?$image_data->lead:''; ?>" src="<?php echo base_url().$image_data->path; ?>">
+            <img data-title="<?php echo $image_data->title?$image_data->title:''; ?><?php echo $image_data->lead?$image_data->lead:''; ?>" src="<?php echo base_url().$image_data->path; ?>">
         </a>
 <?php } ?>    
 </div>
