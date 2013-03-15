@@ -29,8 +29,10 @@ $(document).ready(function(){
                 var index = $( "#selectable li" ).index( this );
                 qwerty[index] = $(this).attr('id');
             });
+            //console.log( qwerty );
             var ids = cleanArray(qwerty);
-            console.log('Edit image name and lead');
+            //console.log( ids );
+            //console.log('Edit image name and lead');
             //$("#edit").load(config.base_url+"gallery/loadEdit/", {ids: ids});
             $("#edit").load( $('#edit').data('href'), {ids: ids});
             //$("#crop_button").attr('href', '<?php  echo base_url();?>gallery/open/'+ids[0]);
@@ -49,8 +51,17 @@ $(document).ready(function(){
     //$("#update").live('click',function(e){
     //$(".instant-update").live('input',function(e){
     //edit by damir, update on focusout
-      $(".instant-update").live('input',function(e){
-      e.preventDefault();
+    $(".instant-update").live('focusout',function(e){
+        e.preventDefault();
+        saveImageData();
+    });
+    
+    $('.GallImages').on('mouseenter', function(){
+        saveImageData();
+    });
+    
+    //saving image lead and title
+    function saveImageData(){
         var title = $("#title").val();
         var lead = $("#lead").val();
         //console.log(lead);
@@ -64,10 +75,9 @@ $(document).ready(function(){
                 data: {id: value, title: title, lead: lead},
                 async: false
             });
-            
-            //$.post(config.base_url+"gallery/update/", {id: value, title: title, lead: lead});
         });
-    });
+    }
+    
 });
 
 
