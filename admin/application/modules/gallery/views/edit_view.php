@@ -55,7 +55,7 @@
                    
                </div>
                <div class="ImageDesc">
-               	<div class="subTitle">Click on the image to add description for it.</div>
+               	<div class="subTitle"><- Click on the image to add description for it.</div>
                
                
                    <div id="edit" data-href="<?php echo base_url(); ?>gallery/loadEdit/"><!-- space for loading --></div>

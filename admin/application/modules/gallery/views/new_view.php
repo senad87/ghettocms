@@ -51,18 +51,19 @@
                 <span id="status" ></span>
             </div>
             
-            <div style="width: 100%;">
-            <div  style="width: 100%; float: left;">
+            <div class="GallContainer">
+               <div class="GallImages">
                 <!-- images grid -->
                 <ol id="selectable" class="ui-selectable">
                     <!--this area is populated when user adds images to gallery -->
                 </ol>
             </div>
-            <div style="width: 380px; float: right;">
+               <div class="ImageDesc">
+               	<div class="subTitle"><- Click on the image to add description for it.</div>
             <div id="edit" data-href="<?php echo base_url(); ?>gallery/loadEdit/"><!-- space for loading --></div>
-            
-            <br />
-            <!--<a id="insert" >Insert</a>
+            </div>
+            <div class="clear"></div>
+                    <!--<a id="insert" >Insert</a>
             <br />
             <a id="crop_button" href="#" class="modal">Crop</a>
 
@@ -74,12 +75,12 @@
             -->
             <div id="selektovano"></div>
             <!-- End demo -->
-            <br />
+        
 
-            <div id="foo" ></div>
+           <!-- <div id="foo" ></div>-->
             </div>
-        <label><small>Dimensions: <?php echo $largest_image->width;?> x <?php echo $largest_image->height;?></small></label>
-        <br />
+       <!-- <label><small>Dimensions: <?php echo $largest_image->width;?> x <?php echo $largest_image->height;?></small></label>-->
+        
         
         
 	<div class="tag-filters">
