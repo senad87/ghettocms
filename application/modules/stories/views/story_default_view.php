@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="Progame.rs"/>
 </head>
 
-<body>
+<body data-href="<?php echo base_url(); ?>">
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
