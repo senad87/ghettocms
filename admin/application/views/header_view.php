@@ -20,7 +20,8 @@
 	});
 	</script>
 </head>
-<body <?php echo current_url()==base_url()?'class="body-home"':''; ?> >
+    <!-- data attributes are required for JavaScript to work -->
+<body data-fe_href="<?php echo root_url(); ?>" data-base_href="<?php echo base_url(); ?>" <?php echo current_url()==base_url()?'class="body-home"':''; ?> >
 <!--  <div class="header">
 </div>-->
 <div class="menubar">
