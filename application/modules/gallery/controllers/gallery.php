@@ -68,6 +68,9 @@ class Gallery extends MX_Controller {
         foreach ($images as $image) {
             $entry->images[] = $this->db_images->getImageByID($image->image_id);
         }
+        usort( $entry->images, function($a, $b){
+                                       return ($a->order > $b->order);
+                                       });
         $author = $this->admin_user->init($entry->admin_user_id, $this->db_admin_users);
         $entry->author_name = $author->getUsername();
 
@@ -160,9 +163,14 @@ class Gallery extends MX_Controller {
                 $images_data[] = $image[0];
             }
             $data['gallery_id'] = $gallery_id;
-            $data['images_data'] = $images_data;
+            //pre_dump( $images_data );
             
-
+            usort( $images_data, function($a, $b){
+                                            return ($a->order > $b->order);
+                                          });
+            
+            $data['images_data'] = $images_data;
+            //pre_dump( $data['images_data'] );
             $this->load->view('gallery_view', $data);            
         }
         
