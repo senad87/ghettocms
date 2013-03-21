@@ -2,12 +2,20 @@
 
 class Articles extends MX_Controller {
         protected $articles_pagination;
+        private $entry_type;
+        private $published;
+        private $language_id;
+        const TYPE_NAME = 'story';
         
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
-		$this->load->model('Articles_model');
+		$this->load->model('Entry_model');
+                $this->load->model('Entry_type_model');
+                $this->load->model('Entry_state_model');
+                
+                $this->load->model('Articles_model');
 		$this->load->model('users/Users_model');
 		$this->load->model('categories/Categories_model');
 		$this->load->model('images/Images_model');
@@ -16,6 +24,10 @@ class Articles extends MX_Controller {
 		$this->load->model('tags/Tag_model');
 		$this->load->model('tags/Topic_model');
 		$this->load->model('menu/Menu_model');
+                $this->entry_type = $this->Entry_type_model->getTypeByName( self::TYPE_NAME );
+                $this->published = $this->Entry_state_model->getStateByName( 'Published' );
+                $this->language_id = 1;
+                
 		$this->load->library('pagination');
 		//$this->load->library('Jquery_pagination');
 	}
@@ -42,13 +54,18 @@ class Articles extends MX_Controller {
         $module_params = unserialize($module_instance[0]->params);
 
         //number of entries
-        $total_rows = $this->Articles_model->count_entries_by_categories( $module_params['categories'] );
-
+        //$total_rows = $this->Articles_model->count_entries_by_categories( $module_params['categories'] );
+        $total_rows = $this->Entry_model->countByTypeAndCategory( $module_params['categories'], 1, 
+                                                                      $this->language_id, $this->published->id );
         if ($total_rows > 0) {
 
             $per_page = $module_params['number'];
 
-            $entries = $this->Articles_model->get_entries_by_categories($module_params['categories'], $per_page, $offset);
+            //$entries = $this->Articles_model->get_entries_by_categories($module_params['categories'], $per_page, $offset);
+            $entries = $this->Entry_model->getByTypeAndCategoryLimited( $module_params['categories'], 1, 
+                                                                             $per_page, $offset, 
+                                                                             $this->language_id, $order_col = 'id',
+                                                                             $order = 'desc', $this->published->id );
             //pre_dump($entries);
             
             //test jQuery pagination
