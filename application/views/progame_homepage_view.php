@@ -17,7 +17,7 @@
         <div class="content-bg">
 	        <div class="content">
            	  <div class="header">
-                <div class="logo"> <a href="index1.php"><img src="<?php echo base_url();?>application/images/logo.png" alt="ProGame.rs" title="ProGame.rs" width="260" height="110" /></a>
+                <div class="logo"> <a href="/"><img src="<?php echo base_url();?>application/images/logo.png" alt="ProGame.rs" title="ProGame.rs" width="260" height="110" /></a>
                 </div>
                 <div class="banner-top"> <a href="#"><img src="<?php echo base_url();?>application/images/temp728x90.jpg" alt="Banner" width="728" height="90" /></a></div>
                 <div class="clear"></div>
@@ -33,7 +33,7 @@
 	<?php echo modules::run('position', 3, $menu[0]->id); ?>
 	</div><!--end box classic-->
 	<div class="box-banner"> 
-	<a href="#"><img src="images/temp300x250.jpg" alt="EVE Online" width="300" height="250" /></a>
+	<a href="#"><img src="<?php echo base_url();?>images/banners/eve300x250.jpg" alt="EVE Online" width="300" height="250" /></a>
 	</div><!--end box banner-->
               
               
@@ -105,7 +105,7 @@
               </div>
               <div class="box-classic">
               	<h3>HOT GAME</h3>
-                <div class="foto"> <a href="#"><img src="images/temp-foto.jpg" alt="Foto" width="300" height="350" /></a></div>
+                <div class="foto"> <a href="#"><img src="<?php echo base_url();?>images/hot/temp-foto.jpg" alt="Foto" /></a></div>
           <div class="box-bottom">
                   	<div class="left"><a href="#">Još^</a><span class="separator-small">&nbsp;</span></div>
                     <div class="right"><span class="separator-small">&nbsp;</span><a href="#">25 komentara</a></div>
@@ -121,7 +121,7 @@
             	<h3>ZABAVA</h3>
                 <div class="footer-inner">
    	  <div class="left">
-                		<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/t5c_MYLDV-w" frameborder="0" allowfullscreen></iframe>
+                		<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/Rgox84KE7iY" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="right">
                     	<h2>Pošalji nam i ti link sa smešnim videom!</h2>
@@ -141,7 +141,7 @@
             </div>
             
             <div class="bottom-menu"> 
-            			<a href="#"><img src="images/foot-pg.png" width="42" height="32" /></a>
+            			<a href="/"><img src="<?php echo base_url();?>application/images/foot-pg.png" width="42" height="32" /></a>
                         <ul>
                    	    	<li><a href="#">Igre</a></li>
                             <li><a href="#">Hardware</a></li>

@@ -493,7 +493,7 @@ span.separator-small {
 
 .div-box-tab-list {
 	border-bottom: 1px solid #eeeeee;
-	background-image: url(/images/bg-tabs.png);
+	background-image: url(../images/bg-tabs.png);
 	background-repeat: repeat-x;	
 }
 
@@ -908,8 +908,8 @@ ul.toplist li a span {
 	overflow: hidden;
 }
 .menu li a:hover {
-	background-color: #000;
-	color: #E63B00;
+	background-color: #eb8700;
+	color: #fff;
 	height: 51px;
 	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
@@ -917,8 +917,8 @@ ul.toplist li a span {
 }
 
 .menu li a#current {
-	background-color: #000;
-	color: #E63B00;
+	background-color: #eb8700;
+	color: #fff;
 }
 
 .menu li ul {
@@ -934,23 +934,34 @@ ul.toplist li a span {
 
 
 /* specific to non IE browsers */
-.menu li:hover ul {display:block; position:absolute; top:50px; left:0; width:196px; list-style: none; background-color: #de7f00;  z-index: 101; 
+.menu li:hover ul {
+	display:block; 
+	position:absolute; 
+	top:50px; 
+	left:0; 
+	width:196px; 
+	list-style: none; 
+	background-color: #de7f00;  
+	z-index: 101; 
 	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 	box-shadow: 2px 2px 2pxrgba(0, 0, 0, 0.25);
 
 }
-.menu li:hover ul li a.hide {background:#000; color:#E63B00; background-image: url(../images/arrow-red.png);
+.menu li:hover ul li a.hide {
+	background:#eb8700; 
+	color:#fff; background-image: url(../images/arrow.png);
 	background-repeat: no-repeat;
-	background-position: right center;	height: 50px;
+	background-position: right center;	
+	height: 50px;
 	line-height: 48px;
 	
 }
 .menu li:hover ul li:hover a.hide {
-	color:#E63B00;
+	color:#fff;
 	border:0;
-	background-color: #111;
-	background-image: url(../images/arrow-red.png);
+	background-color: #db6800;
+	background-image: url(../images/arrow.png);
 	background-repeat: no-repeat;
 	background-position: right center;
 	height: 50px;
@@ -962,32 +973,35 @@ ul.toplist li a span {
 	height: 35px;}
 
 .menu li:hover a.hide {
-	color:#E63B00; 
-	background:#000; 
+	color:#fff; 
+	background-color: #eb8700; 
 	height: 50px;
 	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 	}
 .menu li:hover ul li ul {display: none;}
-.menu li:hover ul li a {display:block; background:#000; color:#E63B00; height: 50px; width: 150px; border:0;}
+.menu li:hover ul li a {display:block; background:#eb8700; color:#fff; height: 50px; width: 150px; border:0;}
 .menu li:hover ul li a:hover {
-	color:#E63B00; 
-	background:#111; 
+	color:#fff; 
+	background:#db6800; 
 	border:0;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
 .menu li:hover ul li:hover ul {display:block; background-color: #cf7400; position:absolute; left:196px; top:0;}
-.menu li:hover ul li:hover ul li a {background-color: #111;}
+.menu li:hover ul li:hover ul li a {background-color: #db6800;}
 .menu li:hover ul li:hover ul li a:hover {
-	background-color: #111;
-	color: #F89E23;
+	background-color: #ca5f00;
+	color: #fff;
 	-moz-box-shadow: none;
 }
 .menu li:hover ul li:hover ul.left {left:-150px;}
 
+
+
+/*********/
 
 .news-block p.tags2 {
 	padding: 15px 5px 0px 15px;
