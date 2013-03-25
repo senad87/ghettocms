@@ -17,6 +17,14 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 		$sufix = str_replace(" ", "-", $string).".html";
 		return $sufix;
 	}
+        
+        function url_sufix_serbian($string){
+            $latin = array("Š", "š", "Č", "č", "Ć", "ć", "Ž", "ž", "Đ", "đ");
+            $striped_latin = array("S", "s", "C", "c", "C", "c", "Z", "z", "Dj", "dj");
+		$string = str_replace($latin, $striped_latin, $string);
+		$sufix = str_replace(" ", "-", $string).".html";
+		return $sufix;
+	}
 	
 	
 	function chrс($letter){

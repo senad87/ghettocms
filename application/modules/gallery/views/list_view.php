@@ -13,7 +13,7 @@
             endif;  
         if($module_params['title'] >= $a): ?>       
                 <h2>
-                    <a href="<?php echo base_url(); ?><?php echo $item->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->id; ?>/<?php echo url_sufix( $item->title ); ?>">
+                    <a href="<?php echo base_url(); ?><?php echo $item->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->id; ?>/<?php echo url_sufix_serbian( $item->title ); ?>">
                         <span><?php echo $item->title; ?></span>
                     </a>
                 </h2>
@@ -40,7 +40,7 @@
          <?php endif; ?>
          <span class="separator">&nbsp;</span>
          <?php if( $module_params['number_of_comments'] >= $a ): ?>
-             <a href="<?php echo base_url(); ?><?php echo $item->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->id; ?>/<?php echo url_title( $item->title ); ?>#commlist">
+             <a href="<?php echo base_url(); ?><?php echo $item->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->id; ?>/<?php echo url_sufix_serbian( $item->title ); ?>#commlist">
                  <?php echo count_comments($item->id); ?> komentara
              </a>
          <?php endif; ?>                  
