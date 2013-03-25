@@ -18,7 +18,7 @@
        
 <?php if($module_params['title'] >= $a){?>       
                 
-                <h2><a href="<?php echo base_url(); ?><?php echo $story['type_name']; ?>/<?php echo $data['menu_id']; ?>/<?php echo $story['id']; ?>/<?php echo url_title($story['title']); ?>"><span><?php echo $story['title']; ?></span></a></h2>
+                <h2><a href="<?php echo base_url(); ?><?php echo $story['type_name']; ?>/<?php echo $data['menu_id']; ?>/<?php echo $story['id']; ?>/<?php echo url_sufix($story['title']); ?>"><span><?php echo $story['title']; ?></span></a></h2>
   
   
 <?php } ?>  

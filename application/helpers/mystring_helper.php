@@ -14,7 +14,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 	function url_sufix($string){
 		$string = preg_replace("/[^a-zA-Z]p{Cyrillic}]/u", " ", $string);
-		$sufix = str_replace(" ", "_", $string).".html";
+		$sufix = str_replace(" ", "-", $string).".html";
 		return $sufix;
 	}
 	

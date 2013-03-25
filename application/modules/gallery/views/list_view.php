@@ -13,7 +13,7 @@
             endif;  
         if($module_params['title'] >= $a): ?>       
                 <h2>
-                    <a href="<?php echo base_url(); ?><?php echo $item->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->id; ?>/<?php echo url_title( $item->title ); ?>">
+                    <a href="<?php echo base_url(); ?><?php echo $item->type_name; ?>/<?php echo $menu_id; ?>/<?php echo $item->id; ?>/<?php echo url_sufix( $item->title ); ?>">
                         <span><?php echo $item->title; ?></span>
                     </a>
                 </h2>
