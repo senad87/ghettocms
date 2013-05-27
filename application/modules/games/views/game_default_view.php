@@ -217,7 +217,7 @@ ss
             </div>
             
             <div class="bottom-menu"> 
-            			<a href="#"><img src="images/foot-pg.png" alt="ProGame.rs" width="42" height="32" /></a>
+            			<a href="#"><img src="<?php echo base_url();?>images/foot-pg.png" alt="ProGame.rs" width="42" height="32" /></a>
                       <ul>
                    	    	<li><a href="#">Igre</a></li>
                             <li><a href="#">Hardware</a></li>
@@ -238,5 +238,36 @@ ss
             
         </div>
 </div>
+<script type="text/javascript">
+window.___gcfg = {lang: 'en-GB'};
+(function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=602203836462577";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32338896-1']);
+  _gaq.push(['_setDomainName', 'progame.rs']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </body>
 </html>
