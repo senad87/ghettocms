@@ -41,10 +41,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'mansson';
-$db['default']['password'] = 'pr0gam3_rs';
-$db['default']['database'] = 'admin_progame_db';
+$db['default']['hostname'] = "127.0.0.1";
+$db['default']['username'] = "progamer666";
+$db['default']['password'] = "pr0GameRs666";
+$db['default']['database'] = "phoenix_progame_db";
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;//default is TRUE

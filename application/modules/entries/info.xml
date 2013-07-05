@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+<name>articles</name>
+<description>Description of the module</description>
+<params group="default">
+	
+	<param name="title" type="select" default="0" label="Display Title for Articles" cssclass="filter" description="Display title or not">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="lead" type="select" default="1" label="Lead" cssclass="filter" description="Display lead or not">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="author" type="select" default="1" label="Author" cssclass="filter" description="Display author or not">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+</params>
+<params group="advanced">
+	<param name="creation_date" type="select" default="1" label="Creation Date" cssclass="filter" description="Display creation date or not">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="modified_date" type="select" default="1" label="Modified Date" cssclass="filter" description="Display modified date or not">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="number_of_comments" type="select" default="1" label="Number of comments" cssclass="filter" description="Display number of comments relate to entry">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="readmore" type="select" default="1" label="Display read more link" cssclass="filter" description="Display link read more">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="category_name" type="select" default="1" label="Display category name" cssclass="filter" description="Display link read more">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="poster_photo" type="select" default="1" label="Poster Photo" cssclass="filter" description="Display main item photo or not">
+		<option value="100">All</option>
+		<option value="0">None</option>
+		<option value="1">Only First</option>
+		<option value="2">Two</option>
+		<option value="3">Three</option>
+		<option value="4">Four</option>
+		<option value="5">Five</option>
+		<option value="6">Six</option>
+		<option value="7">Seven</option>
+		<option value="8">Eight</option>
+		<option value="9">Nine</option>
+		<option value="10">Ten</option>
+	</param>
+	<param name="photo_size" type="radio" default="1" label="Choose size of the poster photo" cssclass="" description="Size of the poste photo">
+		<option value="1">577x379</option>
+		<option value="2">220x165</option>
+		<option value="3">100x30</option>
+	</param>
+	<param name="box_title" type="input" default="" cssclass="lform2" label="Display Title for Module Box on Portal" description="Display title, do not display if empty">
+	</param>
+	<param name="link_title" type="input" default="" label="Title of the link inside of the module" cssclass="lform2" description="Display title for link in the box"></param>
+	<param name="link_url" type="input" default="" label="Enter url for the link" cssclass="lform2" description="Display full menu tree"></param>
+	<param name="number" type="input" default="2" label="Number of items" cssclass="lform2" description="Display number of items">
+	</param>
+	<param name="categories" type="categories" default="0" label="Choose categories of items: " description="Display tree of the published categories">
+	</param>
+	<param name="classsuffix" type="input" default="" label="Class suffix" cssclass="lform2" description="Add class suffix to parent div of the module">
+	</param>
+</params>
+</module>
